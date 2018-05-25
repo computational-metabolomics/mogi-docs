@@ -1,0 +1,378 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ISA_Tab &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-dma/index.html">django-dma</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../other/index.html">Other</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>ISA_Tab</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-mogi/api/isatab.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="isa-tab">
+<h1>ISA_Tab<a class="headerlink" href="#isa-tab" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mzml2isa.isa.ISA_Tab">
+<em class="property">class </em><code class="descclassname">mzml2isa.isa.</code><code class="descname">ISA_Tab</code><span class="sig-paren">(</span><em>out_dir</em>, <em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class to export a list of mzML or imzML metadata dictionnaries to ISA-Tab files</p>
+<dl class="attribute">
+<dt id="mzml2isa.isa.ISA_Tab.usermeta">
+<code class="descname">usermeta</code><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.usermeta" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> – a dictionary containing metadata defined
+by the user, such as “Study Publication” or “Submission Date”. Defaults
+to None.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mzml2isa.isa.ISA_Tab.isa_env">
+<code class="descname">isa_env</code><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.isa_env" title="Permalink to this definition">¶</a></dt>
+<dd><p><em>dict</em> – a dictionary containing various environment
+variables associated with the current ISA_Tab object (such as
+‘Study file name’, ‘Written assays’, etc.)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="mzml2isa.isa.ISA_Tab.create_assay">
+<code class="descname">create_assay</code><span class="sig-paren">(</span><em>metalist</em>, <em>headers</em>, <em>data</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.create_assay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the assay file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – a list of mzml or imzml metadata dictionaries</li>
+<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
+<li><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – the list containing the assay headers row</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – a boolean stating if assay files should be split
+based on their polarities. [default: True]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mzml2isa.isa.ISA_Tab.create_investigation">
+<code class="descname">create_investigation</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.create_investigation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the investigation file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – a list of mzml or imzml metadata dictionaries</li>
+<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mzml2isa.isa.ISA_Tab.create_study">
+<code class="descname">create_study</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.create_study" title="Permalink to this definition">¶</a></dt>
+<dd><p>Write the study file</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – a list of mzml or imzml metadata dictionaries</li>
+<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mzml2isa.isa.ISA_Tab.make_assay_template">
+<code class="descname">make_assay_template</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.make_assay_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate the assay template rows</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – a list of mzml or imzml metadata dictionaries</li>
+<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Returns</dt>
+<dd><dl class="first last docutils">
+<dt>tuple: a tuple containg the list containing the assay headers row</dt>
+<dd>and the list containing the assay data row based on the cardinality
+of elements in the metalist</dd>
+</dl>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="mzml2isa.isa.ISA_Tab.unparameter">
+<em class="property">static </em><code class="descname">unparameter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.unparameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract string ‘s’ from ‘Parameter Value[s]’</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – full string</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the extracted substring</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)">str</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="mzml2isa.isa.ISA_Tab.write">
+<code class="descname">write</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate and write the ISA files</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – a list of mzml or imzml metadata dictionaries</li>
+<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – a boolean stating if assay files should be split
+based on their polarities. [default: True]</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
