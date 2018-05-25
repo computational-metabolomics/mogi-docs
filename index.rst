@@ -63,6 +63,16 @@ and managed across multiple studies.
 Documentation
 -------------
 
+Overview
+'''''''''''''''''''''''''
+.. toctree::
+   :maxdepth: 2
+
+   MOGI Suit <index.rst>
+
+
+
+
 User Documentation
 '''''''''''''''''''''''''
 
