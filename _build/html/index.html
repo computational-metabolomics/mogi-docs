@@ -191,25 +191,30 @@ metabolomic studies using Galaxy, ISA and Django frameworks.</p>
 <h3>Django applications &amp; projects<a class="headerlink" href="#django-applications-projects" title="Permalink to this headline">¶</a></h3>
 <p>The <strong>django-mogi</strong> application inherits all of the detailed applications below to create ready to go framework for
 organising metabolomics studies with Galaxy and ISA. See the <a class="reference external" href="https://domain.invalid/">example code</a>
-and an <a class="reference external" href="https://domain.invalid/">example code</a> for how a Django project utilises the MOGI suite.</p>
-<p>However each application has been developed to be <a class="reference external" href="https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters">reusable</a> to allow for more general
-functionality to be used in other Django projects
-and applications.</p>
+and an <a class="reference external" href="https://domain.invalid/">example site</a> for how a Django project utilises the MOGI suite.</p>
+<p>However each application has been developed to be
+<a class="reference external" href="https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters">reusable</a> to allow for more general
+functionality to be used in other Django projects and applications.</p>
+<p>The figure below shows how the applications fit within Django project website</p>
 <img alt="_images/django-summary-update-plain.svg" src="_images/django-summary-update-plain.svg" /></div>
 <div class="section" id="what-the-mogi-framework-can-do">
 <h3>What the MOGI framework can do<a class="headerlink" href="#what-the-mogi-framework-can-do" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Organise metabolomics studies following ISA standards</li>
-<li>Interface with Galaxy</li>
-<li>Search metabolomics spectra across multiple projects</li>
-<li>Summarise compound annotations across multiple projects</li>
+<li>Interface with Galaxy (initiate workflows, manage history, inport/export data)</li>
+<li>Search metabolomics spectra across multiple projects (spectral matching, mass search)</li>
+<li>Summarise compound annotations across multiple projects (e.g. from different annotation approaches like MetFrag, CSI:FingerID, spectral matching)</li>
 </ul>
 </div>
-<div class="section" id="deep-metabolome-annotation-project">
-<h3>Deep Metabolome Annotation project<a class="headerlink" href="#deep-metabolome-annotation-project" title="Permalink to this headline">¶</a></h3>
-<p>The primary use of the MOGI suite of application is to manage the data generated for Deep Metabolome Annotation (DMA)
-projects (large scale untargeted metabolite characterisations). As such the main focus of the management is to record
-what compound annotations have been observed rather than manage statistically signficant features across multiple studies.</p>
+<div class="section" id="deep-metabolome-annotation-project-dmadb">
+<h3>Deep Metabolome Annotation project (DMAdb)<a class="headerlink" href="#deep-metabolome-annotation-project-dmadb" title="Permalink to this headline">¶</a></h3>
+<p>The original use of the MOGI suite of applications is to manage the data generated for Deep Metabolome Annotation (DMA)
+projects (large scale untargeted metabolite characterisations). The Django project used for the Deep Metabolome Annotation
+project is called DMAdb and is currently hosted the University of Birmingham and can only be accessed locally.</p>
+<p>The code for the DMAdb Django project can be accessed <a class="reference external" href="https://github.com/computational-metabolomics/django-mogisite-dmadb">here</a>.</p>
+<p>As the MOGI tools were originally designed for DMA projects there is a focus of the management of annotations. However,
+the MOGI suite can still be used for organising any metabolomic study where annotations and peaks want to be tracked
+and managed across multiple studies.</p>
 </div>
 </div>
 <div class="section" id="documentation">
