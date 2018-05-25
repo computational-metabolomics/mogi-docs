@@ -12,30 +12,7 @@ metabolomic studies using Galaxy, ISA and Django frameworks.
 Documentation
 -------------
 
-Command Line Applications / Libraries
-''''''''''''''''''''''''''''''''''''''
-The command line applications / libraries are currently divided into the mzml2isa package (covering mzML and imzML) and nmrml2isa (covering nmrML). 
-
-.. toctree::
-   :maxdepth: 2
-
-   mzml2isa  <mzml2isa/index.rst>
-   nmrml2isa <nmrml2isa/index.rst>
-
-
-Graphical User Interfaces
-'''''''''''''''''''''''''
-The graphical user interfaces are divided into mzmlisa-qt (covering mzML), imzml2isa-qt (covering imzML) and nmrml2isa-qt (covering nmrML). 
-
-.. toctree::
-   :maxdepth: 2
-
-   mzml2isa-qt <mzml2isa-qt/index.rst>
-   imzml2isa-qt <imzml2isa-qt/index.rst>
-   nmrml2isa-qt <nmrml2isa-qt/index.rst>
-
-
-Galaxy interfaces
+django-mogi
 '''''''''''''''''''''''''
 The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)
 
@@ -44,6 +21,62 @@ The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML)
 
    mzml2isa-galaxy <mzml2isa-galaxy/index.rst>
    nmrml2isa-galaxy <nmrml2isa-galaxy/index.rst>
+
+
+
+
+django-galaxy
+''''''''''''''''''''''''''''''''''''''
+The command line applications / libraries are currently divided into the mzml2isa package (covering mzML and imzML) and nmrml2isa (covering nmrML). 
+
+.. toctree::
+   :maxdepth: 2
+
+   django-galaxy  <django-galaxy/index.rst>
+
+
+django-misa
+'''''''''''''''''''''''''
+The graphical user interfaces are divided into mzmlisa-qt (covering mzML), imzml2isa-qt (covering imzML) and nmrml2isa-qt (covering nmrML). 
+
+.. toctree::
+   :maxdepth: 2
+
+   django-misa <django-misa/index.rst>
+
+
+django-metab
+'''''''''''''''''''''''''
+The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)
+
+.. toctree::
+   :maxdepth: 2
+
+   django-metab <django-metab/index.rst>
+
+
+
+django-dma
+'''''''''''''''''''''''''
+The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)
+
+.. toctree::
+   :maxdepth: 2
+
+   django-dma <django-dma/index.rst>
+
+
+django-gfiles
+'''''''''''''''''''''''''
+The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)
+
+.. toctree::
+   :maxdepth: 2
+
+   django-gfiles <django-gfiles/index.rst>
+
+
+
 
 Other
 '''''''''''''''''''''''''
