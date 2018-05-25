@@ -6,7 +6,7 @@ The MOGI suite is a collection of Django applications to help developers working
 metabolomic studies using Galaxy, ISA and Django frameworks.
 
 
-.. image:: http://i.imgur.com/i7eXQDS.png
+.. image:: django-summary-update-plain.svg
 
 	
 Documentation
