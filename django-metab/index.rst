@@ -1,4 +1,6 @@
-nmrml2isa-galaxy
+.. _django-metab:
+
+django-metab
 ===========
 
 |Git| |Bioconda| |License| |RTD doc|

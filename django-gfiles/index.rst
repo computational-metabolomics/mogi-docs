@@ -1,4 +1,6 @@
-nmrml2isa
+.. _django-gfiles:
+
+django-gfiles
 =========
 
 |Version| |Py versions| |Git| |Build Status| |License| |RTD doc| |DOI|

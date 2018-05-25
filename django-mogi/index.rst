@@ -1,4 +1,6 @@
-mzml2isa
+.. _django-mogi:
+
+django-mogi
 ========
 
 |Version| |Py versions| |Git| |Build Status| |License| |RTD doc| |DOI|

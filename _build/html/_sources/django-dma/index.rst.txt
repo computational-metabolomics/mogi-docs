@@ -1,12 +1,14 @@
-nmrml2isa-galaxy
+.. _django-dma:
+
+django-dma
 ===========
 
 |Git| |Bioconda| |License| |RTD doc|
 
 
-nmrml2isa-galaxy is a Galaxy wrapper for the nmrml2isa python package tool. 
+Organisation of DMA projects with Django
 
-`Galaxy  repository <https://galaxyproject.org/>`__ is a web based workflow platform that can be used to perform bioinformatics in a reproducible and sharable environment.
+
  
 
 .. toctree::

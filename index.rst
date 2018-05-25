@@ -6,23 +6,34 @@ Overview
 
 
 The MOGI suite is a collection of Django applications to manage and organise
-metabolomic studies using Galaxy, ISA and Django frameworks. The suite consist of the following reusable applications:
+metabolomic studies using Galaxy, ISA and Django frameworks.
 
-* django-mogi
-* django-misa
-* django-galaxy
-* django-dma
-* django-metab
-* django-gfiles
+The suite consist of the following reusable applications:
 
-The django-mogi application inherits all of the detailed applications below to create ready to go framework for
-organising metabolomics studies with Galaxy and ISA. However each application has been developed
-to be `reusable <https://domain.invalid/>`_ to allow for more general functionality to be used in other Django projects
+* :ref:`django-mogi`
+* :ref:`django-misa`
+* :ref:`django-galaxy`
+* :ref:`django-metab`
+* :ref:`django-dma`
+* :ref:`django-gfiles`
+
+General user
+'''''''''''''''''''''''''
+Information for general user (rather than developer) can be found here: :ref:`user-docs`
+
+
+Django applications & projects
+'''''''''''''''''''''''''
+The **django-mogi** application inherits all of the detailed applications below to create ready to go framework for
+organising metabolomics studies with Galaxy and ISA. See the `example code <https://domain.invalid/>`_
+and an `example code <https://domain.invalid/>`_ for how a Django project utilises the MOGI suite.
+
+However each application has been developed to be `reusable <https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters>`_ to allow for more general
+functionality to be used in other Django projects
 and applications.
 
-
-
 .. image:: django-summary-update-plain.svg
+
 
 What the MOGI framework can do
 '''''''''''''''''''''''''
@@ -32,7 +43,7 @@ What the MOGI framework can do
 * Summarise compound annotations across multiple projects
 
 
-Compound annotation focus
+Deep Metabolome Annotation project
 '''''''''''''''''''''''''
 The primary use of the MOGI suite of application is to manage the data generated for Deep Metabolome Annotation (DMA)
 projects (large scale untargeted metabolite characterisations). As such the main focus of the management is to record
@@ -40,8 +51,23 @@ what compound annotations have been observed rather than manage statistically si
 
 
 
+
+
+
 Documentation
 -------------
+
+User Documentation
+'''''''''''''''''''''''''
+
+
+.. toctree::
+   :maxdepth: 2
+
+   User docs <user-docs/index.rst>
+
+
+
 
 django-mogi
 '''''''''''''''''''''''''
@@ -50,7 +76,7 @@ The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML)
 .. toctree::
    :maxdepth: 2
 
-   django-mogi <mzml2isa-galaxy/index.rst>
+   django-mogi <django-mogi/index.rst>
 
 
 
@@ -105,7 +131,6 @@ The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML)
    :maxdepth: 2
 
    django-gfiles <django-gfiles/index.rst>
-
 
 
 

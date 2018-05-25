@@ -1,4 +1,6 @@
-mzml2isa-qt
+.. _django-misa:
+
+django-misa
 ===========
 
 |Version| |Py versions| |Git| |License| |RTD doc|

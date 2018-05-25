@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>django-metab &mdash; mogi-suite  documentation</title>
+  <title>Usage &mdash; mogi-suite  documentation</title>
   
 
   
@@ -28,9 +28,7 @@
     <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Installation" href="install.html" />
-    <link rel="prev" title="Usage" href="../django-misa/usage.html" /> 
+    <link rel="search" title="Search" href="../search.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -80,7 +78,7 @@
             
             
               <ul>
-<li class="toctree-l1"><a class="reference internal" href="../user-docs/index.html">User docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">User docs</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../django-mogi/index.html">django-mogi</a></li>
@@ -91,12 +89,8 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../django-misa/index.html">django-misa</a></li>
 </ul>
-<ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">django-metab</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../django-metab/index.html">django-metab</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../django-dma/index.html">django-dma</a></li>
@@ -154,13 +148,13 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>django-metab</li>
+      <li>Usage</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/django-metab/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/user-docs/usage.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -173,23 +167,65 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="django-metab">
-<span id="id1"></span><h1>django-metab<a class="headerlink" href="#django-metab" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://github.com/ISA-tools/nmrml2isa-galaxy/"><img alt="Git" src="https://img.shields.io/badge/repository-GitHub-blue.svg?style=flat&amp;maxAge=2592000" /></a> <a class="reference external" href="http://bioconda.github.io/recipes/nmrml2isa/README.html"><img alt="Bioconda" src="https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat-square" /></a> <a class="reference external" href="https://www.gnu.org/licenses/gpl-3.0.html"><img alt="License" src="https://img.shields.io/pypi/l/nmrml2isa-qt.svg?style=flat&amp;maxAge=2592000" /></a> <a class="reference external" href="http://2isa.readthedocs.io/en/latest/nmrml2isa-galaxy/index.html"><img alt="RTD doc" src="https://img.shields.io/badge/documentation-RTD-71B360.svg?style=flat&amp;maxAge=2592000" /></a></p>
-<p>nmrml2isa-galaxy is a Galaxy wrapper for the nmrml2isa python package tool.</p>
-<p><a class="reference external" href="https://galaxyproject.org/">Galaxy  repository</a> is a web based workflow platform that can be used to perform bioinformatics in a reproducible and sharable environment.</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#folder-structure">Folder structure</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#getting-data-into-galaxy">Getting data into Galaxy</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#running-nmrml2isa">Running nmrml2isa</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#output">Output</a></li>
-<li class="toctree-l2"><a class="reference internal" href="usage.html#editing-with-isacreator">Editing with ISAcreator</a></li>
+  <div class="section" id="usage">
+<h1>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="folder-structure">
+<h2>Folder structure<a class="headerlink" href="#folder-structure" title="Permalink to this headline">¶</a></h2>
+<p>nmrml2isa only requires that you put all you nmrML and zipped raw files
+in the same folder, and parsing should work fine. Note that reference to
+RAW files is extracted from the mzML files, so if you plan to create an
+ISA archive after mzml2isa creates ISA files, don’t forget to include
+those as well.</p>
+<p>Example structure:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>/
+└ home/
+  └ metabolomics/
+    └ nmrML_study1/     # the name of the folder doesn&#39;t matter
+      ├ Sample1.nmrML  # the name of the file must correspond to the sample name
+      ├ Sample2.zip    # the raw files should be zipped and called exactly like the nmrML
+      ├ Sample2.nmrML
+      ├ Sample2.zip
+      └ ...
+    └ nmrML_study2/
+      ├ Sample1.nmrML
+      ├ Sample2.zip
+      ├ Sample2.nmrML
+      ├ Sample2.zip
+      └ ...
+</pre></div>
+</div>
+<p>The folders need to be zipped before adding to galaxy e.g. nmrML_study1.zip. The zipped folders are then added 1 at a time through the GetData interface of Galaxy.</p>
+</div>
+<div class="section" id="getting-data-into-galaxy">
+<h2>Getting data into Galaxy<a class="headerlink" href="#getting-data-into-galaxy" title="Permalink to this headline">¶</a></h2>
+<p>Using the GetData tab, add the zipped metabolomics study into galaxy. Remember to use the ‘zip’ file type</p>
+<img alt="user-docs/galaxy_1.png" src="user-docs/galaxy_1.png" />
+</div>
+<div class="section" id="running-nmrml2isa">
+<h2>Running nmrml2isa<a class="headerlink" href="#running-nmrml2isa" title="Permalink to this headline">¶</a></h2>
+<img alt="user-docs/galaxy_2b.png" src="user-docs/galaxy_2b.png" />
+<ol class="arabic simple">
+<li>Study name</li>
+<li>zipped folder containing the nmrML files</li>
+<li>For advanced users only. This allows any additional metadata to be added in <a class="reference external" href="http://2isa.readthedocs.io/en/latest/json-metadata/index.html">json format</a></li>
+<li>Optional simple additional metadata can be added manually through the dropdown tabs</li>
+</ol>
+</div>
+<div class="section" id="output">
+<h2>Output<a class="headerlink" href="#output" title="Permalink to this headline">¶</a></h2>
+<img alt="user-docs/galaxy_3.png" src="user-docs/galaxy_3.png" />
+<p>The output consists of the following:</p>
+<ul class="simple">
+<li>I File: Investigation file</li>
+<li>S Files: Dataset collection containing 1 or more study files</li>
+<li>A Files: Dataset collection containing 1 or more assay files</li>
+<li>ISA zip file: A zip file containing all of the outputs</li>
 </ul>
-</li>
-</ul>
+</div>
+<div class="section" id="editing-with-isacreator">
+<h2>Editing with ISAcreator<a class="headerlink" href="#editing-with-isacreator" title="Permalink to this headline">¶</a></h2>
+<p>The ISA-Tab structure can be further populated with the <a class="reference external" href="http://isa-tools.org/software-suite/">ISAcreator software</a>.</p>
+<p>See brief <a class="reference external" href="http://2isa.readthedocs.io/en/latest/other/isacreator.html">tutorial</a>  for more details.</p>
 </div>
 </div>
 
@@ -198,15 +234,6 @@
            
           </div>
           <footer>
-  
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-        <a href="install.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
-      
-      
-        <a href="../django-misa/usage.html" class="btn btn-neutral" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
-    </div>
   
 
   <hr/>

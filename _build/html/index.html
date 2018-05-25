@@ -29,7 +29,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="mzml2isa-galaxy" href="django-galaxy/index.html" /> 
+    <link rel="next" title="General user docs" href="user-docs/index.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -79,6 +79,12 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="django-galaxy/index.html">django-galaxy</a></li>
 </ul>
 <ul>
@@ -167,20 +173,30 @@
 <div class="section" id="overview">
 <h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
 <p>The MOGI suite is a collection of Django applications to manage and organise
-metabolomic studies using Galaxy, ISA and Django frameworks. The suite consist of the following reusable applications:</p>
+metabolomic studies using Galaxy, ISA and Django frameworks.</p>
+<p>The suite consist of the following reusable applications:</p>
 <ul class="simple">
-<li>django-mogi</li>
-<li>django-misa</li>
-<li>django-galaxy</li>
-<li>django-dma</li>
-<li>django-metab</li>
-<li>django-gfiles</li>
+<li><a class="reference internal" href="django-mogi/index.html#django-mogi"><span class="std std-ref">django-mogi</span></a></li>
+<li><a class="reference internal" href="django-misa/index.html#django-misa"><span class="std std-ref">django-misa</span></a></li>
+<li><a class="reference internal" href="django-galaxy/index.html#django-galaxy"><span class="std std-ref">django-galaxy</span></a></li>
+<li><a class="reference internal" href="django-metab/index.html#django-metab"><span class="std std-ref">django-metab</span></a></li>
+<li><span class="xref std std-ref">django-dma</span></li>
+<li><a class="reference internal" href="django-gfiles/index.html#django-gfiles"><span class="std std-ref">django-gfiles</span></a></li>
 </ul>
-<p>The django-mogi application inherits all of the detailed applications below to create ready to go framework for
-organising metabolomics studies with Galaxy and ISA. However each application has been developed
-to be <a class="reference external" href="https://domain.invalid/">reusable</a> to allow for more general functionality to be used in other Django projects
+<div class="section" id="general-user">
+<h3>General user<a class="headerlink" href="#general-user" title="Permalink to this headline">¶</a></h3>
+<p>Information for general user (rather than developer) can be found here: <a class="reference internal" href="user-docs/index.html#user-docs"><span class="std std-ref">General user docs</span></a></p>
+</div>
+<div class="section" id="django-applications-projects">
+<h3>Django applications &amp; projects<a class="headerlink" href="#django-applications-projects" title="Permalink to this headline">¶</a></h3>
+<p>The <strong>django-mogi</strong> application inherits all of the detailed applications below to create ready to go framework for
+organising metabolomics studies with Galaxy and ISA. See the <a class="reference external" href="https://domain.invalid/">example code</a>
+and an <a class="reference external" href="https://domain.invalid/">example code</a> for how a Django project utilises the MOGI suite.</p>
+<p>However each application has been developed to be <a class="reference external" href="https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters">reusable</a> to allow for more general
+functionality to be used in other Django projects
 and applications.</p>
-<img alt="_images/django-summary-update-plain.svg" src="_images/django-summary-update-plain.svg" /><div class="section" id="what-the-mogi-framework-can-do">
+<img alt="_images/django-summary-update-plain.svg" src="_images/django-summary-update-plain.svg" /></div>
+<div class="section" id="what-the-mogi-framework-can-do">
 <h3>What the MOGI framework can do<a class="headerlink" href="#what-the-mogi-framework-can-do" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Organise metabolomics studies following ISA standards</li>
@@ -189,8 +205,8 @@ and applications.</p>
 <li>Summarise compound annotations across multiple projects</li>
 </ul>
 </div>
-<div class="section" id="compound-annotation-focus">
-<h3>Compound annotation focus<a class="headerlink" href="#compound-annotation-focus" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="deep-metabolome-annotation-project">
+<h3>Deep Metabolome Annotation project<a class="headerlink" href="#deep-metabolome-annotation-project" title="Permalink to this headline">¶</a></h3>
 <p>The primary use of the MOGI suite of application is to manage the data generated for Deep Metabolome Annotation (DMA)
 projects (large scale untargeted metabolite characterisations). As such the main focus of the management is to record
 what compound annotations have been observed rather than manage statistically signficant features across multiple studies.</p>
@@ -198,10 +214,29 @@ what compound annotations have been observed rather than manage statistically si
 </div>
 <div class="section" id="documentation">
 <h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="user-documentation">
+<h3>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="user-docs/index.html">User docs</a></li>
+</ul>
+</div>
+</div>
 <div class="section" id="django-mogi">
 <h3>django-mogi<a class="headerlink" href="#django-mogi" title="Permalink to this headline">¶</a></h3>
 <p>The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)</p>
 <div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="django-mogi/index.html">django-mogi</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="django-mogi/install.html">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django-mogi/usage.html">Usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django-mogi/examples.html">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django-mogi/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django-mogi/extracted.html">Extracted Terms List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django-mogi/api/index.html">API reference</a></li>
+</ul>
+</li>
+</ul>
 </div>
 </div>
 <div class="section" id="django-galaxy">
@@ -304,7 +339,7 @@ what compound annotations have been observed rather than manage statistically si
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="django-galaxy/index.html" class="btn btn-neutral float-right" title="mzml2isa-galaxy" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="user-docs/index.html" class="btn btn-neutral float-right" title="General user docs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
