@@ -1,0 +1,9 @@
+django-dma
+django-galaxy
+django-gfiles
+django-misa
+django-mogi
+
+Sphinx
+sphinx-rtd-theme
+sphinxcontrib-napoleon
