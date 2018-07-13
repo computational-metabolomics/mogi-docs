@@ -1,0 +1,247 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>gfiles.models &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>gfiles.models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for gfiles.models</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.models</span> <span class="k">import</span> <span class="n">User</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">def</span> <span class="nf">data_file_store</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span> <span class="n">filename</span><span class="p">):</span>
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="s1">&#39;files&#39;</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y_%m_</span><span class="si">%d</span><span class="s2">_%H%M%S&quot;</span><span class="p">),</span> <span class="n">filename</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="GenericFile"><a class="viewcode-back" href="../../django-gfiles/api/models.html#gfiles.models.GenericFile">[docs]</a><span class="k">class</span> <span class="nc">GenericFile</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Model for managing generic files. Files can either be saved as symlink or copied to the data file store</span>
+<span class="sd">    based on what has been set in the settings file MEDIA_ROOT parameter</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">data_file</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FileField</span><span class="p">(</span><span class="n">upload_to</span><span class="o">=</span><span class="n">data_file_store</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+                                 <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;The reference to the uploaded data file&#39;</span><span class="p">)</span>
+    <span class="n">original_filename</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">max_length</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                                         <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;If a file with the same filename is uploaded at the same time&#39;</span>
+                                                   <span class="s1">&#39;a duplicate is saved with a unique name. This field is used&#39;</span>
+                                                   <span class="s1">&#39;to keep track of the original name&#39;</span><span class="p">)</span>
+    <span class="n">user</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="n">User</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">help_text</span><span class="o">=</span><span class="s1">&#39;The user who uploaded the file&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  <span class="c1"># __unicode__ on Python 2</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">original_filename</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

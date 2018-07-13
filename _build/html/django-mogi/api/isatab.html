@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -78,6 +77,12 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">django-mogi</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
 </ul>
 <ul>
@@ -163,156 +168,6 @@
             
   <div class="section" id="isa-tab">
 <h1>ISA_Tab<a class="headerlink" href="#isa-tab" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="mzml2isa.isa.ISA_Tab">
-<em class="property">class </em><code class="descclassname">mzml2isa.isa.</code><code class="descname">ISA_Tab</code><span class="sig-paren">(</span><em>out_dir</em>, <em>name</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class to export a list of mzML or imzML metadata dictionnaries to ISA-Tab files</p>
-<dl class="attribute">
-<dt id="mzml2isa.isa.ISA_Tab.usermeta">
-<code class="descname">usermeta</code><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.usermeta" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em> – a dictionary containing metadata defined
-by the user, such as “Study Publication” or “Submission Date”. Defaults
-to None.</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mzml2isa.isa.ISA_Tab.isa_env">
-<code class="descname">isa_env</code><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.isa_env" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em> – a dictionary containing various environment
-variables associated with the current ISA_Tab object (such as
-‘Study file name’, ‘Written assays’, etc.)</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.isa.ISA_Tab.create_assay">
-<code class="descname">create_assay</code><span class="sig-paren">(</span><em>metalist</em>, <em>headers</em>, <em>data</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.create_assay" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write the assay file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – a list of mzml or imzml metadata dictionaries</li>
-<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
-<li><strong>headers</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – the list containing the assay headers row</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – a boolean stating if assay files should be split
-based on their polarities. [default: True]</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.isa.ISA_Tab.create_investigation">
-<code class="descname">create_investigation</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.create_investigation" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write the investigation file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – a list of mzml or imzml metadata dictionaries</li>
-<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.isa.ISA_Tab.create_study">
-<code class="descname">create_study</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.create_study" title="Permalink to this definition">¶</a></dt>
-<dd><p>Write the study file</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>) – a list of mzml or imzml metadata dictionaries</li>
-<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.isa.ISA_Tab.make_assay_template">
-<code class="descname">make_assay_template</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.make_assay_template" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate the assay template rows</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – a list of mzml or imzml metadata dictionaries</li>
-<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<dl class="docutils">
-<dt>Returns</dt>
-<dd><dl class="first last docutils">
-<dt>tuple: a tuple containg the list containing the assay headers row</dt>
-<dd>and the list containing the assay data row based on the cardinality
-of elements in the metalist</dd>
-</dl>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="staticmethod">
-<dt id="mzml2isa.isa.ISA_Tab.unparameter">
-<em class="property">static </em><code class="descname">unparameter</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.unparameter" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract string ‘s’ from ‘Parameter Value[s]’</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>string</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – full string</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the extracted substring</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)">str</a></td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.isa.ISA_Tab.write">
-<code class="descname">write</code><span class="sig-paren">(</span><em>metalist</em>, <em>datatype</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.isa.ISA_Tab.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Generate and write the ISA files</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>metalist</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – a list of mzml or imzml metadata dictionaries</li>
-<li><strong>datatype</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – the datatype of the study (either ‘mzML’ or ‘imzML’)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name" colspan="2">Keyword Arguments:</th></tr>
-<tr class="field-even field"><td>&#160;</td><td class="field-body"><p class="first last"><strong>split</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – a boolean stating if assay files should be split
-based on their polarities. [default: True]</p>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 
 
@@ -363,10 +218,7 @@ based on their polarities. [default: True]</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {

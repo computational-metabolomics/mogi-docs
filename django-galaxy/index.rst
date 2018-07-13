@@ -1,7 +1,7 @@
 .. _django-galaxy:
 
 django-galaxy
-===========
+========================================
 
 |Git| |Bioconda| |License| |RTD doc|
 

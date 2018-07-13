@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -94,13 +93,7 @@
 <li class="toctree-l1"><a class="reference internal" href="django-metab/index.html">django-metab</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="django-dma/index.html">django-dma</a></li>
-</ul>
-<ul>
 <li class="toctree-l1"><a class="reference internal" href="django-gfiles/index.html">django-gfiles</a></li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="other/index.html">Other</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="contacts.html">Contacts</a></li>
@@ -170,8 +163,8 @@
             
   <div class="section" id="mogi-suite">
 <h1>MOGI suite<a class="headerlink" href="#mogi-suite" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="overview">
-<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="django-applications-projects">
+<h2>Django applications &amp; projects<a class="headerlink" href="#django-applications-projects" title="Permalink to this headline">¶</a></h2>
 <p>The MOGI suite is a collection of Django applications to manage and organise
 metabolomic studies using Galaxy, ISA and Django frameworks.</p>
 <p>The suite consist of the following reusable applications:</p>
@@ -180,15 +173,8 @@ metabolomic studies using Galaxy, ISA and Django frameworks.</p>
 <li><a class="reference internal" href="django-misa/index.html#django-misa"><span class="std std-ref">django-misa</span></a></li>
 <li><a class="reference internal" href="django-galaxy/index.html#django-galaxy"><span class="std std-ref">django-galaxy</span></a></li>
 <li><a class="reference internal" href="django-metab/index.html#django-metab"><span class="std std-ref">django-metab</span></a></li>
-<li><span class="xref std std-ref">django-dma</span></li>
 <li><a class="reference internal" href="django-gfiles/index.html#django-gfiles"><span class="std std-ref">django-gfiles</span></a></li>
 </ul>
-<div class="section" id="general-user">
-<h3>General user<a class="headerlink" href="#general-user" title="Permalink to this headline">¶</a></h3>
-<p>Information for general user (rather than developer) can be found here: <a class="reference internal" href="user-docs/index.html#user-docs"><span class="std std-ref">General user docs</span></a></p>
-</div>
-<div class="section" id="django-applications-projects">
-<h3>Django applications &amp; projects<a class="headerlink" href="#django-applications-projects" title="Permalink to this headline">¶</a></h3>
 <p>The <strong>django-mogi</strong> application inherits all of the detailed applications below to create ready to go framework for
 organising metabolomics studies with Galaxy and ISA. See the <a class="reference external" href="https://domain.invalid/">example code</a>
 and an <a class="reference external" href="https://domain.invalid/">example site</a> for how a Django project utilises the MOGI suite.</p>
@@ -196,31 +182,18 @@ and an <a class="reference external" href="https://domain.invalid/">example site
 <a class="reference external" href="https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters">reusable</a> to allow for more general
 functionality to be used in other Django projects and applications.</p>
 <p>The figure below shows how the applications fit within Django project website</p>
-<img alt="_images/django-summary-update-plain.svg" src="_images/django-summary-update-plain.svg" /></div>
+<img alt="_images/mogi-suite.svg" src="_images/mogi-suite.svg" /></div>
 <div class="section" id="what-the-mogi-framework-can-do">
-<h3>What the MOGI framework can do<a class="headerlink" href="#what-the-mogi-framework-can-do" title="Permalink to this headline">¶</a></h3>
+<h2>What the MOGI framework can do<a class="headerlink" href="#what-the-mogi-framework-can-do" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Organise metabolomics studies following ISA standards</li>
+<li>Organise metabolomics studies following ISA framework</li>
 <li>Interface with Galaxy (initiate workflows, manage history, inport/export data)</li>
 <li>Search metabolomics spectra across multiple projects (spectral matching, mass search)</li>
-<li>Summarise compound annotations across multiple projects (e.g. from different annotation approaches like MetFrag, CSI:FingerID, spectral matching)</li>
+<li>Summarise compound annotations (e.g. from different annotation approaches like MetFrag, CSI:FingerID, spectral matching)</li>
 </ul>
 </div>
-<div class="section" id="deep-metabolome-annotation-project-dmadb">
-<h3>Deep Metabolome Annotation project (DMAdb)<a class="headerlink" href="#deep-metabolome-annotation-project-dmadb" title="Permalink to this headline">¶</a></h3>
-<p>The original use of the MOGI suite of applications is to manage the data generated for Deep Metabolome Annotation (DMA)
-projects (large scale untargeted metabolite characterisations). The Django project used for the Deep Metabolome Annotation
-project is called DMAdb and is currently hosted the University of Birmingham and can only be accessed locally.</p>
-<p>The code for the DMAdb Django project can be accessed <a class="reference external" href="https://github.com/computational-metabolomics/django-mogisite-dmadb">here</a>.</p>
-<p>As the MOGI tools were originally designed for DMA projects there is a focus of the management of annotations. However,
-the MOGI suite can still be used for organising any metabolomic study where annotations and peaks want to be tracked
-and managed across multiple studies.</p>
-</div>
-</div>
-<div class="section" id="documentation">
-<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="user-documentation">
-<h3>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h3>
+<h2>User Documentation<a class="headerlink" href="#user-documentation" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="user-docs/index.html">User docs</a></li>
@@ -228,102 +201,54 @@ and managed across multiple studies.</p>
 </div>
 </div>
 <div class="section" id="django-mogi">
-<h3>django-mogi<a class="headerlink" href="#django-mogi" title="Permalink to this headline">¶</a></h3>
+<h2>django-mogi<a class="headerlink" href="#django-mogi" title="Permalink to this headline">¶</a></h2>
 <p>The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="django-mogi/index.html">django-mogi</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="django-mogi/install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-mogi/usage.html">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-mogi/examples.html">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-mogi/faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-mogi/extracted.html">Extracted Terms List</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-mogi/api/index.html">API reference</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="django-mogi/index.html">django-mogi</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="django-galaxy">
-<h3>django-galaxy<a class="headerlink" href="#django-galaxy" title="Permalink to this headline">¶</a></h3>
+<h2>django-galaxy<a class="headerlink" href="#django-galaxy" title="Permalink to this headline">¶</a></h2>
 <p>The command line applications / libraries are currently divided into the mzml2isa package (covering mzML and imzML) and nmrml2isa (covering nmrML).</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="django-galaxy/index.html">django-galaxy</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="django-galaxy/install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-galaxy/usage.html">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="django-galaxy/index.html">django-galaxy</a><ul class="simple">
 </ul>
 </li>
 </ul>
 </div>
 </div>
 <div class="section" id="django-misa">
-<h3>django-misa<a class="headerlink" href="#django-misa" title="Permalink to this headline">¶</a></h3>
+<h2>django-misa<a class="headerlink" href="#django-misa" title="Permalink to this headline">¶</a></h2>
 <p>The graphical user interfaces are divided into mzmlisa-qt (covering mzML), imzml2isa-qt (covering imzML) and nmrml2isa-qt (covering nmrML).</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="django-misa/index.html">django-misa</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="django-misa/install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-misa/usage.html">Usage</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="django-misa/index.html">django-misa</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="django-metab">
-<h3>django-metab<a class="headerlink" href="#django-metab" title="Permalink to this headline">¶</a></h3>
+<h2>django-metab<a class="headerlink" href="#django-metab" title="Permalink to this headline">¶</a></h2>
 <p>The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)</p>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="django-metab/index.html">django-metab</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="django-metab/install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-metab/usage.html">Usage</a></li>
-</ul>
-</li>
-</ul>
-</div>
-</div>
-<div class="section" id="django-dma">
-<h3>django-dma<a class="headerlink" href="#django-dma" title="Permalink to this headline">¶</a></h3>
-<p>The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="django-dma/index.html">django-dma</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="django-dma/install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-dma/usage.html">Usage</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="django-metab/index.html">django-metab</a></li>
 </ul>
 </div>
 </div>
 <div class="section" id="django-gfiles">
-<h3>django-gfiles<a class="headerlink" href="#django-gfiles" title="Permalink to this headline">¶</a></h3>
-<p>The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)</p>
+<h2>django-gfiles<a class="headerlink" href="#django-gfiles" title="Permalink to this headline">¶</a></h2>
+<p>Simple file management for generic files in Django</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="django-gfiles/index.html">django-gfiles</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="django-gfiles/install.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-gfiles/usage.html">Usage</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-gfiles/examples.html">Examples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-gfiles/faq.html">Frequently Asked Questions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="django-gfiles/extracted.html">Extracted Terms List</a></li>
+<li class="toctree-l2"><a class="reference internal" href="django-gfiles/quickstart.html">Quick start</a></li>
 <li class="toctree-l2"><a class="reference internal" href="django-gfiles/api/index.html">API reference</a></li>
 </ul>
 </li>
 </ul>
-</div>
-</div>
-<div class="section" id="other">
-<h3>Other<a class="headerlink" href="#other" title="Permalink to this headline">¶</a></h3>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="other/index.html">Other</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="other/isacreator.html">ISAcreator</a></li>
-<li class="toctree-l2"><a class="reference internal" href="other/json-metadata.html">JSON metadata</a></li>
-</ul>
-</li>
-</ul>
-</div>
 </div>
 </div>
 <div class="section" id="about">
@@ -391,10 +316,7 @@ and managed across multiple studies.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {

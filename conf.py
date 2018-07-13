@@ -20,6 +20,13 @@
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('.'))
+import django
+import os
+import sys
+
+sys.path.insert(0, os.path.abspath('../src'))
+os.environ['DJANGO_SETTINGS_MODULE'] = 'gfiles.test_settings'
+django.setup()
 
 # -- General configuration ------------------------------------------------
 
@@ -41,6 +48,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinxcontrib.napoleon',
     'sphinx.ext.autosummary',
+    'sphinxcontrib_django',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -63,6 +71,7 @@ master_doc = 'index'
 project = 'mogi-suite'
 copyright = '2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant'
 author = 'Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant'
+
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -273,8 +282,8 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, '2isa.tex', '2isa Documentation',
-     'Martin Larralde, Tom Lawson, Reza Salek', 'manual'),
+    (master_doc, 'mogi.tex', 'MOGI Documentation',
+     'Tom Lawson, Ralf Weber, Martin Jones, Mark Viant', 'manual'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
@@ -309,7 +318,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, '2isa', '2isa Documentation',
+    (master_doc, 'mogi', 'MOGI Documentation',
      [author], 1)
 ]
 
@@ -324,8 +333,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, '2isa', '2isa Documentation',
-     author, '2isa', 'One line description of project.',
+    (master_doc, 'mogi', 'MOGI Documentation',
+     author, 'mogi', 'One line description of project.',
      'Miscellaneous'),
 ]
 

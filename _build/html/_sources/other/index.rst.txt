@@ -5,7 +5,7 @@ Other
    :maxdepth: 2
 
    ISAcreator <isacreator.rst>
-   JSON metadata <json-metadata.rst>
+   JSON  metadata <json-metadata.rst>
    
 
 

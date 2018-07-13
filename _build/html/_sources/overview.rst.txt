@@ -1,0 +1,39 @@
+
+Overview
+==========================
+
+Django applications & projects
+'''''''''''''''''''''''''
+
+The MOGI suite is a collection of Django applications to manage and organise
+metabolomic studies using Galaxy, ISA and Django frameworks.
+
+The suite consist of the following reusable applications:
+
+* :ref:`django-mogi`
+* :ref:`django-misa`
+* :ref:`django-galaxy`
+* :ref:`django-metab`
+* :ref:`django-dma`
+* :ref:`django-gfiles`
+
+
+The **django-mogi** application inherits all of the detailed applications below to create ready to go framework for
+organising metabolomics studies with Galaxy and ISA. See the `example code <https://domain.invalid/>`_
+and an `example site <https://domain.invalid/>`_ for how a Django project utilises the MOGI suite.
+
+However each application has been developed to be
+`reusable <https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters>`_ to allow for more general
+functionality to be used in other Django projects and applications.
+
+The figure below shows how the applications fit within Django project website
+
+.. image:: django-summary-update-plain.svg
+
+
+What the MOGI framework can do
+'''''''''''''''''''''''''
+* Organise metabolomics studies following ISA standards
+* Interface with Galaxy (initiate workflows, manage history, inport/export data)
+* Search metabolomics spectra across multiple projects (spectral matching, mass search)
+* Summarise compound annotations across multiple projects (e.g. from different annotation approaches like MetFrag, CSI:FingerID, spectral matching)

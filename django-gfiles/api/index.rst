@@ -1,7 +1,11 @@
 API reference
 =============
 
+
 .. toctree::
 
-   nmrMLmeta (metadata extraction) <nmrMLmeta.rst>
-   ISA_Tab (isatab writing) <isatab.rst>
+   models <models.rst>
+   views <views.rst>
+   filters <filters.rst>
+   tables <tables.rst>
+   utils <utils.rst>

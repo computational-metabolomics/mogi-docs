@@ -24,8 +24,7 @@
 
   
 
-  
-    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
@@ -78,6 +77,12 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../index.html">django-mogi</a></li>
+</ul>
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
 </ul>
 <ul>
@@ -163,217 +168,6 @@
             
   <div class="section" id="mzmlmeta">
 <h1>mzMLmeta<a class="headerlink" href="#mzmlmeta" title="Permalink to this headline">¶</a></h1>
-<dl class="class">
-<dt id="mzml2isa.mzml.mzMLmeta">
-<em class="property">class </em><code class="descclassname">mzml2isa.mzml.</code><code class="descname">mzMLmeta</code><span class="sig-paren">(</span><em>in_file</em>, <em>ontology=None</em>, <em>complete_parse=False</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Class to store and obtain the meta information from the mzML file</p>
-<p>The class uses the xpaths of mzML locations and then extracts meta
-information at these locations. The meta info taken is determined by the
-ontology terms and a set of rules associated with that term e.g. if it
-can be repeated, if has associated software if it has a value as well
-as name.</p>
-<dl class="attribute">
-<dt id="mzml2isa.mzml.mzMLmeta.tree">
-<code class="descname">tree</code><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.tree" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>lxml.etree.ElementTree</em> – the tree object created from
-the mzML file</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mzml2isa.mzml.mzMLmeta.ns">
-<code class="descname">ns</code><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.ns" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em> – a dictionary containing the xml namespace mapping</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mzml2isa.mzml.mzMLmeta.obo">
-<code class="descname">obo</code><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.obo" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>pronto.Ontology</em> – the ontology object</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mzml2isa.mzml.mzMLmeta.meta">
-<code class="descname">meta</code><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.meta" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em> – structured dictionary containing extracted metadata</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mzml2isa.mzml.mzMLmeta.env">
-<code class="descname">env</code><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.env" title="Permalink to this definition">¶</a></dt>
-<dd><p><em>dict</em> – the <cite>environment variables</cite>, tag names that are not
-standards among different mzML files.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.build_env">
-<code class="descname">build_env</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.build_env" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build the env and the ns dictionaries.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.cvParam_loop">
-<code class="descname">cvParam_loop</code><span class="sig-paren">(</span><em>elements</em>, <em>location_name</em>, <em>terms</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.cvParam_loop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Loop through the elements and eventually update the self.meta dict.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>elements</strong> (<em>iterator</em>) – the element containing the cvParam tags</li>
-<li><strong>location_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Name of the xml location</li>
-<li><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – terms that are to be extracted</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.data_file_content">
-<code class="descname">data_file_content</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.data_file_content" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract the <cite>Data file content</cite> from all scans.</p>
-<p>This method is called only in the case the FileContent xml Element
-contained no actual cvParam elements. This was witnessed in at least
-one file from a Waters instrument.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.derived">
-<code class="descname">derived</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.derived" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get the derived meta information</p>
-<p>The derived meta information includes all tags that are solely based
-on the file name, such as <cite>MS Assay Name</cite>, <cite>Derived Spectral Data File</cite>
-or <cite>Sample Name</cite>.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.extract_meta">
-<code class="descname">extract_meta</code><span class="sig-paren">(</span><em>terms</em>, <em>xpaths</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.extract_meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract meta information for CV terms based on their location in the xml file</p>
-<p>Updates the self.meta dictionary with the relevant meta information</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>terms</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – The CV and search parameters required at the xml locations</li>
-<li><strong>xpath</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – the xpath locations to search</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition seealso">
-<p class="first admonition-title">See also</p>
-<p class="last"><a class="reference internal" href="#mzml2isa.mzml.mzMLmeta.cvParam_loop" title="mzml2isa.mzml.mzMLmeta.cvParam_loop"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cvParam_loop</span></code></a></p>
-</div>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.merge_entries">
-<code class="descname">merge_entries</code><span class="sig-paren">(</span><em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.merge_entries" title="Permalink to this definition">¶</a></dt>
-<dd><p>An unoptimized way of merging meta entries only made of duplicates.</p>
-<p>This is only useful when the <a class="reference internal" href="#mzml2isa.mzml.mzMLmeta.spectrum_meta" title="mzml2isa.mzml.mzMLmeta.spectrum_meta"><code class="xref py py-obj docutils literal notranslate"><span class="pre">spectrum_meta</span></code></a> method is called, as
-a way of reducing the size of some meta entries that add no interesting
-information (for instance, when all binary data is compressed the same
-way, it is useless to know that for each scan).</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – the entry to de-duplicate</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the list of the list with deduplicated arguments</td>
-</tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.6)">list</a></td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">Using an OrderedSet to deduplicate while preserving order may be a
-good idea (see <a class="reference external" href="http://code.activestate.com/recipes/576694/">http://code.activestate.com/recipes/576694/</a>) for actual
-implementation</p>
-</div>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mzml2isa.mzml.mzMLmeta.meta_isa">
-<code class="descname">meta_isa</code><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.meta_isa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the metadata dictionary with actual ISA headers</p>
-</dd></dl>
-
-<dl class="attribute">
-<dt id="mzml2isa.mzml.mzMLmeta.meta_json">
-<code class="descname">meta_json</code><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.meta_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the metadata dictionary in json format</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.mzrange">
-<code class="descname">mzrange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.mzrange" title="Permalink to this definition">¶</a></dt>
-<dd><p>Try to extract the m/z range of all scans.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.polarity">
-<code class="descname">polarity</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.polarity" title="Permalink to this definition">¶</a></dt>
-<dd><p>Iterates over all scans to get the <cite>average</cite> polarity.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.scan_num">
-<code class="descname">scan_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.scan_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract the total number of scans.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.software">
-<code class="descname">software</code><span class="sig-paren">(</span><em>soft_ref</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.software" title="Permalink to this definition">¶</a></dt>
-<dd><p>Get associated software of cv term. Updates the self.meta dictionary</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>soft_ref</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – the reference to the software found in another xml “ref” attribute.</li>
-<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Name of the associated CV term that the software is associated to.</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.spectrum_meta">
-<code class="descname">spectrum_meta</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.spectrum_meta" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extract information of each spectrum in entry lists.</p>
-<p>This method is only called is the <strong>complete_parse</strong> parameters was set
-as True when the mzMLmeta object was created. This requires more time
-as iterating through hundreds of elements is bound to be more performance
-hungry than just a few elements. It is believed to be useful when mzml2isa
-is used as a parsing library.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.timerange">
-<code class="descname">timerange</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.timerange" title="Permalink to this definition">¶</a></dt>
-<dd><p>Try to extract the Time range of all the scans.</p>
-<p>Time range consists in the smallest and largest time the successive scans
-were started. The unit (most of the time <cite>minute</cite>) will be extracted as well
-if possible.</p>
-</dd></dl>
-
-<dl class="method">
-<dt id="mzml2isa.mzml.mzMLmeta.urlize">
-<code class="descname">urlize</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#mzml2isa.mzml.mzMLmeta.urlize" title="Permalink to this definition">¶</a></dt>
-<dd><p>Urllize all accessions within the meta dictionary</p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 
 
@@ -424,10 +218,7 @@ if possible.</p>
 
   
 
-  
-  
-    <script type="text/javascript" src="../../_static/js/theme.js"></script>
-  
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
   <script type="text/javascript">
       jQuery(function () {
