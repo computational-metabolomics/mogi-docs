@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Installation &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Usage" href="usage.html" />
+    <link rel="prev" title="mzml2isa-qt" href="index.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">django-misa</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#dependencies">Dependencies</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#requirements">Requirements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#pypi-stable-version-pypi-version">PyPI (stable version) </a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#with-pip">With <cite>pip</cite></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#without-pip">Without <cite>pip</cite></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#github-development-version">GitHub (development version)</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id2">With <cite>pip</cite></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Without <cite>pip</cite></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="usage.html">Usage</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../django-metab/index.html">django-metab</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../django-dma/index.html">django-dma</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../other/index.html">Other</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">mzml2isa-qt</a> &raquo;</li>
+        
+      <li>Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/django-misa/install.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<p>mzml2isa-qt is available on PyPI, so if <code class="docutils literal notranslate"><span class="pre">pip</span></code> is installed on your
+machine, installing mzml2isa should be quite straightforward, without
+the need to worry about dependencies. It is also possible to install
+mzml2isa development version directly from the <a class="reference external" href="https://github.com/ISA-tools/mzml2isa-qt">mzml2isa-qt GitHub repository</a>.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">mzml2isa-qt is a <strong>Python3 program only !</strong></p>
+</div>
+<div class="section" id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this headline">¶</a></h2>
+<p>Windows users can either install mzml2isa-qt as described below or use a ‘ready to go’ Windows executable <strong>(no python install required)</strong>. The executables be found on the mzml2isa-qt <a class="reference external" href="https://github.com/ISA-tools/mzml2isa-qt/releases">Github release section</a>. See file mzml2isa_gui.exe.</p>
+</div>
+<div class="section" id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">Without pip you’ll have to install the requirements yourself, otherwise running
+<code class="docutils literal notranslate"><span class="pre">setup.py</span></code> will fail when trying to import <strong>nmrml2isa</strong> for the first time.</p>
+</div>
+<div class="section" id="requirements">
+<h3>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h3>
+<dl class="docutils">
+<dt><a class="reference external" href="https://pypi.python.org/pypi/nmrml2isa">nmrml2isa</a></dt>
+<dd>the parsing libary (see <a class="reference external" href="http://2isa.readthedocs.io/en/latest/nmrml2isa/index.html">here</a>)</dd>
+<dt><a class="reference external" href="https://pypi.python.org/pypi/PyQt5/5.6">PyQt5</a></dt>
+<dd>the GUI toolkit used by nmrml2isa-qt (see <a class="reference external" href="https://riverbankcomputing.com/software/pyqt/intro">here</a>
+for more information about PyQt)</dd>
+</dl>
+</div>
+</div>
+<div class="section" id="pypi-stable-version-pypi-version">
+<h2>PyPI (stable version) <a class="reference external" href="https://pypi.python.org/pypi/mzml2isa-qt/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/mzml2isa-qt.svg?style=flat&amp;maxAge=2592000" /></a><a class="headerlink" href="#pypi-stable-version-pypi-version" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="with-pip">
+<h3>With <cite>pip</cite><a class="headerlink" href="#with-pip" title="Permalink to this headline">¶</a></h3>
+<p>Just run one of the following commands in a terminal:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">mzml2isa</span><span class="o">-</span><span class="n">qt</span>        <span class="c1"># install on the machine, needs super-user rights</span>
+<span class="n">pip</span> <span class="n">install</span> <span class="n">mzml2isa</span><span class="o">-</span><span class="n">qt</span> <span class="o">--</span><span class="n">user</span> <span class="c1"># install only for the current user, no rights needed</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="without-pip">
+<h3>Without <cite>pip</cite><a class="headerlink" href="#without-pip" title="Permalink to this headline">¶</a></h3>
+<p>This requires the python <code class="docutils literal notranslate"><span class="pre">setuptools</span></code> module to be installed, as well as the dependencies listed above. Download the latest stable release
+from the <a class="reference external" href="https://pypi.python.org/pypi/mzml2isa-qt">PyPI repository</a>, unpack it and install it
+by running the following commands:</p>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">tar</span> <span class="n">xf</span> <span class="n">mzml2isa</span><span class="o">-</span><span class="n">qt</span><span class="o">-</span><span class="n">xx</span><span class="o">.</span><span class="n">yy</span><span class="o">.</span><span class="n">zz</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="c1"># replace with whatever version you downloaded</span>
+<span class="n">cd</span> <span class="n">mzml2isa</span><span class="o">-</span><span class="n">qt</span><span class="o">-</span><span class="n">xx</span><span class="o">.</span><span class="n">yy</span><span class="o">.</span><span class="n">zz</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>         <span class="c1"># will require super-user rights</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="github-development-version">
+<h2>GitHub (development version)<a class="headerlink" href="#github-development-version" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id2">
+<h3>With <cite>pip</cite><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">git</span><span class="o">+</span><span class="n">git</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ISA</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">mzml2isa</span><span class="o">-</span><span class="n">qt</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h3>Without <cite>pip</cite><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="code bash highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">github</span><span class="o">.</span><span class="n">com</span><span class="o">/</span><span class="n">ISA</span><span class="o">-</span><span class="n">tools</span><span class="o">/</span><span class="n">mzml2isa</span><span class="o">-</span><span class="n">qt</span>
+<span class="n">cd</span> <span class="n">mzml2isa</span><span class="o">-</span><span class="n">qt</span>
+<span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="usage.html" class="btn btn-neutral float-right" title="Usage" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="mzml2isa-qt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
