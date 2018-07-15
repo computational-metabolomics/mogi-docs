@@ -223,6 +223,7 @@
 <div class="viewcode-block" id="status_update"><a class="viewcode-back" href="../../django-gfiles/api/views.html#gfiles.views.status_update">[docs]</a><span class="k">def</span> <span class="nf">status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Updates for tracking status of long processes via celery</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+
     <span class="nb">id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span>
 
     <span class="n">result</span> <span class="o">=</span> <span class="n">AsyncResult</span><span class="p">(</span><span class="nb">id</span><span class="p">)</span>

@@ -18,4 +18,3 @@ django-gfiles
 Sphinx
 sphinx-rtd-theme
 sphinxcontrib-napoleon
-sphinxcontrib-django

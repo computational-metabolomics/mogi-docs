@@ -11,6 +11,7 @@ tracks the user that uploaded the file.
 The uploaded files can be viewed and searched using django-tables2 and django-filter applications.
 
 
+
 .. |Build Status (Travis)| image:: https://travis-ci.com/computational-metabolomics/django-gfiles.svg?branch=master
    :target: https://travis-ci.com/computational-metabolomics/django-gfiles/
 

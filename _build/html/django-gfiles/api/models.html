@@ -93,9 +93,6 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
 </ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../django-dma/index.html">django-dma</a></li>
-</ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">django-gfiles</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
@@ -109,9 +106,6 @@
 </li>
 </ul>
 </li>
-</ul>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../other/index.html">Other</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
@@ -190,20 +184,6 @@
 <em class="property">class </em><code class="descclassname">gfiles.models.</code><code class="descname">GenericFile</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gfiles/models.html#GenericFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gfiles.models.GenericFile" title="Permalink to this definition">¶</a></dt>
 <dd><p>Model for managing generic files. Files can either be saved as symlink or copied to the data file store
 based on what has been set in the settings file MEDIA_ROOT parameter</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>id</strong> (<em>AutoField</em>) – Id</li>
-<li><strong>data_file</strong> (<em>FileField</em>) – The reference to the uploaded data file</li>
-<li><strong>original_filename</strong> (<em>CharField</em>) – If a file with the same filename is uploaded at the same timea duplicate is saved with a unique name. This field is usedto keep track of the original name</li>
-<li><strong>user</strong> (ForeignKey to <code class="xref py py-class docutils literal notranslate"><span class="pre">User</span></code>) – The user who uploaded the file</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
 <dl class="exception">
 <dt id="gfiles.models.GenericFile.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#gfiles.models.GenericFile.DoesNotExist" title="Permalink to this definition">¶</a></dt>
