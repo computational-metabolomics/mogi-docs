@@ -6,6 +6,7 @@ six
 future
 django-gfiles
 django-galaxy
+django-mbrowse
 Sphinx
 sphinx-rtd-theme
 sphinxcontrib-napoleon
