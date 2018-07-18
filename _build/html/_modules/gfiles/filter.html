@@ -163,7 +163,7 @@
 <span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">GenericFile</span>
 
 
-<span class="k">class</span> <span class="nc">GFileFilter</span><span class="p">(</span><span class="n">django_filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
+<div class="viewcode-block" id="GFileFilter"><a class="viewcode-back" href="../../django-gfiles/api/filters.html#gfiles.views.GFileFilter">[docs]</a><span class="k">class</span> <span class="nc">GFileFilter</span><span class="p">(</span><span class="n">django_filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Class for filtering Generic Files using django_filters.FilterSet</span>
 
 <span class="sd">    Filters available for the username of the user who uploaded the file and the original filename (the original name</span>
@@ -175,7 +175,7 @@
 
     <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">GenericFile</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;original_filename&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;original_filename&#39;</span><span class="p">,</span> <span class="s1">&#39;username&#39;</span><span class="p">)</span></div>
 </pre></div>
 
            </div>

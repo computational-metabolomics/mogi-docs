@@ -25,7 +25,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath('../src'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'gfiles.test_settings'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'galaxy.test_settings'
 django.setup()
 
 # -- General configuration ------------------------------------------------

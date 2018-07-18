@@ -1,0 +1,380 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>galaxy.tables &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>galaxy.tables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for galaxy.tables</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">django_tables2</span> <span class="k">as</span> <span class="nn">tables</span>
+<span class="kn">from</span> <span class="nn">galaxy.models</span> <span class="k">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">History</span><span class="p">,</span> <span class="n">GalaxyInstanceTracking</span>
+<span class="kn">from</span> <span class="nn">django_tables2.export.views</span> <span class="k">import</span> <span class="n">ExportMixin</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="k">import</span> <span class="n">format_html</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="k">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django_tables2_column_shifter.tables</span> <span class="k">import</span> <span class="n">ColumnShiftTable</span>
+<span class="kn">from</span> <span class="nn">django_tables2.utils</span> <span class="k">import</span> <span class="n">A</span>
+
+
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">class</span> <span class="nc">GalaxyInstanceTrackingTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+
+
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39; class &#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">ProgressColumn</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">format_html</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;progress&quot;&gt;&#39;</span>
+                           <span class="s1">&#39;    &lt;div class=&quot;progress-bar&quot; role=&quot;progressbar&quot; aria-valuenow=</span><span class="si">{}</span><span class="s1"> aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width:</span><span class="si">{}</span><span class="s1">%&quot;&gt;&#39;</span>
+                           <span class="s1">&#39;         </span><span class="si">{}</span><span class="s1">%&#39;</span>
+                           <span class="s1">&#39;    &lt;/div&gt;&#39;</span>
+                           <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">WorkflowStatusTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="n">galaxy_instance</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">update_time</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">history_name</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="c1"># history_url = tables.URLColumn(text=&#39;history log&#39;)</span>
+    <span class="n">finished_tasks</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">todo_tasks</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">running_tasks</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">paused_tasks</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">failed_tasks</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="c1"># running_tasks_details = tables.Column()</span>
+    <span class="n">estimated_progress</span> <span class="o">=</span> <span class="n">ProgressColumn</span><span class="p">()</span>
+
+    <span class="c1"># check = tables.CheckBoxColumn(accessor=&quot;name&quot;,</span>
+    <span class="c1">#                                        attrs={</span>
+    <span class="c1">#                                            &quot;th__input&quot;: {&quot;onclick&quot;: &quot;toggle(this)&quot;},</span>
+    <span class="c1">#                                            &quot;td__input&quot;: {&quot;onclick&quot;: &quot;addfile(this)&quot;}},</span>
+    <span class="c1">#                                        )</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;status_table&#39;</span><span class="p">}</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+
+
+<span class="k">class</span> <span class="nc">HistoryDataTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="n">galaxy_instance_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">galaxy_instance</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+
+    <span class="n">accessible</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">annotation</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">create_time</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">creating_job</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">data_type</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">dataset_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">deleted</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">download_url</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">extension</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">file_ext</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">file_size</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">hda_ldda</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">history_content_type</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">history_id</span><span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="nb">id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">purged</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">rerunnable</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">update_time</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">uuid</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">visible</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+    <span class="n">history_internal_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
+
+
+    <span class="n">history_data_create</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;history_data_create&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Save history data item&#39;</span><span class="p">,</span>
+                                            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Save item&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;history_internal_id&#39;</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">}</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_default_show</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;galaxy_instance&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">,</span> <span class="s1">&#39;create_time&#39;</span><span class="p">,</span> <span class="s1">&#39;download_url&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">HistoryDataTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span>
+
+
+
+
+
+
+<span class="k">class</span> <span class="nc">HistoryTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="c1"># export_formats = [&#39;csv&#39;, &#39;xls&#39;]</span>
+    <span class="n">history_data_bioblend_list</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;history_data_bioblend_list&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;View data&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+    <span class="n">check</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">CheckBoxColumn</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s2">&quot;pk&quot;</span><span class="p">,</span>
+                                  <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                      <span class="s2">&quot;th__input&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;onclick&quot;</span><span class="p">:</span> <span class="s2">&quot;toggle(this)&quot;</span><span class="p">},</span>
+                                      <span class="s2">&quot;td__input&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;onclick&quot;</span><span class="p">:</span> <span class="s2">&quot;addfile(this)&quot;</span><span class="p">}},</span>
+                                  <span class="p">)</span>
+
+
+
+    <span class="k">def</span> <span class="nf">render_estimated_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">format_html</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;progress&quot;&gt;&#39;</span>
+                           <span class="s1">&#39;    &lt;div class=&quot;progress-bar&quot; role=&quot;progressbar&quot; aria-valuenow=</span><span class="si">{}</span><span class="s1"> aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width:</span><span class="si">{}</span><span class="s1">%&quot;&gt;&#39;</span>
+                           <span class="s1">&#39;         </span><span class="si">{}</span><span class="s1">%&#39;</span>
+                           <span class="s1">&#39;    &lt;/div&gt;&#39;</span>
+                           <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_default_show</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;galaxy_instance&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;update_time&#39;</span><span class="p">,</span> <span class="s1">&#39;accessible&#39;</span><span class="p">,</span> <span class="s1">&#39;running&#39;</span><span class="p">,</span> <span class="s1">&#39;estimated_progress&#39;</span><span class="p">,</span> <span class="s1">&#39;history_data_list&#39;</span><span class="p">,</span> <span class="s1">&#39;check&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">HistoryTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span>
+
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">History</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39; class &#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+        <span class="c1"># running_tasks_details = tables.Column()</span>
+        <span class="n">order_by</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;-update_time&#39;</span><span class="p">,)</span>
+
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+
+
+
+
+<span class="k">class</span> <span class="nc">WorkflowTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="n">run</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;runworkflow&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">column_default_show</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;galaxyinstancetracking&#39;</span><span class="p">,</span> <span class="s1">&#39;accessible&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">WorkflowTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span>
+
+    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">}</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootsrap.html&#39;</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

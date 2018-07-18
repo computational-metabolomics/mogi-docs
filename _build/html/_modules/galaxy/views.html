@@ -1,0 +1,820 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>galaxy.views &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>galaxy.views</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for galaxy.views</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="c1"># general python</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+<span class="kn">import</span> <span class="nn">operator</span>
+<span class="kn">import</span> <span class="nn">re</span>
+
+<span class="c1"># standard django</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="k">import</span> <span class="n">LoginRequiredMixin</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">CreateView</span><span class="p">,</span> <span class="n">View</span><span class="p">,</span> <span class="n">ListView</span>
+<span class="kn">from</span> <span class="nn">django.http</span> <span class="k">import</span> <span class="n">JsonResponse</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+
+<span class="c1"># django external apps</span>
+<span class="kn">from</span> <span class="nn">django_tables2</span> <span class="k">import</span> <span class="n">RequestConfig</span>
+<span class="kn">import</span> <span class="nn">django_tables2</span> <span class="k">as</span> <span class="nn">tables</span>
+<span class="kn">from</span> <span class="nn">django_tables2.views</span> <span class="k">import</span> <span class="n">SingleTableMixin</span>
+<span class="kn">from</span> <span class="nn">django_filters.views</span> <span class="k">import</span> <span class="n">FilterView</span>
+<span class="kn">from</span> <span class="nn">django_tables2.export.views</span> <span class="k">import</span> <span class="n">ExportMixin</span>
+
+<span class="c1"># django custom user external apps</span>
+<span class="kn">from</span> <span class="nn">gfiles.models</span> <span class="k">import</span> <span class="n">GenericFile</span>
+<span class="kn">from</span> <span class="nn">gfiles.views</span> <span class="k">import</span> <span class="n">GFileListView</span>
+<span class="kn">from</span> <span class="nn">gfiles.filter</span> <span class="k">import</span> <span class="n">GFileFilter</span>
+<span class="kn">from</span> <span class="nn">gfiles.tables</span> <span class="k">import</span> <span class="n">GFileTable</span>
+
+<span class="c1"># django &#39;this&#39; app</span>
+<span class="kn">from</span> <span class="nn">.forms</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">WorkflowForm</span><span class="p">,</span>
+    <span class="n">FilesToGalaxyDataLibraryParamForm</span><span class="p">,</span>
+    <span class="n">GenericFilesToGalaxyHistoryParamForm</span><span class="p">,</span>
+    <span class="n">GalaxyUserForm</span><span class="p">,</span>
+    <span class="n">WorkflowRunForm</span><span class="p">,</span>
+    <span class="n">GalaxyInstanceTrackingForm</span><span class="p">,</span>
+    <span class="n">DeleteGalaxyHistoryForm</span><span class="p">,</span>
+    <span class="n">HistoryDataForm</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">GalaxyInstanceTracking</span><span class="p">,</span>
+    <span class="n">GalaxyUser</span><span class="p">,</span>
+    <span class="n">Workflow</span><span class="p">,</span>
+    <span class="n">History</span><span class="p">,</span>
+    <span class="n">HistoryData</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.tables</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">WorkflowStatusTable</span><span class="p">,</span>
+    <span class="n">WorkflowTable</span><span class="p">,</span>
+    <span class="n">HistoryTable</span><span class="p">,</span>
+    <span class="n">HistoryDataTable</span><span class="p">,</span>
+    <span class="n">GalaxyInstanceTrackingTable</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.filter</span> <span class="k">import</span> <span class="n">WorkflowFilter</span><span class="p">,</span> <span class="n">HistoryFilter</span>
+
+<span class="kn">from</span> <span class="nn">galaxy.utils.upload_to_galaxy</span> <span class="k">import</span> <span class="n">f2dl_action</span><span class="p">,</span> <span class="n">f2h_action</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.sync_files</span> <span class="k">import</span> <span class="n">sync_galaxy_files</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.workflow_actions</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">run_galaxy_workflow</span><span class="p">,</span>
+    <span class="n">get_workflow_status</span><span class="p">,</span>
+    <span class="n">workflow_sync</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.history_actions</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">get_history_status</span><span class="p">,</span>
+    <span class="n">delete_galaxy_histories</span><span class="p">,</span>
+    <span class="n">get_history_data</span><span class="p">,</span>
+    <span class="n">init_history_data_save_form</span><span class="p">,</span>
+    <span class="n">history_data_save_form</span>
+<span class="p">)</span>
+
+
+
+
+<div class="viewcode-block" id="GalaxyInstanceCreateView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxyInstanceCreateView">[docs]</a><span class="k">class</span> <span class="nc">GalaxyInstanceCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Create a Galaxy instance to track in django. Note that the Galaxy needs to be accessible at the point of</span>
+<span class="sd">    initialisation.</span>
+
+<span class="sd">    If file transfer is required to Galaxy that is not located on the same server as the Django server then the</span>
+<span class="sd">    associated FTP host &amp; post details need to be added as well, see `galaxy docs`_</span>
+
+<span class="sd">    User login required</span>
+
+<span class="sd">    .. _galaxy docs: https://galaxyproject.org/ftp-upload/</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">GalaxyInstanceTrackingForm</span></div>
+
+<div class="viewcode-block" id="GalaxySummaryView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxySummaryView">[docs]</a><span class="k">class</span> <span class="nc">GalaxySummaryView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="c1"># initial = {&#39;key&#39;: &#39;value&#39;}</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/galaxy_summary.html&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">GalaxyInstanceTrackingTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span></div>
+
+
+<div class="viewcode-block" id="GalaxyUserCreateView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxyUserCreateView">[docs]</a><span class="k">class</span> <span class="nc">GalaxyUserCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Register a Galaxy user to a Galaxy instance that we have tracked.</span>
+
+<span class="sd">    A django user can be linked to many Galaxy instances and each Galaxy User HAS to be linked to Galaxy instance</span>
+
+<span class="sd">    django-user [1 --- *] galaxy-users</span>
+
+<span class="sd">    galaxy-user [* --- 1] galaxy-instances</span>
+
+<span class="sd">    However, a django user can&#39;t be linked to multiple of the same galaxy instances</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GalaxyUser</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">GalaxyUserForm</span>
+
+<div class="viewcode-block" id="GalaxyUserCreateView.get_form_kwargs"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxyUserCreateView.get_form_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">get_form_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Get the user form as a kwarg argument</span>
+        <span class="n">kwargs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_form_kwargs</span><span class="p">()</span>
+        <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="k">return</span> <span class="n">kwargs</span></div>
+
+<div class="viewcode-block" id="GalaxyUserCreateView.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxyUserCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="c1"># The user is automatically added to the model based on whoever is logged in at the time</span>
+        <span class="n">gu</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">gu</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">gu</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">GalaxyUserCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GalaxyUserCreateView.get_initial"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxyUserCreateView.get_initial">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># show the most recent galaxy instance as default value</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;galaxyinstancetracking&#39;</span><span class="p">:</span><span class="n">GalaxyInstanceTracking</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">last</span><span class="p">()}</span></div></div>
+
+
+<div class="viewcode-block" id="GalaxySync"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxySync">[docs]</a><span class="k">class</span> <span class="nc">GalaxySync</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Sync workflows from available galaxy instances for the current user.</span>
+
+<span class="sd">    This will add any workflows to the django database that have not already been added. And will update</span>
+<span class="sd">    any that have been updated on the galaxy instance.</span>
+
+<span class="sd">    todo: It might be worth changing this view to a more general GalaxySync option. That syncs workflows &amp; files</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+<div class="viewcode-block" id="GalaxySync.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxySync.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/galaxy_sync.html&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="GalaxySync.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxySync.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">workflow_sync</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">sync_galaxy_files</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="n">get_history_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="c1"># redirects to show the current available workflows</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;workflow_summary&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="WorkflowListView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowListView">[docs]</a><span class="k">class</span> <span class="nc">WorkflowListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    View and initiate a run for all registered workflows.</span>
+
+<span class="sd">    Workflows can also be synced here as well</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">WorkflowTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/workflow_summary.html&#39;</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">WorkflowFilter</span>
+
+<div class="viewcode-block" id="WorkflowListView.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowListView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">workflow_sync</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="c1"># redirects to show the current available workflows</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;workflow_summary&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="TableFileSelectMixin"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin">[docs]</a><span class="k">class</span> <span class="nc">TableFileSelectMixin</span><span class="p">:</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    General class for file selection with ajax multipage</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">success_msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+    <span class="n">table_pagination</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;per_page&quot;</span><span class="p">:</span> <span class="mi">15</span><span class="p">}</span>
+    <span class="c1"># form_class =  GenericFilesToGalaxyDataLibraryParamForm   # should add generic form for this, perhaps based on a related model</span>
+    <span class="c1"># template_name = &#39;galaxy/files_to_galaxy.html&#39;   # should add generic template for this, perhaps based on a related model</span>
+    <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># pass any default parameters required for any context that is used</span>
+
+<div class="viewcode-block" id="TableFileSelectMixin.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># we have to overide the standard get to add some extra information to the context</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form2context</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TableFileSelectMixin.form2context"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.form2context">[docs]</a>    <span class="k">def</span> <span class="nf">form2context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">filterset_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_filterset_class</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_filterset</span><span class="p">(</span><span class="n">filterset_class</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">object_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span><span class="o">.</span><span class="n">qs</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="nb">filter</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">filterset</span><span class="p">,</span> <span class="n">object_list</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">object_list</span><span class="p">,</span>  <span class="n">form</span><span class="o">=</span><span class="n">form</span><span class="p">)</span>
+        <span class="n">context</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">initial_context</span><span class="p">)</span>
+
+
+
+        <span class="k">return</span> <span class="n">context</span></div>
+
+<div class="viewcode-block" id="TableFileSelectMixin.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">is_ajax</span><span class="p">():</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form2context</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+            <span class="c1"># keep track of the checkboxes that have been added by the user</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">ajax_post_selected</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">)</span>
+            <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form2context</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="TableFileSelectMixin.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="c1"># first save the form and the user who posted</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/submitted.html&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="FilesToGalaxyDataLib"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.FilesToGalaxyDataLib">[docs]</a><span class="k">class</span> <span class="nc">FilesToGalaxyDataLib</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">TableFileSelectMixin</span><span class="p">,</span> <span class="n">GFileListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Select Files to be added to Galaxy Library</span>
+
+<span class="sd">    Inherit the GFileListView that view that shows current files and allows some basic filtering</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/files_to_galaxy.html&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">FilesToGalaxyDataLibraryParamForm</span>
+    <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;library&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;django_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/galaxy/files_to_galaxy_datalib/&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="FilesToGalaxyDataLib.save_form_param"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.FilesToGalaxyDataLib.save_form_param">[docs]</a>    <span class="k">def</span> <span class="nf">save_form_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">f2dl</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">f2dl</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">f2dl</span><span class="o">.</span><span class="n">folder_name</span><span class="p">:</span>
+            <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+            <span class="n">f2dl</span><span class="o">.</span><span class="n">folder_name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y_%m_</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+        <span class="n">f2dl</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">f2dl</span></div>
+
+<div class="viewcode-block" id="FilesToGalaxyDataLib.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.FilesToGalaxyDataLib.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="c1"># first save the form and the user who posted</span>
+        <span class="n">f2dl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_form_param</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
+
+        <span class="c1"># then get the ids of the files that were used, and add the files to the galaxy library</span>
+        <span class="n">pks</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;check&quot;</span><span class="p">)</span>
+
+        <span class="n">f2dl_action</span><span class="p">(</span><span class="n">pks</span><span class="p">,</span> <span class="n">f2dl</span><span class="p">,</span> <span class="n">galaxy_pass</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;galaxy_password&#39;</span><span class="p">])</span>
+        <span class="c1"># reset the form checkboxes</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/submitted.html&#39;</span><span class="p">)</span></div></div>
+
+
+<div class="viewcode-block" id="GenericFilesToGalaxyHistory"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GenericFilesToGalaxyHistory">[docs]</a><span class="k">class</span> <span class="nc">GenericFilesToGalaxyHistory</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">TableFileSelectMixin</span><span class="p">,</span> <span class="n">GFileListView</span><span class="p">):</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/files_to_galaxy.html&#39;</span>
+
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">GenericFilesToGalaxyHistoryParamForm</span>
+    <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;library&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;django_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/galaxy/files_to_galaxy_datalib/&#39;</span><span class="p">}</span>
+
+<div class="viewcode-block" id="GenericFilesToGalaxyHistory.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GenericFilesToGalaxyHistory.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">f2h</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">f2h</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="n">f2h</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">pks</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;check&quot;</span><span class="p">)</span>
+
+        <span class="n">f2h_action</span><span class="p">(</span><span class="n">pks</span><span class="p">,</span> <span class="n">f2h</span><span class="p">,</span> <span class="n">galaxy_pass</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;galaxy_password&#39;</span><span class="p">])</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/submitted.html&#39;</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="WorkflowRunView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView">[docs]</a><span class="k">class</span> <span class="nc">WorkflowRunView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run a registered workflow</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">success_msg</span> <span class="o">=</span> <span class="s2">&quot;Run started&quot;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/workflow_run.html&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">GFileTable</span>
+    <span class="n">filter_class</span> <span class="o">=</span> <span class="n">GFileFilter</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">WorkflowRunForm</span>
+    <span class="n">redirect_to</span> <span class="o">=</span> <span class="s1">&#39;history_status&#39;</span>
+
+
+<div class="viewcode-block" id="WorkflowRunView.update_workflow_inputs"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.update_workflow_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">update_workflow_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+        <span class="c1"># update the worklow inputs before submission (to be used with classes that inherit this class</span>
+        <span class="k">return</span> <span class="n">l</span></div>
+
+
+<div class="viewcode-block" id="WorkflowRunView.get_queryset"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Workflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;wid&#39;</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="WorkflowRunView.get_datainputs"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.get_datainputs">[docs]</a>    <span class="k">def</span> <span class="nf">get_datainputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">w</span><span class="o">.</span><span class="n">workflowinput_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
+
+<div class="viewcode-block" id="WorkflowRunView.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="n">l</span><span class="p">,</span> <span class="s1">&#39;wid&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;wid&#39;</span><span class="p">]})</span></div>
+
+<div class="viewcode-block" id="WorkflowRunView.page_setup"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.page_setup">[docs]</a>    <span class="k">def</span> <span class="nf">page_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="c1"># Dynamic number of tables are added to the template based on what the workflow-inputs are (e.g. if</span>
+        <span class="c1"># there are multiple data-inputs or data-input-collections). The choice of files to choose is based</span>
+        <span class="c1"># on what the user has uploaded previously to either the gfiles or mfiles applications</span>
+
+        <span class="n">data_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_datainputs</span><span class="p">()</span>
+        <span class="n">tables_l</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">data_input_names</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">data_input_steps</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">data_input_types</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="c1"># Need to setup a config for the tables (only 1 required per template page)</span>
+        <span class="n">rc</span> <span class="o">=</span> <span class="n">RequestConfig</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">paginate</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">})</span>
+
+        <span class="c1"># Get all the generic files (this will include all the mfiles as well, as the MFiles inherits the genericfile</span>
+        <span class="c1"># class.</span>
+        <span class="c1"># At the moment it is hard coded to include galaxy_library. But I wan&#39;t to put some javascript in so</span>
+        <span class="c1"># the user can choose between files that have been registered with the galaxy library or with galaxy history</span>
+        <span class="c1"># (needs to be distinct because we allow files to be added to galaxy multiple times)</span>
+        <span class="n">gfqs</span> <span class="o">=</span> <span class="n">GenericFile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxyfilelink__galaxy_library</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">galaxyfilelink__removed</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+
+        <span class="c1"># loop through all the data_inputs from the associated workflow</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data_inputs</span><span class="p">)):</span>
+
+            <span class="c1"># create a few lists of Input Datasetvarious useful information for the template</span>
+            <span class="n">di</span> <span class="o">=</span> <span class="n">data_inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">data_input_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">di</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">data_input_steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">di</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
+            <span class="n">data_input_types</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">di</span><span class="o">.</span><span class="n">datatype</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="n">di</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="n">mtch</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;.*\((.*)\).*&#39;</span><span class="p">,</span> <span class="n">di</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">mtch</span><span class="p">:</span>
+                <span class="n">filetypes</span> <span class="o">=</span> <span class="n">mtch</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+                <span class="n">filetype_l</span> <span class="o">=</span> <span class="n">filetypes</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FILETYPE LIST&#39;</span><span class="p">,</span> <span class="n">filetype_l</span><span class="p">)</span>
+
+                <span class="n">filetype_l</span> <span class="o">=</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">filetype_l</span><span class="p">]</span>
+                <span class="c1"># https://stackoverflow.com/questions/4824759/django-query-using-contains-each-value-in-a-list</span>
+                <span class="n">query</span> <span class="o">=</span> <span class="n">reduce</span><span class="p">(</span><span class="n">operator</span><span class="o">.</span><span class="n">or_</span><span class="p">,</span> <span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">original_filename__icontains</span><span class="o">=</span><span class="n">item</span><span class="p">)</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">filetype_l</span><span class="p">))</span>
+                <span class="c1"># will output something like this</span>
+                <span class="c1"># &lt;Q: (OR: (&#39;original_filename__icontains&#39;, &#39;.txt&#39;), (&#39;original_filename__icontains&#39;, &#39;.tsv&#39;),</span>
+                <span class="c1"># (&#39;original_filename__icontains&#39;, &#39;.tabular&#39;))&gt;</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="n">gfqs_f</span> <span class="o">=</span> <span class="n">gfqs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">query</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">gfqs_f</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">gfqs_f</span> <span class="o">=</span> <span class="n">gfqs</span>
+
+            <span class="c1"># Create an invidivual filter for each table</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_class</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">gfqs_f</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">i</span><span class="p">)</span>
+
+            <span class="c1"># Create a checkbox column for each table, so that the javascript can see which checkbox has been</span>
+            <span class="c1"># selected</span>
+            <span class="n">check</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">CheckBoxColumn</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s2">&quot;pk&quot;</span><span class="p">,</span>
+                                          <span class="n">attrs</span><span class="o">=</span><span class="p">{</span>
+                                              <span class="s2">&quot;th__input&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;onclick&quot;</span><span class="p">:</span> <span class="s2">&quot;toggle(this)&quot;</span><span class="p">},</span>
+                                              <span class="s2">&quot;td__input&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;onclick&quot;</span><span class="p">:</span> <span class="s2">&quot;addfile(this)&quot;</span><span class="p">}},</span>
+                                          <span class="n">orderable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># create a new table with the custom column</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_class</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">qs</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">extra_columns</span><span class="o">=</span><span class="p">((</span><span class="s1">&#39;check</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="n">check</span><span class="p">),),</span>
+                               <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="n">i</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">})</span>
+
+            <span class="c1"># load the table into the requestconfig</span>
+            <span class="n">rc</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+            <span class="c1"># add the tables and filters to the list used in the template</span>
+            <span class="n">tables_l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+        <span class="c1"># create a list of all the information. Using a simple list format as it is just easy to use in the template</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tables_l</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">data_input_names</span><span class="p">,</span> <span class="n">data_input_steps</span><span class="p">,</span> <span class="n">data_input_types</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l</span></div>
+
+<div class="viewcode-block" id="WorkflowRunView.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">is_ajax</span><span class="p">():</span>
+            <span class="c1"># the ajax is used to get to record the chosen files</span>
+            <span class="n">request</span> <span class="o">=</span> <span class="n">ajax_post_selected</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="n">l</span><span class="p">,</span> <span class="s1">&#39;wid&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;wid&#39;</span><span class="p">]})</span>
+
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="c1"># if valid then we can save the run form for tracking who has performed what</span>
+            <span class="n">wr</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">wr</span><span class="o">.</span><span class="n">ran_by</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
+            <span class="n">wr</span><span class="o">.</span><span class="n">workflow</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
+            <span class="n">wr</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="c1"># Now get the files we want to use for the workflow</span>
+            <span class="c1"># Table prefix is the the id for the PKD</span>
+            <span class="n">pkd</span> <span class="o">=</span> <span class="n">selected_items_2_pks</span><span class="p">(</span><span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">]))</span>
+
+            <span class="c1"># reset so that the checkboxes are cleared for the next run</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+            <span class="c1"># Finally run the galaxy workflow!!</span>
+            <span class="n">run_galaxy_workflow</span><span class="p">(</span><span class="n">wr</span><span class="o">.</span><span class="n">workflow</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">wr</span><span class="o">.</span><span class="n">workflow</span><span class="o">.</span><span class="n">galaxyinstancetracking</span><span class="p">,</span>
+                                <span class="n">pkd</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">wr</span><span class="o">.</span><span class="n">history_name</span><span class="p">,</span> <span class="n">wr</span><span class="o">.</span><span class="n">library</span><span class="p">)</span>
+
+            <span class="c1"># Show the progress of all the workflows running (including the one we have just started)</span>
+
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">redirect_to</span><span class="p">)</span>
+
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="n">l</span><span class="p">,</span> <span class="s1">&#39;wid&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;wid&#39;</span><span class="p">]})</span></div></div>
+
+
+<div class="viewcode-block" id="WorkflowStatus"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowStatus">[docs]</a><span class="k">class</span> <span class="nc">WorkflowStatus</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="c1"># template_name = &#39;galaxy/status.html&#39;</span>
+
+<div class="viewcode-block" id="WorkflowStatus.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowStatus.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">get_workflow_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="n">table</span> <span class="o">=</span> <span class="n">WorkflowStatusTable</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/workflow_status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span><span class="n">table</span><span class="p">})</span></div>
+
+<div class="viewcode-block" id="WorkflowStatus.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowStatus.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">workflow_sync</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="c1"># redirects to show the current available workflows</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;workflow_summary&#39;</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="HistoryDataBioBlendListView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataBioBlendListView">[docs]</a><span class="k">class</span> <span class="nc">HistoryDataBioBlendListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+
+<div class="viewcode-block" id="HistoryDataBioBlendListView.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataBioBlendListView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">get_history_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">],</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="n">table</span> <span class="o">=</span> <span class="n">HistoryDataTable</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/history_data_bioblend_list.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="n">table</span><span class="p">})</span></div></div>
+        <span class="c1"># return render(request, &#39;galaxy/history_status.html&#39;, {&#39;table&#39;: table})</span>
+
+
+<div class="viewcode-block" id="HistoryDataCreateView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataCreateView">[docs]</a><span class="k">class</span> <span class="nc">HistoryDataCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">HistoryData</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">HistoryDataForm</span>
+
+<div class="viewcode-block" id="HistoryDataCreateView.get_initial"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataCreateView.get_initial">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+
+
+        <span class="n">history_internal_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;history_internal_id&#39;</span><span class="p">)</span>
+        <span class="n">history_data_galaxy_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_id&#39;</span><span class="p">)</span>
+        <span class="n">history_d</span> <span class="o">=</span> <span class="n">init_history_data_save_form</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">history_internal_id</span><span class="p">,</span> <span class="n">history_data_galaxy_id</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">history_internal_id</span><span class="p">,</span>
+                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="p">}</span></div>
+
+<div class="viewcode-block" id="HistoryDataCreateView.save_form"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataCreateView.save_form">[docs]</a>    <span class="k">def</span> <span class="nf">save_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">history_data_obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">history_data_obj</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+
+        <span class="n">history_internal_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;history_internal_id&#39;</span><span class="p">)</span>
+        <span class="n">history_data_galaxy_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_id&#39;</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">history_data_save_form</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">history_internal_id</span><span class="p">,</span> <span class="n">history_data_galaxy_id</span><span class="p">,</span> <span class="n">history_data_obj</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="HistoryDataCreateView.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_form</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/submitted.html&#39;</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="HistoryListView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryListView">[docs]</a><span class="k">class</span> <span class="nc">HistoryListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">TableFileSelectMixin</span><span class="p">,</span><span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ExportMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    View and initiate a run for all registered workflows.</span>
+
+<span class="sd">    Workflows can also be synced here as well</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">HistoryTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">History</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">HistoryFilter</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">DeleteGalaxyHistoryForm</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/history_status.html&#39;</span>
+    <span class="n">table_pagination</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;per_page&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">}</span>
+    <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;library&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                       <span class="s1">&#39;django_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/galaxy/history_status/&#39;</span><span class="p">,</span>
+                       <span class="s1">&#39;django_update_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/galaxy/history_status_update/&#39;</span><span class="p">}</span>
+
+
+
+<div class="viewcode-block" id="HistoryListView.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryListView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># we have to overide the standard get to add some extra information to the context</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form2context</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="HistoryListView.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryListView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+
+        <span class="n">pks</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;check&quot;</span><span class="p">)</span>
+
+        <span class="n">delete_galaxy_histories</span><span class="p">(</span><span class="n">pks</span><span class="p">,</span> <span class="n">purge</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;purge&#39;</span><span class="p">],</span> <span class="n">user</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/submitted.html&#39;</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="history_status_update"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.history_status_update">[docs]</a><span class="k">def</span> <span class="nf">history_status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="n">get_history_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;table_data&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="workflow_status_update"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.workflow_status_update">[docs]</a><span class="k">def</span> <span class="nf">workflow_status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+
+    <span class="n">data</span> <span class="o">=</span> <span class="n">get_workflow_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;table_data&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">})</span></div>
+
+
+
+
+<div class="viewcode-block" id="WorkflowCreateView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowCreateView">[docs]</a><span class="k">class</span> <span class="nc">WorkflowCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">WorkflowForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+
+<div class="viewcode-block" id="WorkflowCreateView.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">w</span><span class="o">.</span><span class="n">save_related</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">WorkflowCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WorkflowCreateView.get_initial"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowCreateView.get_initial">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;galaxyinstancetracking&#39;</span><span class="p">:</span><span class="n">GalaxyInstanceTracking</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">last</span><span class="p">()}</span></div>
+
+<div class="viewcode-block" id="WorkflowCreateView.get_form_kwargs"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowCreateView.get_form_kwargs">[docs]</a>    <span class="k">def</span> <span class="nf">get_form_kwargs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form_kwargs</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">WorkflowCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_form_kwargs</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">form_kwargs</span><span class="p">[</span><span class="s2">&quot;user&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="k">return</span> <span class="n">form_kwargs</span></div></div>
+
+
+<div class="viewcode-block" id="checkbox_selected"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.checkbox_selected">[docs]</a><span class="k">def</span> <span class="nf">checkbox_selected</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected&#39;</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;selected&#39;</span><span class="p">:</span> <span class="n">selected</span><span class="p">})</span></div>
+
+
+
+
+
+
+<div class="viewcode-block" id="selected_items_2_pks"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.selected_items_2_pks">[docs]</a><span class="k">def</span> <span class="nf">selected_items_2_pks</span><span class="p">(</span><span class="n">selected_items</span><span class="p">):</span>
+    <span class="n">pkd</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">selected_items</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">v</span><span class="p">:</span>
+            <span class="n">kl</span> <span class="o">=</span> <span class="n">k</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">)</span>
+            <span class="n">table_id</span> <span class="o">=</span> <span class="n">kl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">pk</span> <span class="o">=</span> <span class="n">kl</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">table_id</span> <span class="ow">in</span> <span class="n">pkd</span><span class="p">:</span>
+                <span class="n">pkd</span><span class="p">[</span><span class="n">table_id</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">pkd</span><span class="p">[</span><span class="n">table_id</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pk</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pkd</span></div>
+
+
+<div class="viewcode-block" id="ajax_post_selected"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.ajax_post_selected">[docs]</a><span class="k">def</span> <span class="nf">ajax_post_selected</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="c1"># request dictionary</span>
+    <span class="n">rd</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="s1">&#39;selected_items&#39;</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span> <span class="ow">and</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">]:</span>
+        <span class="c1"># session dictionary</span>
+        <span class="c1"># if isinstance(request.session[&#39;selected_items&#39;], str) or isinstance(request.session[&#39;selected_items&#39;], unicode):</span>
+        <span class="n">sd</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">])</span>
+        <span class="c1"># else:</span>
+        <span class="c1">#     sd = request.session[&#39;selected_items&#39;]</span>
+
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">rd</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="n">sd</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+
+        <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">rd</span><span class="p">[</span><span class="s1">&#39;selected_items&#39;</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">request</span></div>
+
+<div class="viewcode-block" id="success"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.success">[docs]</a><span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/success.html&#39;</span><span class="p">)</span></div>
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

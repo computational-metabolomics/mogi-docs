@@ -1,0 +1,780 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>django-galaxy views &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="django-galaxy filters" href="filters.html" />
+    <link rel="prev" title="django-galaxy models" href="models.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">django-galaxy</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tables.html">tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">django-galaxy</a> &raquo;</li>
+        
+          <li><a href="index.html">API reference</a> &raquo;</li>
+        
+      <li>django-galaxy views</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-galaxy/api/views.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-galaxy.views">
+<span id="django-galaxy-views"></span><h1>django-galaxy views<a class="headerlink" href="#module-galaxy.views" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="galaxy.views.FilesToGalaxyDataLib">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">FilesToGalaxyDataLib</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#FilesToGalaxyDataLib"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.FilesToGalaxyDataLib" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#galaxy.views.TableFileSelectMixin" title="galaxy.views.TableFileSelectMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.views.TableFileSelectMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.views.GFileListView</span></code></p>
+<p>Select Files to be added to Galaxy Library</p>
+<p>Inherit the GFileListView that view that shows current files and allows some basic filtering</p>
+<dl class="attribute">
+<dt id="galaxy.views.FilesToGalaxyDataLib.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.FilesToGalaxyDataLib.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.FilesToGalaxyDataLibraryParamForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.FilesToGalaxyDataLib.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>request</em>, <em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#FilesToGalaxyDataLib.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.FilesToGalaxyDataLib.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.FilesToGalaxyDataLib.initial_context">
+<code class="descname">initial_context</code><em class="property"> = {u'django_url': u'/galaxy/files_to_galaxy_datalib/', u'library': True}</em><a class="headerlink" href="#galaxy.views.FilesToGalaxyDataLib.initial_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.FilesToGalaxyDataLib.save_form_param">
+<code class="descname">save_form_param</code><span class="sig-paren">(</span><em>request</em>, <em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#FilesToGalaxyDataLib.save_form_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.FilesToGalaxyDataLib.save_form_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.FilesToGalaxyDataLib.template_name">
+<code class="descname">template_name</code><em class="property"> = u'galaxy/files_to_galaxy.html'</em><a class="headerlink" href="#galaxy.views.FilesToGalaxyDataLib.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.GalaxyInstanceCreateView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">GalaxyInstanceCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxyInstanceCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxyInstanceCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>Create a Galaxy instance to track in django. Note that the Galaxy needs to be accessible at the point of
+initialisation.</p>
+<p>If file transfer is required to Galaxy that is not located on the same server as the Django server then the
+associated FTP host &amp; post details need to be added as well, see <a class="reference external" href="https://galaxyproject.org/ftp-upload/">galaxy docs</a></p>
+<p>User login required</p>
+<dl class="attribute">
+<dt id="galaxy.views.GalaxyInstanceCreateView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.GalaxyInstanceCreateView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.GalaxyInstanceTrackingForm</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GalaxyInstanceCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#galaxy.views.GalaxyInstanceCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#galaxy.models.GalaxyInstanceTracking" title="galaxy.models.GalaxyInstanceTracking"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.models.GalaxyInstanceTracking</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GalaxyInstanceCreateView.success_url">
+<code class="descname">success_url</code><em class="property"> = u'/galaxy/success'</em><a class="headerlink" href="#galaxy.views.GalaxyInstanceCreateView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.GalaxySummaryView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">GalaxySummaryView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxySummaryView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxySummaryView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.views.SingleTableMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.list.ListView</span></code></p>
+<dl class="attribute">
+<dt id="galaxy.views.GalaxySummaryView.model">
+<code class="descname">model</code><a class="headerlink" href="#galaxy.views.GalaxySummaryView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#galaxy.models.GalaxyInstanceTracking" title="galaxy.models.GalaxyInstanceTracking"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.models.GalaxyInstanceTracking</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GalaxySummaryView.table_class">
+<code class="descname">table_class</code><a class="headerlink" href="#galaxy.views.GalaxySummaryView.table_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.tables.GalaxyInstanceTrackingTable</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GalaxySummaryView.template_name">
+<code class="descname">template_name</code><em class="property"> = u'galaxy/galaxy_summary.html'</em><a class="headerlink" href="#galaxy.views.GalaxySummaryView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.GalaxySync">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">GalaxySync</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxySync"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxySync" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>Sync workflows from available galaxy instances for the current user.</p>
+<p>This will add any workflows to the django database that have not already been added. And will update
+any that have been updated on the galaxy instance.</p>
+<p>todo: It might be worth changing this view to a more general GalaxySync option. That syncs workflows &amp; files</p>
+<dl class="method">
+<dt id="galaxy.views.GalaxySync.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxySync.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxySync.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.GalaxySync.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxySync.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxySync.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.GalaxyUserCreateView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">GalaxyUserCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxyUserCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxyUserCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<p>Register a Galaxy user to a Galaxy instance that we have tracked.</p>
+<p>A django user can be linked to many Galaxy instances and each Galaxy User HAS to be linked to Galaxy instance</p>
+<p>django-user [1 — <a href="#id1"><span class="problematic" id="id2">*</span></a>] galaxy-users</p>
+<p>galaxy-user [* — 1] galaxy-instances</p>
+<p>However, a django user can’t be linked to multiple of the same galaxy instances</p>
+<dl class="attribute">
+<dt id="galaxy.views.GalaxyUserCreateView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.GalaxyUserCreateView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.GalaxyUserForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.GalaxyUserCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxyUserCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxyUserCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.GalaxyUserCreateView.get_form_kwargs">
+<code class="descname">get_form_kwargs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxyUserCreateView.get_form_kwargs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxyUserCreateView.get_form_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the keyword arguments for instantiating the form.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.GalaxyUserCreateView.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GalaxyUserCreateView.get_initial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GalaxyUserCreateView.get_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the initial data to use for forms on this view.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GalaxyUserCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#galaxy.views.GalaxyUserCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#galaxy.models.GalaxyUser" title="galaxy.models.GalaxyUser"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.models.GalaxyUser</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GalaxyUserCreateView.success_url">
+<code class="descname">success_url</code><em class="property"> = u'/galaxy/success'</em><a class="headerlink" href="#galaxy.views.GalaxyUserCreateView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.GenericFilesToGalaxyHistory">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">GenericFilesToGalaxyHistory</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GenericFilesToGalaxyHistory"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GenericFilesToGalaxyHistory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#galaxy.views.TableFileSelectMixin" title="galaxy.views.TableFileSelectMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.views.TableFileSelectMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.views.GFileListView</span></code></p>
+<dl class="attribute">
+<dt id="galaxy.views.GenericFilesToGalaxyHistory.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.GenericFilesToGalaxyHistory.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.GenericFilesToGalaxyHistoryParamForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.GenericFilesToGalaxyHistory.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>request</em>, <em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#GenericFilesToGalaxyHistory.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.GenericFilesToGalaxyHistory.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GenericFilesToGalaxyHistory.initial_context">
+<code class="descname">initial_context</code><em class="property"> = {u'django_url': u'/galaxy/files_to_galaxy_datalib/', u'library': False}</em><a class="headerlink" href="#galaxy.views.GenericFilesToGalaxyHistory.initial_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.GenericFilesToGalaxyHistory.template_name">
+<code class="descname">template_name</code><em class="property"> = u'galaxy/files_to_galaxy.html'</em><a class="headerlink" href="#galaxy.views.GenericFilesToGalaxyHistory.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.HistoryDataBioBlendListView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">HistoryDataBioBlendListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryDataBioBlendListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryDataBioBlendListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<dl class="method">
+<dt id="galaxy.views.HistoryDataBioBlendListView.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryDataBioBlendListView.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryDataBioBlendListView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.HistoryDataCreateView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">HistoryDataCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryDataCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryDataCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<dl class="attribute">
+<dt id="galaxy.views.HistoryDataCreateView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.HistoryDataCreateView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.HistoryDataForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.HistoryDataCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryDataCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryDataCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.HistoryDataCreateView.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryDataCreateView.get_initial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryDataCreateView.get_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the initial data to use for forms on this view.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryDataCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#galaxy.views.HistoryDataCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#galaxy.models.HistoryData" title="galaxy.models.HistoryData"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.models.HistoryData</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.HistoryDataCreateView.save_form">
+<code class="descname">save_form</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryDataCreateView.save_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryDataCreateView.save_form" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryDataCreateView.success_url">
+<code class="descname">success_url</code><em class="property"> = u'/galaxy/success'</em><a class="headerlink" href="#galaxy.views.HistoryDataCreateView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.HistoryListView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">HistoryListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <a class="reference internal" href="#galaxy.views.TableFileSelectMixin" title="galaxy.views.TableFileSelectMixin"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.views.TableFileSelectMixin</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.views.SingleTableMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.export.views.ExportMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_filters.views.FilterView</span></code></p>
+<p>View and initiate a run for all registered workflows.</p>
+<p>Workflows can also be synced here as well</p>
+<dl class="attribute">
+<dt id="galaxy.views.HistoryListView.filterset_class">
+<code class="descname">filterset_class</code><a class="headerlink" href="#galaxy.views.HistoryListView.filterset_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.filter.HistoryFilter</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryListView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.HistoryListView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.DeleteGalaxyHistoryForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.HistoryListView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>request</em>, <em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryListView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryListView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.HistoryListView.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#HistoryListView.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.HistoryListView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryListView.initial_context">
+<code class="descname">initial_context</code><em class="property"> = {u'django_update_url': u'/galaxy/history_status_update/', u'django_url': u'/galaxy/history_status/', u'library': True}</em><a class="headerlink" href="#galaxy.views.HistoryListView.initial_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryListView.model">
+<code class="descname">model</code><a class="headerlink" href="#galaxy.views.HistoryListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#galaxy.models.History" title="galaxy.models.History"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.models.History</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryListView.table_class">
+<code class="descname">table_class</code><a class="headerlink" href="#galaxy.views.HistoryListView.table_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.tables.HistoryTable</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryListView.table_pagination">
+<code class="descname">table_pagination</code><em class="property"> = {u'per_page': 50}</em><a class="headerlink" href="#galaxy.views.HistoryListView.table_pagination" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.HistoryListView.template_name">
+<code class="descname">template_name</code><em class="property"> = u'galaxy/history_status.html'</em><a class="headerlink" href="#galaxy.views.HistoryListView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.TableFileSelectMixin">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">TableFileSelectMixin</code><a class="reference internal" href="../../_modules/galaxy/views.html#TableFileSelectMixin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.TableFileSelectMixin" title="Permalink to this definition">¶</a></dt>
+<dd><p>General class for file selection with ajax multipage</p>
+<dl class="method">
+<dt id="galaxy.views.TableFileSelectMixin.form2context">
+<code class="descname">form2context</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#TableFileSelectMixin.form2context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.form2context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.TableFileSelectMixin.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>request</em>, <em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#TableFileSelectMixin.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.TableFileSelectMixin.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#TableFileSelectMixin.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.TableFileSelectMixin.initial_context">
+<code class="descname">initial_context</code><em class="property"> = {}</em><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.initial_context" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.TableFileSelectMixin.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#TableFileSelectMixin.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.TableFileSelectMixin.success_msg">
+<code class="descname">success_msg</code><em class="property"> = u''</em><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.success_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.TableFileSelectMixin.success_url">
+<code class="descname">success_url</code><em class="property"> = u'/galaxy/success'</em><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.TableFileSelectMixin.table_pagination">
+<code class="descname">table_pagination</code><em class="property"> = {u'per_page': 15}</em><a class="headerlink" href="#galaxy.views.TableFileSelectMixin.table_pagination" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.WorkflowCreateView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">WorkflowCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowCreateView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.WorkflowCreateView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.WorkflowForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowCreateView.get_form_kwargs">
+<code class="descname">get_form_kwargs</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowCreateView.get_form_kwargs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowCreateView.get_form_kwargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the keyword arguments for instantiating the form.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowCreateView.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowCreateView.get_initial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowCreateView.get_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the initial data to use for forms on this view.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#galaxy.views.WorkflowCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#galaxy.models.Workflow" title="galaxy.models.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.models.Workflow</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowCreateView.success_url">
+<code class="descname">success_url</code><em class="property"> = u'/galaxy/success'</em><a class="headerlink" href="#galaxy.views.WorkflowCreateView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.WorkflowListView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">WorkflowListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowListView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.views.SingleTableMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_filters.views.FilterView</span></code></p>
+<p>View and initiate a run for all registered workflows.</p>
+<p>Workflows can also be synced here as well</p>
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowListView.filterset_class">
+<code class="descname">filterset_class</code><a class="headerlink" href="#galaxy.views.WorkflowListView.filterset_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.filter.WorkflowFilter</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowListView.model">
+<code class="descname">model</code><a class="headerlink" href="#galaxy.views.WorkflowListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#galaxy.models.Workflow" title="galaxy.models.Workflow"><code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.models.Workflow</span></code></a></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowListView.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowListView.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowListView.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowListView.table_class">
+<code class="descname">table_class</code><a class="headerlink" href="#galaxy.views.WorkflowListView.table_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.tables.WorkflowTable</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowListView.template_name">
+<code class="descname">template_name</code><em class="property"> = u'galaxy/workflow_summary.html'</em><a class="headerlink" href="#galaxy.views.WorkflowListView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.WorkflowRunView">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">WorkflowRunView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowRunView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowRunView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<p>Run a registered workflow</p>
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowRunView.filter_class">
+<code class="descname">filter_class</code><a class="headerlink" href="#galaxy.views.WorkflowRunView.filter_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="../../django-gfiles/api/filters.html#gfiles.filter.GFileFilter" title="gfiles.filter.GFileFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.filter.GFileFilter</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowRunView.form_class">
+<code class="descname">form_class</code><a class="headerlink" href="#galaxy.views.WorkflowRunView.form_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">galaxy.forms.WorkflowRunForm</span></code></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowRunView.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowRunView.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowRunView.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowRunView.get_datainputs">
+<code class="descname">get_datainputs</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowRunView.get_datainputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowRunView.get_datainputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowRunView.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowRunView.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowRunView.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowRunView.page_setup">
+<code class="descname">page_setup</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowRunView.page_setup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowRunView.page_setup" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowRunView.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowRunView.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowRunView.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowRunView.redirect_to">
+<code class="descname">redirect_to</code><em class="property"> = u'history_status'</em><a class="headerlink" href="#galaxy.views.WorkflowRunView.redirect_to" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowRunView.success_msg">
+<code class="descname">success_msg</code><em class="property"> = u'Run started'</em><a class="headerlink" href="#galaxy.views.WorkflowRunView.success_msg" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowRunView.success_url">
+<code class="descname">success_url</code><em class="property"> = u'/galaxy/success'</em><a class="headerlink" href="#galaxy.views.WorkflowRunView.success_url" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowRunView.table_class">
+<code class="descname">table_class</code><a class="headerlink" href="#galaxy.views.WorkflowRunView.table_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="../../django-gfiles/api/tables.html#gfiles.tables.GFileTable" title="gfiles.tables.GFileTable"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.tables.GFileTable</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="galaxy.views.WorkflowRunView.template_name">
+<code class="descname">template_name</code><em class="property"> = u'galaxy/workflow_run.html'</em><a class="headerlink" href="#galaxy.views.WorkflowRunView.template_name" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowRunView.update_workflow_inputs">
+<code class="descname">update_workflow_inputs</code><span class="sig-paren">(</span><em>l</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowRunView.update_workflow_inputs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowRunView.update_workflow_inputs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="galaxy.views.WorkflowStatus">
+<em class="property">class </em><code class="descclassname">galaxy.views.</code><code class="descname">WorkflowStatus</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowStatus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowStatus" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.base.View</span></code></p>
+<dl class="method">
+<dt id="galaxy.views.WorkflowStatus.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowStatus.get"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowStatus.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="galaxy.views.WorkflowStatus.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>request</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#WorkflowStatus.post"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.WorkflowStatus.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="galaxy.views.ajax_post_selected">
+<code class="descclassname">galaxy.views.</code><code class="descname">ajax_post_selected</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#ajax_post_selected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.ajax_post_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="galaxy.views.checkbox_selected">
+<code class="descclassname">galaxy.views.</code><code class="descname">checkbox_selected</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#checkbox_selected"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.checkbox_selected" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="galaxy.views.history_status_update">
+<code class="descclassname">galaxy.views.</code><code class="descname">history_status_update</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#history_status_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.history_status_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="galaxy.views.selected_items_2_pks">
+<code class="descclassname">galaxy.views.</code><code class="descname">selected_items_2_pks</code><span class="sig-paren">(</span><em>selected_items</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#selected_items_2_pks"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.selected_items_2_pks" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="galaxy.views.success">
+<code class="descclassname">galaxy.views.</code><code class="descname">success</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#success"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.success" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="galaxy.views.workflow_status_update">
+<code class="descclassname">galaxy.views.</code><code class="descname">workflow_status_update</code><span class="sig-paren">(</span><em>request</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/galaxy/views.html#workflow_status_update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#galaxy.views.workflow_status_update" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="filters.html" class="btn btn-neutral float-right" title="django-galaxy filters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models.html" class="btn btn-neutral" title="django-galaxy models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

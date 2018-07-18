@@ -1,5 +1,5 @@
 django-gfiles filters
 =========================================
 
-.. automodule:: gfiles.filters
+.. automodule:: gfiles.filter
     :members:

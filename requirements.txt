@@ -5,7 +5,7 @@ django_celery_results
 six
 future
 django-gfiles
-
+django-galaxy
 Sphinx
 sphinx-rtd-theme
 sphinxcontrib-napoleon

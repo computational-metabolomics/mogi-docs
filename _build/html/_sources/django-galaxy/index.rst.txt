@@ -3,29 +3,27 @@
 django-galaxy
 ========================================
 
-|Git| |Bioconda| |License| |RTD doc|
+
+|Build Status (Travis)| |Py versions|
 
 
 
 
-`Galaxy  repository <https://galaxyproject.org/>`__ is a web based workflow platform that can be used to perform bioinformatics in a reproducible and sharable environment.
- 
+Django interfacing with Galaxy. Backend using the bioblend API.
+
+`Galaxy <https://galaxyproject.org/>`__ is a web based workflow platform that can be used to perform bioinformatics in a reproducible and sharable environment.
+
+
+.. |Build Status (Travis)| image:: https://travis-ci.com/computational-metabolomics/django-galaxy.svg?branch=master
+   :target: https://travis-ci.com/computational-metabolomics/django-galaxy/
+
+.. |Py versions| image:: https://img.shields.io/pypi/pyversions/django-galaxy.svg?style=flat&maxAge=3600
+   :target: https://pypi.python.org/pypi/django-galaxy/
+
 
 .. toctree::
    :maxdepth: 2
 
-   Installation <install.rst>
-   Usage <usage.rst>
+   Quick start <quickstart.rst>
+   API reference <api/index.rst>
 
-
-.. |Bioconda| image:: https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat-square
-   :target: http://bioconda.github.io/recipes/mzml2isa/README.html
-
-.. |Git| image:: https://img.shields.io/badge/repository-GitHub-blue.svg?style=flat&maxAge=2592000
-   :target: https://github.com/ISA-tools/mzml2isa-galaxy/
-
-.. |License| image:: https://img.shields.io/pypi/l/nmrml2isa-qt.svg?style=flat&maxAge=2592000
-   :target: https://www.gnu.org/licenses/gpl-3.0.html
-
-.. |RTD doc| image:: https://img.shields.io/badge/documentation-RTD-71B360.svg?style=flat&maxAge=2592000
-   :target: http://2isa.readthedocs.io/en/latest/mzml2isa-galaxy/index.html

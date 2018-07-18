@@ -186,11 +186,11 @@
 </div>
 </li>
 <li><p class="first">Include the polls URLconf in your project urls.py like this:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path</span><span class="p">(</span><span class="s1">&#39;gfiles/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;gfiles.urls&#39;</span><span class="p">)),</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;gfiles.urls&#39;</span><span class="p">)),</span>
 </pre></div>
 </div>
 </li>
-<li><p class="first">Run <cite>python manage.py migrate</cite> to create the polls models.</p>
+<li><p class="first">Run <cite>python manage.py migrate</cite> to create the models.</p>
 </li>
 <li><p class="first">Start the development server and visit <a class="reference external" href="http://127.0.0.1:8000">http://127.0.0.1:8000</a></p>
 </li>
