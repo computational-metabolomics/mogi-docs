@@ -15,7 +15,7 @@ The suite consist of the following reusable applications:
 * :ref:`django-mogi`
 * :ref:`django-misa`
 * :ref:`django-galaxy`
-* :ref:`django-metab`
+* :ref:`django-mbrowse`
 * :ref:`django-gfiles`
 
 
@@ -52,7 +52,7 @@ User Documentation
 
 django-mogi
 ''''''''''''''''''''''''''''''''''''''''''''''''''
-The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)
+Metabolome Organisation with Galaxy and ISA (imports all of the django-applications within the Django MOGI application suite)
 
 .. toctree::
    :maxdepth: 2
@@ -61,7 +61,7 @@ The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML)
 
 django-galaxy
 ''''''''''''''''''''''''''''''''''''''''''''''''''
-The command line applications / libraries are currently divided into the mzml2isa package (covering mzML and imzML) and nmrml2isa (covering nmrML).
+Django interfacing with Galaxy. Backend using the bioblend API.
 
 .. toctree::
    :maxdepth: 2
@@ -71,7 +71,7 @@ The command line applications / libraries are currently divided into the mzml2is
 
 django-misa
 ''''''''''''''''''''''''''''''''''''''''''''''''''
-The graphical user interfaces are divided into mzmlisa-qt (covering mzML), imzml2isa-qt (covering imzML) and nmrml2isa-qt (covering nmrML).
+ISA organisation for metabolomic studies with Django
 
 .. toctree::
    :maxdepth: 2
@@ -79,14 +79,15 @@ The graphical user interfaces are divided into mzmlisa-qt (covering mzML), imzml
    django-misa <django-misa/index.rst>
 
 
-django-metab
+django-mbrowse
 ''''''''''''''''''''''''''''''''''''''''''''''''''
-The Galaxy interfaces are divided into mzml2isa-galaxy (covering mzML and imzML) and nmrml2isa-galaxy (covering nmrML)
+Browse, view and search metabolomic datasets
+
 
 .. toctree::
    :maxdepth: 2
 
-   django-metab <django-metab/index.rst>
+   django-mbrowse <django-mbrowse/index.rst>
 
 
 django-gfiles

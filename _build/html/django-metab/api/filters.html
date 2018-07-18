@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>django-mbrowse filters &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>django-mbrowse filters</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-metab/api/filters.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mbrowse.filter">
+<span id="django-mbrowse-filters"></span><h1>django-mbrowse filters<a class="headerlink" href="#module-mbrowse.filter" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mbrowse.filter.CAnnotationFilter">
+<em class="property">class </em><code class="descclassname">mbrowse.filter.</code><code class="descname">CAnnotationFilter</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/filter.html#CAnnotationFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.filter.CAnnotationFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_filters.filterset.FilterSet</span></code></p>
+<dl class="class">
+<dt id="mbrowse.filter.CAnnotationFilter.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/filter.html#CAnnotationFilter.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.filter.CAnnotationFilter.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.filter.CAnnotationFilter.Meta.fields">
+<code class="descname">fields</code><em class="property"> = {'compound__name': ['contains'], 'cpeakgroup__mzmed': ['gt', 'lt'], 'cpeakgroup__rtmed': ['gt', 'lt']}</em><a class="headerlink" href="#mbrowse.filter.CAnnotationFilter.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.CAnnotationFilter.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.filter.CAnnotationFilter.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_annotations.CAnnotation</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.CAnnotationFilter.base_filters">
+<code class="descname">base_filters</code><em class="property"> = {'compound__name__contains': &lt;django_filters.filters.CharFilter object at 0x7fa6bb3a0510&gt;, 'cpeakgroup__mzmed__gt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a0d90&gt;, 'cpeakgroup__mzmed__lt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a0390&gt;, 'cpeakgroup__rtmed__gt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a02d0&gt;, 'cpeakgroup__rtmed__lt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a0650&gt;}</em><a class="headerlink" href="#mbrowse.filter.CAnnotationFilter.base_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.CAnnotationFilter.declared_filters">
+<code class="descname">declared_filters</code><em class="property"> = {}</em><a class="headerlink" href="#mbrowse.filter.CAnnotationFilter.declared_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.filter.CPeakGroupFilter">
+<em class="property">class </em><code class="descclassname">mbrowse.filter.</code><code class="descname">CPeakGroupFilter</code><span class="sig-paren">(</span><em>data=None</em>, <em>queryset=None</em>, <em>prefix=None</em>, <em>strict=None</em>, <em>request=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/filter.html#CPeakGroupFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.filter.CPeakGroupFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_filters.filterset.FilterSet</span></code></p>
+<dl class="class">
+<dt id="mbrowse.filter.CPeakGroupFilter.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/filter.html#CPeakGroupFilter.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.filter.CPeakGroupFilter.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.filter.CPeakGroupFilter.Meta.fields">
+<code class="descname">fields</code><em class="property"> = {'adducts': ['contains'], 'isotopes': ['contains'], 'mzmed': ['gt', 'lt'], 'rtmed': ['gt', 'lt']}</em><a class="headerlink" href="#mbrowse.filter.CPeakGroupFilter.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.CPeakGroupFilter.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.filter.CPeakGroupFilter.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.CPeakGroup</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.CPeakGroupFilter.base_filters">
+<code class="descname">base_filters</code><em class="property"> = {'adducts__contains': &lt;django_filters.filters.CharFilter object at 0x7fa6bb3a00d0&gt;, 'isotopes__contains': &lt;django_filters.filters.CharFilter object at 0x7fa6bb3a0790&gt;, 'mzmed__gt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a0090&gt;, 'mzmed__lt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a0610&gt;, 'rtmed__gt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a0bd0&gt;, 'rtmed__lt': &lt;django_filters.filters.NumberFilter object at 0x7fa6bb3a09d0&gt;}</em><a class="headerlink" href="#mbrowse.filter.CPeakGroupFilter.base_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.CPeakGroupFilter.declared_filters">
+<code class="descname">declared_filters</code><em class="property"> = {}</em><a class="headerlink" href="#mbrowse.filter.CPeakGroupFilter.declared_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.filter.MFileFilter">
+<em class="property">class </em><code class="descclassname">mbrowse.filter.</code><code class="descname">MFileFilter</code><span class="sig-paren">(</span><em>data=None</em>, <em>queryset=None</em>, <em>prefix=None</em>, <em>strict=None</em>, <em>request=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/filter.html#MFileFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.filter.MFileFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../django-gfiles/api/filters.html#gfiles.filter.GFileFilter" title="gfiles.filter.GFileFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.filter.GFileFilter</span></code></a></p>
+<dl class="class">
+<dt id="mbrowse.filter.MFileFilter.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/filter.html#MFileFilter.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.filter.MFileFilter.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.filter.MFileFilter.Meta.fields">
+<code class="descname">fields</code><em class="property"> = {'mfilesuffix__suffix': ['contains'], 'original_filename': ['contains']}</em><a class="headerlink" href="#mbrowse.filter.MFileFilter.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.MFileFilter.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.filter.MFileFilter.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_general.MFile</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.MFileFilter.base_filters">
+<code class="descname">base_filters</code><em class="property"> = {'mfilesuffix__suffix__contains': &lt;django_filters.filters.CharFilter object at 0x7fa6bb3a0a50&gt;, 'original_filename': &lt;django_filters.filters.CharFilter object at 0x7fa6bb288ad0&gt;, 'original_filename__contains': &lt;django_filters.filters.CharFilter object at 0x7fa6bb3a0ad0&gt;, 'username': &lt;django_filters.filters.CharFilter object at 0x7fa6bb288a90&gt;}</em><a class="headerlink" href="#mbrowse.filter.MFileFilter.base_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.filter.MFileFilter.declared_filters">
+<code class="descname">declared_filters</code><em class="property"> = {'original_filename': &lt;django_filters.filters.CharFilter object at 0x7fa6bb288ad0&gt;, 'username': &lt;django_filters.filters.CharFilter object at 0x7fa6bb288a90&gt;}</em><a class="headerlink" href="#mbrowse.filter.MFileFilter.declared_filters" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

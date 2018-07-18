@@ -1,0 +1,493 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mbrowse.views.views_cpeaks &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mbrowse.views.views_cpeaks</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mbrowse.views.views_cpeaks</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">collections</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">plotly.offline</span> <span class="k">as</span> <span class="nn">opy</span>
+<span class="kn">import</span> <span class="nn">plotly.graph_objs</span> <span class="k">as</span> <span class="nn">go</span>
+
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">CreateView</span><span class="p">,</span> <span class="n">ListView</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="k">import</span> <span class="n">LoginRequiredMixin</span>
+<span class="kn">from</span> <span class="nn">django_filters.views</span> <span class="k">import</span> <span class="n">FilterView</span>
+<span class="kn">from</span> <span class="nn">django_tables2.views</span> <span class="k">import</span> <span class="n">SingleTableMixin</span>
+
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="n">MetabInputData</span><span class="p">,</span> <span class="n">MFile</span><span class="p">,</span> <span class="n">CPeakGroup</span><span class="p">,</span> <span class="n">CPeakGroupMeta</span><span class="p">,</span> <span class="n">Eic</span><span class="p">,</span> <span class="n">SPeak</span><span class="p">,</span> <span class="n">CAnnotation</span>
+<span class="kn">from</span> <span class="nn">mbrowse.tables</span> <span class="k">import</span> <span class="n">CPeakGroupTable</span><span class="p">,</span> <span class="n">CPeakGroupMetaTable</span><span class="p">,</span> <span class="n">EicTable</span><span class="p">,</span> <span class="n">SPeakTable</span><span class="p">,</span> <span class="n">CAnnotationTable</span>
+<span class="kn">from</span> <span class="nn">mbrowse.filter</span> <span class="k">import</span> <span class="n">CPeakGroupFilter</span><span class="p">,</span> <span class="n">CAnnotationFilter</span>
+<span class="kn">from</span> <span class="nn">mbrowse.tasks</span> <span class="k">import</span> <span class="n">save_lcms_data_task</span>
+
+<span class="c1">#################################################################################</span>
+<span class="c1"># LC-MS stuff</span>
+<span class="c1">#################################################################################</span>
+<div class="viewcode-block" id="UploadLCMSDataset"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.UploadLCMSDataset">[docs]</a><span class="k">class</span> <span class="nc">UploadLCMSDataset</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">MetabInputData</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+
+<div class="viewcode-block" id="UploadLCMSDataset.form_valid"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.UploadLCMSDataset.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">save_lcms_data_task</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="CPeakGroupAllListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CPeakGroupAllListView">[docs]</a><span class="k">class</span> <span class="nc">CPeakGroupAllListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">CPeakGroupTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CPeakGroup</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/cpeakgroup_summary_all.html&#39;</span></div>
+
+
+<div class="viewcode-block" id="CPeakGroupListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CPeakGroupListView">[docs]</a><span class="k">class</span> <span class="nc">CPeakGroupListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">CPeakGroupTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CPeakGroup</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">CPeakGroupFilter</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/cpeakgroup_summary.html&#39;</span>
+
+<div class="viewcode-block" id="CPeakGroupListView.get_queryset"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CPeakGroupListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroupmeta_id</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cid&#39;</span><span class="p">))</span></div></div>
+
+
+<div class="viewcode-block" id="CAnnotationsListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CAnnotationsListView">[docs]</a><span class="k">class</span> <span class="nc">CAnnotationsListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">CAnnotationTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CAnnotation</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/cpeakgroup_annotations.html&#39;</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">CAnnotationFilter</span>
+
+<div class="viewcode-block" id="CAnnotationsListView.get_queryset"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CAnnotationsListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroup_id</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-weighted_score&#39;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="CAnnotationsListView.get_context_data"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CAnnotationsListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Call the base implementation first to get a context</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">CAnnotationsListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="c1"># Add in a QuerySet of all the books</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;cgid&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;cpgm_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cpeakgroup__id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">context</span></div></div>
+
+
+
+<div class="viewcode-block" id="CAnnotationsListAllView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CAnnotationsListAllView">[docs]</a><span class="k">class</span> <span class="nc">CAnnotationsListAllView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">CAnnotationTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CAnnotation</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/cpeakgroup_annotations_all.html&#39;</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">CAnnotationFilter</span>
+
+<div class="viewcode-block" id="CAnnotationsListAllView.get_queryset"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CAnnotationsListAllView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-weighted_score&#39;</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="CPeakGroupMetaListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.CPeakGroupMetaListView">[docs]</a><span class="k">class</span> <span class="nc">CPeakGroupMetaListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">CPeakGroupMetaTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/cpeakmeta_summary.html&#39;</span></div>
+
+<div class="viewcode-block" id="Frag4FeatureListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.Frag4FeatureListView">[docs]</a><span class="k">class</span> <span class="nc">Frag4FeatureListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">SPeakTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SPeak</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/frag4feature.html&#39;</span>
+
+<div class="viewcode-block" id="Frag4FeatureListView.get_queryset"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.Frag4FeatureListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">SPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">speakmeta__speakmetacpeakfraglink__cpeak__cpeakgrouplink__cpeakgroup_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Frag4FeatureListView.get_context_data"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.Frag4FeatureListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Call the base implementation first to get a context</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Frag4FeatureListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">values</span> <span class="o">=</span> <span class="n">SPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">speakmeta__speakmetacpeakfraglink__cpeak__cpeakgrouplink__cpeakgroup_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+            <span class="s1">&#39;mz&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;i&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;speakmeta__scan_num&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;speakmeta_id&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;speakmeta__run__mfile__original_filename&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;speakmeta__cpeak__xcmsfileinfo__classname&#39;</span><span class="p">,</span>
+        <span class="p">)</span>
+
+        <span class="n">values4plot</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="n">spmid</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;speakmeta_id&#39;</span><span class="p">]</span>
+
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;speakmeta__run__mfile__original_filename&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">values4plot</span><span class="p">[</span><span class="n">spmid</span><span class="p">]:</span>
+                <span class="n">values4plot</span><span class="p">[</span><span class="n">spmid</span><span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+            <span class="n">values4plot</span><span class="p">[</span><span class="n">spmid</span><span class="p">][</span><span class="s1">&#39;mz&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;mz&#39;</span><span class="p">])</span>
+            <span class="n">values4plot</span><span class="p">[</span><span class="n">spmid</span><span class="p">][</span><span class="s1">&#39;i&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">])</span>
+            <span class="n">values4plot</span><span class="p">[</span><span class="n">spmid</span><span class="p">][</span><span class="s1">&#39;class&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;speakmeta__cpeak__xcmsfileinfo__classname&#39;</span><span class="p">])</span>
+            <span class="n">values4plot</span><span class="p">[</span><span class="n">spmid</span><span class="p">][</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;speakmeta__run__mfile__original_filename&#39;</span><span class="p">])</span>
+            <span class="n">values4plot</span><span class="p">[</span><span class="n">spmid</span><span class="p">][</span><span class="s1">&#39;scan_num&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;speakmeta__scan_num&#39;</span><span class="p">])</span>
+
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">ord</span><span class="p">,</span> <span class="s2">&quot;palettes&quot;</span><span class="p">)))</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">current_palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;colorblind&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">values4plot</span><span class="p">))</span>
+        <span class="n">colour</span> <span class="o">=</span> <span class="n">current_palette</span><span class="o">.</span><span class="n">as_hex</span><span class="p">()</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values4plot</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+
+            <span class="n">mzs</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;mz&#39;</span><span class="p">]</span>
+            <span class="n">intens</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+            <span class="n">intens</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">intens</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">intens</span><span class="p">]</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span>
+            <span class="n">scan_num</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;scan_num&#39;</span><span class="p">]</span>
+            <span class="n">peakclass</span> <span class="o">=</span> <span class="n">v</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]</span>
+
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">mzs</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="n">i</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                    <span class="n">showLegend</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">showLegend</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{f}</span><span class="s1"> </span><span class="si">{s}</span><span class="s1"> </span><span class="si">{p}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">filename</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="o">=</span><span class="n">scan_num</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">p</span><span class="o">=</span><span class="n">peakclass</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+
+                <span class="n">trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="n">mzs</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">mzs</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                                <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">intens</span><span class="p">[</span><span class="n">i</span><span class="p">]],</span>
+                                <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines+markers&#39;</span><span class="p">,</span>
+                                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">legendgroup</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                <span class="n">showlegend</span> <span class="o">=</span> <span class="n">showLegend</span><span class="p">,</span>
+                                <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">colour</span><span class="p">[</span><span class="n">c</span><span class="p">]))))</span>
+                <span class="c1"># trace =  dict(name=k,</span>
+                <span class="c1">#               legendgroup=str(k),</span>
+                <span class="c1">#               x=[mzs[i], mzs[i]],</span>
+                <span class="c1">#               y=[0, intens[i]],</span>
+                <span class="c1">#               mode = &#39;lines+markers&#39;,</span>
+                <span class="c1">#</span>
+                <span class="c1">#               line=dict(color=(str(colour[c]))))</span>
+
+                <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Fragmentation spectra assoicated with a chromatographic grouped feature&#39;</span><span class="p">,</span>
+                      <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;scan&#39;</span><span class="p">),</span>
+                      <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;intensity&#39;</span><span class="p">),</span>
+                      <span class="p">)</span>
+
+        <span class="c1"># layout = go.Layout(title=&quot;Meine Daten&quot;, xaxis={&#39;title&#39;: &#39;x1&#39;}, yaxis={&#39;title&#39;: &#39;x2&#39;})</span>
+        <span class="n">figure</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">div</span> <span class="o">=</span> <span class="n">opy</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figure</span><span class="p">,</span> <span class="n">auto_open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>
+
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">div</span>
+
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">cpgm</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cpeakgroup__id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">))</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;cpgm_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpgm</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="k">return</span> <span class="n">context</span></div></div>
+
+
+<div class="viewcode-block" id="EicListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.EicListView">[docs]</a><span class="k">class</span> <span class="nc">EicListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">EicTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Eic</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/eics.html&#39;</span>
+
+<div class="viewcode-block" id="EicListView.get_queryset"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.EicListView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Eic</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroup_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="EicListView.get_context_data"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_cpeaks.EicListView.get_context_data">[docs]</a>    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="c1"># Call the base implementation first to get a context</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">EicListView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+        <span class="n">values</span> <span class="o">=</span> <span class="n">Eic</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">cpeakgroup_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+            <span class="s1">&#39;rt_corrected&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;intensity&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;cpeak__xcmsfileinfo__mfile__original_filename&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;cpeak__xcmsfileinfo__classname&#39;</span>
+        <span class="p">)</span>
+
+        <span class="n">values4plot</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+
+        <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">values</span><span class="p">:</span>
+            <span class="n">filename</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;cpeak__xcmsfileinfo__mfile__original_filename&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">values4plot</span><span class="p">[</span><span class="n">filename</span><span class="p">]:</span>
+                <span class="n">values4plot</span><span class="p">[</span><span class="n">filename</span><span class="p">]</span> <span class="o">=</span> <span class="n">collections</span><span class="o">.</span><span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+            <span class="n">values4plot</span><span class="p">[</span><span class="n">filename</span><span class="p">][</span><span class="s1">&#39;intensity&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;intensity&#39;</span><span class="p">])</span>
+            <span class="n">values4plot</span><span class="p">[</span><span class="n">filename</span><span class="p">][</span><span class="s1">&#39;rt&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;rt_corrected&#39;</span><span class="p">])</span>
+
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">ord</span><span class="p">,</span> <span class="s2">&quot;palettes&quot;</span><span class="p">)))</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">current_palette</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">color_palette</span><span class="p">(</span><span class="s1">&#39;colorblind&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">values4plot</span><span class="p">))</span>
+        <span class="n">colour</span> <span class="o">=</span> <span class="n">current_palette</span><span class="o">.</span><span class="n">as_hex</span><span class="p">()</span>
+
+        <span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">values4plot</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+            <span class="n">trace</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+                <span class="n">x</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">],</span>
+                <span class="n">y</span><span class="o">=</span><span class="n">v</span><span class="p">[</span><span class="s1">&#39;intensity&#39;</span><span class="p">],</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">k</span><span class="p">,</span>
+                <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">color</span><span class="o">=</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">colour</span><span class="p">[</span><span class="n">c</span><span class="p">])),</span>
+                    <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+                <span class="p">)</span>
+
+            <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">trace</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">layout</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;Extracted Ion Chromatgrams for individual peaks grouped between multiple files&#39;</span><span class="p">,</span>
+                      <span class="n">xaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;retention time&#39;</span><span class="p">),</span>
+                      <span class="n">yaxis</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;intensity&#39;</span><span class="p">),</span>
+                      <span class="p">)</span>
+
+        <span class="c1"># layout = go.Layout(title=&quot;Meine Daten&quot;, xaxis={&#39;title&#39;: &#39;x1&#39;}, yaxis={&#39;title&#39;: &#39;x2&#39;})</span>
+        <span class="n">figure</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">layout</span><span class="o">=</span><span class="n">layout</span><span class="p">)</span>
+        <span class="n">div</span> <span class="o">=</span> <span class="n">opy</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">figure</span><span class="p">,</span> <span class="n">auto_open</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">output_type</span><span class="o">=</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>
+
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;graph&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">div</span>
+
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;data&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+        <span class="n">cpgm</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">cpeakgroup__id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;cgid&#39;</span><span class="p">))</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;cpgm_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">cpgm</span><span class="o">.</span><span class="n">id</span>
+
+        <span class="k">return</span> <span class="n">context</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

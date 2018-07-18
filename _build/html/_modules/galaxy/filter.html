@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
@@ -164,22 +164,22 @@
 <span class="kn">from</span> <span class="nn">.models</span> <span class="k">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">History</span>
 
 
-<span class="k">class</span> <span class="nc">WorkflowFilter</span><span class="p">(</span><span class="n">filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowFilter"><a class="viewcode-back" href="../../django-galaxy/api/filters.html#galaxy.views.WorkflowFilter">[docs]</a><span class="k">class</span> <span class="nc">WorkflowFilter</span><span class="p">(</span><span class="n">filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="WorkflowFilter.Meta"><a class="viewcode-back" href="../../django-galaxy/api/filters.html#galaxy.views.WorkflowFilter.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;contains&#39;</span><span class="p">],</span>
             <span class="s1">&#39;galaxy_id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;contains&#39;</span><span class="p">],</span>
             <span class="c1"># &#39;accessible&#39;: [&#39;isnull&#39;]</span>
-        <span class="p">}</span>
+        <span class="p">}</span></div></div>
 
 
 
 
-<span class="k">class</span> <span class="nc">HistoryFilter</span><span class="p">(</span><span class="n">django_filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryFilter"><a class="viewcode-back" href="../../django-galaxy/api/filters.html#galaxy.views.HistoryFilter">[docs]</a><span class="k">class</span> <span class="nc">HistoryFilter</span><span class="p">(</span><span class="n">django_filters</span><span class="o">.</span><span class="n">FilterSet</span><span class="p">):</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="HistoryFilter.Meta"><a class="viewcode-back" href="../../django-galaxy/api/filters.html#galaxy.views.HistoryFilter.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">History</span>
         <span class="n">fields</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;exact&#39;</span><span class="p">],</span>
@@ -193,7 +193,7 @@
             <span class="s1">&#39;ok&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">],</span>
             <span class="s1">&#39;running&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span>
 
-        <span class="p">}</span>
+        <span class="p">}</span></div></div>
 </pre></div>
 
            </div>

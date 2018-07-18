@@ -1,0 +1,7 @@
+django-mbrowse tables
+=========================================
+
+.. automodule:: mbrowse.tables
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
@@ -172,12 +172,12 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">filename</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;original_filename&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Filename&#39;</span><span class="p">)</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="GFileTable.Meta"><a class="viewcode-back" href="../../django-gfiles/api/tables.html#gfiles.tables.GFileTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">GenericFile</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">}</span>
         <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/boostrap.html&#39;</span>
 
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="p">)</span></div>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="p">)</span></div></div>
 
 
 <div class="viewcode-block" id="GFileTableWithCheck"><a class="viewcode-back" href="../../django-gfiles/api/tables.html#gfiles.tables.GFileTableWithCheck">[docs]</a><span class="k">class</span> <span class="nc">GFileTableWithCheck</span><span class="p">(</span><span class="n">GFileTable</span><span class="p">):</span>
@@ -191,11 +191,11 @@
                                                <span class="s2">&quot;td__input&quot;</span><span class="p">:</span> <span class="p">{</span><span class="s2">&quot;onclick&quot;</span><span class="p">:</span> <span class="s2">&quot;addfile(this)&quot;</span><span class="p">}},</span>
                                            <span class="n">orderable</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="GFileTableWithCheck.Meta"><a class="viewcode-back" href="../../django-gfiles/api/tables.html#gfiles.tables.GFileTableWithCheck.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">GenericFile</span>
         <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">}</span>
-        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;check&#39;</span><span class="p">)</span></div>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">,</span> <span class="s1">&#39;check&#39;</span><span class="p">)</span></div></div>
 
 
 

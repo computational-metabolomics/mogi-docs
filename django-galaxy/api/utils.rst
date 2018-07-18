@@ -2,16 +2,21 @@ django-galaxy utils
 =========================================
 
 .. automodule:: galaxy.utils.galaxy_utils
-    :members:
+   :members:
+
 
 .. automodule:: galaxy.utils.history_actions
-    :members:
+   :members:
+
 
 .. automodule:: galaxy.utils.sync_files
-    :members:
+   :members:
+
 
 .. automodule:: galaxy.utils.upload_to_galaxy
-    :members:
+   :members:
+
 
 .. automodule:: galaxy.utils.workflow_actions
-    :members:
+   :members:
+

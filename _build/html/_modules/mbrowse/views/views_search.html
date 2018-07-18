@@ -1,0 +1,297 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mbrowse.views.views_search &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mbrowse.views.views_search</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mbrowse.views.views_search</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">CreateView</span><span class="p">,</span> <span class="n">ListView</span><span class="p">,</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="k">import</span> <span class="n">LoginRequiredMixin</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span><span class="p">,</span> <span class="n">redirect</span>
+<span class="kn">from</span> <span class="nn">django_tables2.views</span> <span class="k">import</span> <span class="n">SingleTableMixin</span>
+
+<span class="kn">from</span> <span class="nn">mbrowse.utils.search_mz_nm</span> <span class="k">import</span> <span class="n">search_mz</span><span class="p">,</span> <span class="n">search_nm</span>
+<span class="kn">from</span> <span class="nn">mbrowse.utils.search_frag</span> <span class="k">import</span> <span class="n">search_frag</span>
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="n">SearchMzParam</span><span class="p">,</span> <span class="n">SearchNmParam</span><span class="p">,</span> <span class="n">SearchFragParam</span><span class="p">,</span> <span class="n">SearchNmResult</span><span class="p">,</span> <span class="n">SearchMzResult</span><span class="p">,</span> <span class="n">SearchFragResult</span>
+<span class="kn">from</span> <span class="nn">mbrowse.forms</span> <span class="k">import</span> <span class="n">SearchFragParamForm</span><span class="p">,</span> <span class="n">SearchMzParamForm</span><span class="p">,</span>  <span class="n">SearchNmParamForm</span>
+<span class="kn">from</span> <span class="nn">mbrowse.tables</span> <span class="k">import</span> <span class="n">SearchMzResultTable</span><span class="p">,</span> <span class="n">SearchNmResultTable</span><span class="p">,</span> <span class="n">SearchFragResultTable</span>
+<span class="kn">from</span> <span class="nn">mbrowse.tasks</span> <span class="k">import</span> <span class="n">search_mz_task</span><span class="p">,</span> <span class="n">search_nm_task</span><span class="p">,</span> <span class="n">search_frag_task</span>
+
+<div class="viewcode-block" id="SearchNmParamCreateView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchNmParamCreateView">[docs]</a><span class="k">class</span> <span class="nc">SearchNmParamCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SearchNmParam</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SearchNmParamForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+
+<div class="viewcode-block" id="SearchNmParamCreateView.form_valid"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchNmParamCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">snp</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">search_nm_task</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">snp</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="SearchMzParamCreateView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchMzParamCreateView">[docs]</a><span class="k">class</span> <span class="nc">SearchMzParamCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SearchMzParam</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SearchMzParamForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+
+<div class="viewcode-block" id="SearchMzParamCreateView.form_valid"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchMzParamCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">smp</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">search_mz_task</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">smp</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="SearchFragParamCreateView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchFragParamCreateView">[docs]</a><span class="k">class</span> <span class="nc">SearchFragParamCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SearchFragParam</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SearchFragParamForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+
+<div class="viewcode-block" id="SearchFragParamCreateView.form_valid"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchFragParamCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">sp</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="c1"># result = search_frag(sp.id)</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">search_frag_task</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">sp</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">id</span>
+        <span class="c1"># self.request.session[&#39;result&#39;] = result.id</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="SearchNmResultListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchNmResultListView">[docs]</a><span class="k">class</span> <span class="nc">SearchNmResultListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SearchNmResult</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">SearchNmResultTable</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/searchresult_list.html&#39;</span></div>
+
+<div class="viewcode-block" id="SearchMzResultListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchMzResultListView">[docs]</a><span class="k">class</span> <span class="nc">SearchMzResultListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SearchMzResult</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">SearchMzResultTable</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/searchresult_list.html&#39;</span></div>
+
+<div class="viewcode-block" id="SearchFragResultListView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchFragResultListView">[docs]</a><span class="k">class</span> <span class="nc">SearchFragResultListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SearchFragResult</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">SearchFragResultTable</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/searchresult_list.html&#39;</span></div>
+
+<div class="viewcode-block" id="SearchResultSummaryView"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchResultSummaryView">[docs]</a><span class="k">class</span> <span class="nc">SearchResultSummaryView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="c1"># initial = {&#39;key&#39;: &#39;value&#39;}</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mbrowse/search_result_summary.html&#39;</span>
+
+<div class="viewcode-block" id="SearchResultSummaryView.get"><a class="viewcode-back" href="../../../django-mbrowse/api/views.html#mbrowse.views.views_search.SearchResultSummaryView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">)</span></div></div>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
@@ -300,10 +300,10 @@
 
 <span class="sd">    todo: It might be worth changing this view to a more general GalaxySync option. That syncs workflows &amp; files</span>
 <span class="sd">    &#39;&#39;&#39;</span>
-<div class="viewcode-block" id="GalaxySync.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxySync.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="GalaxySync.get"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.GalaxySync.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/galaxy_sync.html&#39;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="GalaxySync.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GalaxySync.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="GalaxySync.post"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.GalaxySync.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">workflow_sync</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
         <span class="n">sync_galaxy_files</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
         <span class="n">get_history_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
@@ -322,7 +322,7 @@
     <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/workflow_summary.html&#39;</span>
     <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">WorkflowFilter</span>
 
-<div class="viewcode-block" id="WorkflowListView.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowListView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowListView.post"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowListView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">workflow_sync</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
         <span class="c1"># redirects to show the current available workflows</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;workflow_summary&#39;</span><span class="p">)</span></div></div>
@@ -339,7 +339,7 @@
     <span class="c1"># template_name = &#39;galaxy/files_to_galaxy.html&#39;   # should add generic template for this, perhaps based on a related model</span>
     <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># pass any default parameters required for any context that is used</span>
 
-<div class="viewcode-block" id="TableFileSelectMixin.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="TableFileSelectMixin.get"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.TableFileSelectMixin.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># we have to overide the standard get to add some extra information to the context</span>
 
         <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
@@ -347,7 +347,7 @@
 
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TableFileSelectMixin.form2context"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.form2context">[docs]</a>    <span class="k">def</span> <span class="nf">form2context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="TableFileSelectMixin.form2context"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.TableFileSelectMixin.form2context">[docs]</a>    <span class="k">def</span> <span class="nf">form2context</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="n">filterset_class</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_filterset_class</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_filterset</span><span class="p">(</span><span class="n">filterset_class</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">object_list</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filterset</span><span class="o">.</span><span class="n">qs</span>
@@ -358,7 +358,7 @@
 
         <span class="k">return</span> <span class="n">context</span></div>
 
-<div class="viewcode-block" id="TableFileSelectMixin.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="TableFileSelectMixin.post"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.TableFileSelectMixin.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">is_ajax</span><span class="p">():</span>
             <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
@@ -376,7 +376,7 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="TableFileSelectMixin.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.TableFileSelectMixin.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="TableFileSelectMixin.form_valid"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.TableFileSelectMixin.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="c1"># first save the form and the user who posted</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/submitted.html&#39;</span><span class="p">)</span></div></div>
 
@@ -391,7 +391,7 @@
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">FilesToGalaxyDataLibraryParamForm</span>
     <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;library&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;django_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/galaxy/files_to_galaxy_datalib/&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="FilesToGalaxyDataLib.save_form_param"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.FilesToGalaxyDataLib.save_form_param">[docs]</a>    <span class="k">def</span> <span class="nf">save_form_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="FilesToGalaxyDataLib.save_form_param"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.FilesToGalaxyDataLib.save_form_param">[docs]</a>    <span class="k">def</span> <span class="nf">save_form_param</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="n">user</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="n">f2dl</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">f2dl</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">user</span>
@@ -401,7 +401,7 @@
         <span class="n">f2dl</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">f2dl</span></div>
 
-<div class="viewcode-block" id="FilesToGalaxyDataLib.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.FilesToGalaxyDataLib.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="FilesToGalaxyDataLib.form_valid"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.FilesToGalaxyDataLib.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="c1"># first save the form and the user who posted</span>
         <span class="n">f2dl</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_form_param</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">)</span>
 
@@ -421,7 +421,7 @@
     <span class="n">form_class</span> <span class="o">=</span> <span class="n">GenericFilesToGalaxyHistoryParamForm</span>
     <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;library&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;django_url&#39;</span><span class="p">:</span> <span class="s1">&#39;/galaxy/files_to_galaxy_datalib/&#39;</span><span class="p">}</span>
 
-<div class="viewcode-block" id="GenericFilesToGalaxyHistory.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.GenericFilesToGalaxyHistory.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="GenericFilesToGalaxyHistory.form_valid"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.GenericFilesToGalaxyHistory.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="n">f2h</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">f2h</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">user</span>
@@ -447,24 +447,24 @@
     <span class="n">redirect_to</span> <span class="o">=</span> <span class="s1">&#39;history_status&#39;</span>
 
 
-<div class="viewcode-block" id="WorkflowRunView.update_workflow_inputs"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.update_workflow_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">update_workflow_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowRunView.update_workflow_inputs"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowRunView.update_workflow_inputs">[docs]</a>    <span class="k">def</span> <span class="nf">update_workflow_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
         <span class="c1"># update the worklow inputs before submission (to be used with classes that inherit this class</span>
         <span class="k">return</span> <span class="n">l</span></div>
 
 
-<div class="viewcode-block" id="WorkflowRunView.get_queryset"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowRunView.get_queryset"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowRunView.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">Workflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;wid&#39;</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="WorkflowRunView.get_datainputs"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.get_datainputs">[docs]</a>    <span class="k">def</span> <span class="nf">get_datainputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowRunView.get_datainputs"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowRunView.get_datainputs">[docs]</a>    <span class="k">def</span> <span class="nf">get_datainputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="n">w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
         <span class="k">return</span> <span class="n">w</span><span class="o">.</span><span class="n">workflowinput_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span></div>
 
-<div class="viewcode-block" id="WorkflowRunView.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowRunView.get"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowRunView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
         <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">,</span> <span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="n">l</span><span class="p">,</span> <span class="s1">&#39;wid&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;wid&#39;</span><span class="p">]})</span></div>
 
-<div class="viewcode-block" id="WorkflowRunView.page_setup"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.page_setup">[docs]</a>    <span class="k">def</span> <span class="nf">page_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowRunView.page_setup"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowRunView.page_setup">[docs]</a>    <span class="k">def</span> <span class="nf">page_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
         <span class="c1"># Dynamic number of tables are added to the template based on what the workflow-inputs are (e.g. if</span>
         <span class="c1"># there are multiple data-inputs or data-input-collections). The choice of files to choose is based</span>
         <span class="c1"># on what the user has uploaded previously to either the gfiles or mfiles applications</span>
@@ -540,7 +540,7 @@
         <span class="n">l</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">tables_l</span><span class="p">,</span> <span class="n">filters</span><span class="p">,</span> <span class="n">data_input_names</span><span class="p">,</span> <span class="n">data_input_steps</span><span class="p">,</span> <span class="n">data_input_types</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">l</span></div>
 
-<div class="viewcode-block" id="WorkflowRunView.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowRunView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowRunView.post"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowRunView.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">)</span>
         <span class="n">l</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
@@ -579,14 +579,14 @@
 <div class="viewcode-block" id="WorkflowStatus"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowStatus">[docs]</a><span class="k">class</span> <span class="nc">WorkflowStatus</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
     <span class="c1"># template_name = &#39;galaxy/status.html&#39;</span>
 
-<div class="viewcode-block" id="WorkflowStatus.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowStatus.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowStatus.get"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowStatus.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">get_workflow_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
 
         <span class="n">table</span> <span class="o">=</span> <span class="n">WorkflowStatusTable</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/workflow_status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span><span class="n">table</span><span class="p">})</span></div>
 
-<div class="viewcode-block" id="WorkflowStatus.post"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.WorkflowStatus.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowStatus.post"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.WorkflowStatus.post">[docs]</a>    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">workflow_sync</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
         <span class="c1"># redirects to show the current available workflows</span>
         <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="s1">&#39;workflow_summary&#39;</span><span class="p">)</span></div></div>
@@ -594,7 +594,7 @@
 <div class="viewcode-block" id="HistoryDataBioBlendListView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataBioBlendListView">[docs]</a><span class="k">class</span> <span class="nc">HistoryDataBioBlendListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
 
 
-<div class="viewcode-block" id="HistoryDataBioBlendListView.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataBioBlendListView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryDataBioBlendListView.get"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.HistoryDataBioBlendListView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="n">data</span> <span class="o">=</span> <span class="n">get_history_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">],</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
 
         <span class="n">table</span> <span class="o">=</span> <span class="n">HistoryDataTable</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -622,7 +622,7 @@
         <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">history_internal_id</span><span class="p">,</span>
                 <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="p">}</span></div>
 
-<div class="viewcode-block" id="HistoryDataCreateView.save_form"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryDataCreateView.save_form">[docs]</a>    <span class="k">def</span> <span class="nf">save_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryDataCreateView.save_form"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.HistoryDataCreateView.save_form">[docs]</a>    <span class="k">def</span> <span class="nf">save_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="n">history_data_obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
         <span class="n">history_data_obj</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
 
@@ -657,7 +657,7 @@
 
 
 
-<div class="viewcode-block" id="HistoryListView.get"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryListView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryListView.get"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.HistoryListView.get">[docs]</a>    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="c1"># we have to overide the standard get to add some extra information to the context</span>
 
         <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">form_class</span><span class="p">()</span>
@@ -665,7 +665,7 @@
 
         <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="n">context</span><span class="o">=</span><span class="n">context</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="HistoryListView.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.HistoryListView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryListView.form_valid"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.HistoryListView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
 
         <span class="n">pks</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;check&quot;</span><span class="p">)</span>
 
@@ -674,12 +674,12 @@
 
 
 
-<div class="viewcode-block" id="history_status_update"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.history_status_update">[docs]</a><span class="k">def</span> <span class="nf">history_status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="history_status_update"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.history_status_update">[docs]</a><span class="k">def</span> <span class="nf">history_status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">get_history_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;table_data&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">})</span></div>
 
 
-<div class="viewcode-block" id="workflow_status_update"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.workflow_status_update">[docs]</a><span class="k">def</span> <span class="nf">workflow_status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="workflow_status_update"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.workflow_status_update">[docs]</a><span class="k">def</span> <span class="nf">workflow_status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
 
     <span class="n">data</span> <span class="o">=</span> <span class="n">get_workflow_status</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;table_data&#39;</span><span class="p">:</span><span class="n">data</span><span class="p">})</span></div>
@@ -711,7 +711,7 @@
         <span class="k">return</span> <span class="n">form_kwargs</span></div></div>
 
 
-<div class="viewcode-block" id="checkbox_selected"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.checkbox_selected">[docs]</a><span class="k">def</span> <span class="nf">checkbox_selected</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="checkbox_selected"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.checkbox_selected">[docs]</a><span class="k">def</span> <span class="nf">checkbox_selected</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="n">selected</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;selected&#39;</span><span class="p">]</span>
     <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;selected&#39;</span><span class="p">:</span> <span class="n">selected</span><span class="p">})</span></div>
 
@@ -720,7 +720,7 @@
 
 
 
-<div class="viewcode-block" id="selected_items_2_pks"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.selected_items_2_pks">[docs]</a><span class="k">def</span> <span class="nf">selected_items_2_pks</span><span class="p">(</span><span class="n">selected_items</span><span class="p">):</span>
+<div class="viewcode-block" id="selected_items_2_pks"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.selected_items_2_pks">[docs]</a><span class="k">def</span> <span class="nf">selected_items_2_pks</span><span class="p">(</span><span class="n">selected_items</span><span class="p">):</span>
     <span class="n">pkd</span> <span class="o">=</span> <span class="p">{}</span>
     <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">selected_items</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
         <span class="k">if</span> <span class="n">v</span><span class="p">:</span>
@@ -733,7 +733,7 @@
     <span class="k">return</span> <span class="n">pkd</span></div>
 
 
-<div class="viewcode-block" id="ajax_post_selected"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.ajax_post_selected">[docs]</a><span class="k">def</span> <span class="nf">ajax_post_selected</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="ajax_post_selected"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.ajax_post_selected">[docs]</a><span class="k">def</span> <span class="nf">ajax_post_selected</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="c1"># request dictionary</span>
     <span class="n">rd</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">body</span><span class="p">)</span>
 
@@ -754,7 +754,7 @@
 
     <span class="k">return</span> <span class="n">request</span></div>
 
-<div class="viewcode-block" id="success"><a class="viewcode-back" href="../../django-galaxy/api/views.html#galaxy.views.success">[docs]</a><span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="success"><a class="viewcode-back" href="../../django-metab/api/views.html#galaxy.views.success">[docs]</a><span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/success.html&#39;</span><span class="p">)</span></div>
 
 

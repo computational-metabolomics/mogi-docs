@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
@@ -171,30 +171,30 @@
 <span class="kn">import</span> <span class="nn">os</span>
 
 
-<span class="k">class</span> <span class="nc">GalaxyInstanceTrackingTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+<div class="viewcode-block" id="GalaxyInstanceTrackingTable"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.GalaxyInstanceTrackingTable">[docs]</a><span class="k">class</span> <span class="nc">GalaxyInstanceTrackingTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
 
 
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="GalaxyInstanceTrackingTable.Meta"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.GalaxyInstanceTrackingTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span>
 
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
             <span class="s1">&#39; class &#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">,</span>
         <span class="p">}</span>
 
-        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">ProgressColumn</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="ProgressColumn"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.ProgressColumn">[docs]</a><span class="k">class</span> <span class="nc">ProgressColumn</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">):</span>
+<div class="viewcode-block" id="ProgressColumn.render"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.ProgressColumn.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">format_html</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;progress&quot;&gt;&#39;</span>
                            <span class="s1">&#39;    &lt;div class=&quot;progress-bar&quot; role=&quot;progressbar&quot; aria-valuenow=</span><span class="si">{}</span><span class="s1"> aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width:</span><span class="si">{}</span><span class="s1">%&quot;&gt;&#39;</span>
                            <span class="s1">&#39;         </span><span class="si">{}</span><span class="s1">%&#39;</span>
                            <span class="s1">&#39;    &lt;/div&gt;&#39;</span>
-                           <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                           <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">WorkflowStatusTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowStatusTable"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.WorkflowStatusTable">[docs]</a><span class="k">class</span> <span class="nc">WorkflowStatusTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
     <span class="n">galaxy_instance</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
     <span class="n">name</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
     <span class="n">update_time</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
@@ -214,12 +214,12 @@
     <span class="c1">#                                            &quot;td__input&quot;: {&quot;onclick&quot;: &quot;addfile(this)&quot;}},</span>
     <span class="c1">#                                        )</span>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="WorkflowStatusTable.Meta"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.WorkflowStatusTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="s1">&#39;status_table&#39;</span><span class="p">}</span>
-        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span></div></div>
 
 
-<span class="k">class</span> <span class="nc">HistoryDataTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryDataTable"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.HistoryDataTable">[docs]</a><span class="k">class</span> <span class="nc">HistoryDataTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
     <span class="n">galaxy_instance_id</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
     <span class="n">galaxy_instance</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">()</span>
 
@@ -256,20 +256,20 @@
                                             <span class="n">text</span><span class="o">=</span><span class="s1">&#39;Save item&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;history_internal_id&#39;</span><span class="p">),</span> <span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
 
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="HistoryDataTable.Meta"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.HistoryDataTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">}</span>
-        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span></div>
 
-    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryDataTable.get_column_default_show"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.HistoryDataTable.get_column_default_show">[docs]</a>    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">column_default_show</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;galaxy_instance&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;data_type&#39;</span><span class="p">,</span> <span class="s1">&#39;create_time&#39;</span><span class="p">,</span> <span class="s1">&#39;download_url&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">HistoryDataTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">HistoryDataTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span></div></div>
 
 
 
 
 
 
-<span class="k">class</span> <span class="nc">HistoryTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryTable"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.HistoryTable">[docs]</a><span class="k">class</span> <span class="nc">HistoryTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
     <span class="c1"># export_formats = [&#39;csv&#39;, &#39;xls&#39;]</span>
     <span class="n">history_data_bioblend_list</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;history_data_bioblend_list&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;View data&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
 
@@ -281,19 +281,19 @@
 
 
 
-    <span class="k">def</span> <span class="nf">render_estimated_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryTable.render_estimated_progress"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.HistoryTable.render_estimated_progress">[docs]</a>    <span class="k">def</span> <span class="nf">render_estimated_progress</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">format_html</span><span class="p">(</span><span class="s1">&#39;&lt;div class=&quot;progress&quot;&gt;&#39;</span>
                            <span class="s1">&#39;    &lt;div class=&quot;progress-bar&quot; role=&quot;progressbar&quot; aria-valuenow=</span><span class="si">{}</span><span class="s1"> aria-valuemin=&quot;0&quot; aria-valuemax=&quot;100&quot; style=&quot;width:</span><span class="si">{}</span><span class="s1">%&quot;&gt;&#39;</span>
                            <span class="s1">&#39;         </span><span class="si">{}</span><span class="s1">%&#39;</span>
                            <span class="s1">&#39;    &lt;/div&gt;&#39;</span>
-                           <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+                           <span class="s1">&#39;&lt;/div&gt;&#39;</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span></div>
 
-    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="HistoryTable.get_column_default_show"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.HistoryTable.get_column_default_show">[docs]</a>    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">column_default_show</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;galaxy_instance&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;update_time&#39;</span><span class="p">,</span> <span class="s1">&#39;accessible&#39;</span><span class="p">,</span> <span class="s1">&#39;running&#39;</span><span class="p">,</span> <span class="s1">&#39;estimated_progress&#39;</span><span class="p">,</span> <span class="s1">&#39;history_data_list&#39;</span><span class="p">,</span> <span class="s1">&#39;check&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">HistoryTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">HistoryTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span></div>
 
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="HistoryTable.Meta"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.HistoryTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
         <span class="n">model</span> <span class="o">=</span> <span class="n">History</span>
 
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span>
@@ -302,23 +302,23 @@
         <span class="c1"># running_tasks_details = tables.Column()</span>
         <span class="n">order_by</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;-update_time&#39;</span><span class="p">,)</span>
 
-        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span></div></div>
 
 
 
 
-<span class="k">class</span> <span class="nc">WorkflowTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowTable"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.WorkflowTable">[docs]</a><span class="k">class</span> <span class="nc">WorkflowTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
     <span class="n">run</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;runworkflow&#39;</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s1">&#39;run&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
 
-    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="WorkflowTable.get_column_default_show"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.WorkflowTable.get_column_default_show">[docs]</a>    <span class="k">def</span> <span class="nf">get_column_default_show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">column_default_show</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span> <span class="s1">&#39;galaxyinstancetracking&#39;</span><span class="p">,</span> <span class="s1">&#39;accessible&#39;</span><span class="p">,</span> <span class="s1">&#39;run&#39;</span><span class="p">]</span>
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">WorkflowTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span>
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">WorkflowTable</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_column_default_show</span><span class="p">()</span></div>
 
-    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+<div class="viewcode-block" id="WorkflowTable.Meta"><a class="viewcode-back" href="../../django-galaxy/api/tables.html#galaxy.views.WorkflowTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
 
         <span class="n">model</span> <span class="o">=</span> <span class="n">Workflow</span>
         <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">}</span>
-        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootsrap.html&#39;</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootsrap.html&#39;</span></div></div>
 </pre></div>
 
            </div>

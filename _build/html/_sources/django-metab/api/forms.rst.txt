@@ -1,0 +1,17 @@
+django-mbrowse filters
+=========================================
+
+.. automodule:: mbrowse.forms.general
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.forms.libraries
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.forms.search
+   :members:
+   :undoc-members:
+   :show-inheritance:

@@ -91,7 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
 </ul>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="../index.html">django-gfiles</a><ul class="current">
@@ -182,8 +182,7 @@
 <dl class="class">
 <dt id="gfiles.views.GFileCreateView">
 <em class="property">class </em><code class="descclassname">gfiles.views.</code><code class="descname">GFileCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gfiles/views.html#GFileCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gfiles.views.GFileCreateView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django.contrib.auth.mixins.LoginRequiredMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django.views.generic.edit.CreateView</span></code></p>
-<p>Class to create a save a generic file using the GenericFile model.</p>
+<dd><p>Class to create a save a generic file using the GenericFile model.</p>
 <p>Inherits the CreateView class and uses the LoginRequiredMixin</p>
 <dl class="attribute">
 <dt id="gfiles.views.GFileCreateView.form_class">
@@ -203,39 +202,18 @@
 <dd><p>alias of <a class="reference internal" href="models.html#gfiles.models.GenericFile" title="gfiles.models.GenericFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.models.GenericFile</span></code></a></p>
 </dd></dl>
 
-<dl class="attribute">
-<dt id="gfiles.views.GFileCreateView.success_msg">
-<code class="descname">success_msg</code><em class="property"> = u'File uploaded'</em><a class="headerlink" href="#gfiles.views.GFileCreateView.success_msg" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="gfiles.views.GFileCreateView.success_url">
-<code class="descname">success_url</code><a class="headerlink" href="#gfiles.views.GFileCreateView.success_url" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="attribute">
-<dt id="gfiles.views.GFileCreateView.template_name">
-<code class="descname">template_name</code><em class="property"> = u'gfiles/gfile_form.html'</em><a class="headerlink" href="#gfiles.views.GFileCreateView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="gfiles.views.GFileCreateView.update_form">
-<code class="descname">update_form</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gfiles/views.html#GFileCreateView.update_form"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gfiles.views.GFileCreateView.update_form" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="class">
 <dt id="gfiles.views.GFileListView">
 <em class="property">class </em><code class="descclassname">gfiles.views.</code><code class="descname">GFileListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/gfiles/views.html#GFileListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#gfiles.views.GFileListView" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.export.views.ExportMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.views.SingleTableMixin</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">django_filters.views.FilterView</span></code></p>
-<p>Class to view a table and filter all of the currently saved GenericFiles</p>
+<dd><p>Class to view a table and filter all of the currently saved GenericFiles</p>
 <p>Inherits the FilterView class and uses the SingleTableMixin for viewing the django-tables2 table and
 uses the ExportMixin so that the table can be exported as a csv file</p>
 <dl class="attribute">
 <dt id="gfiles.views.GFileListView.filterset_class">
 <code class="descname">filterset_class</code><a class="headerlink" href="#gfiles.views.GFileListView.filterset_class" title="Permalink to this definition">¶</a></dt>
-<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.filter.GFileFilter</span></code></p>
+<dd><p>alias of <a class="reference internal" href="filters.html#gfiles.filter.GFileFilter" title="gfiles.filter.GFileFilter"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.filter.GFileFilter</span></code></a></p>
 </dd></dl>
 
 <dl class="attribute">
@@ -249,11 +227,6 @@ uses the ExportMixin so that the table can be exported as a csv file</p>
 <code class="descname">table_class</code><a class="headerlink" href="#gfiles.views.GFileListView.table_class" title="Permalink to this definition">¶</a></dt>
 <dd><p>alias of <a class="reference internal" href="tables.html#gfiles.tables.GFileTableWithCheck" title="gfiles.tables.GFileTableWithCheck"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.tables.GFileTableWithCheck</span></code></a></p>
 </dd></dl>
-
-<dl class="attribute">
-<dt id="gfiles.views.GFileListView.template_name">
-<code class="descname">template_name</code><em class="property"> = u'gfiles/gfile_summary.html'</em><a class="headerlink" href="#gfiles.views.GFileListView.template_name" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

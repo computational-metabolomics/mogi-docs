@@ -1,0 +1,400 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>galaxy.utils.history_actions &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>galaxy.utils.history_actions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for galaxy.utils.history_actions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">import</span> <span class="nn">urllib</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">bioblend.galaxy.histories</span> <span class="k">import</span> <span class="n">HistoryClient</span>
+<span class="kn">from</span> <span class="nn">django.core.files</span> <span class="k">import</span> <span class="n">File</span>
+
+<span class="kn">from</span> <span class="nn">galaxy.models</span> <span class="k">import</span> <span class="n">GalaxyInstanceTracking</span><span class="p">,</span> <span class="n">History</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.upload_to_galaxy</span> <span class="k">import</span> <span class="n">get_gi_gu</span>
+<span class="kn">from</span> <span class="nn">gfiles.utils.save_as_symlink</span> <span class="k">import</span> <span class="n">save_as_symlink</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="k">import</span> <span class="n">settings</span>
+
+<div class="viewcode-block" id="random_string"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.history_actions.random_string">[docs]</a><span class="k">def</span> <span class="nf">random_string</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="get_history_status"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.history_actions.get_history_status">[docs]</a><span class="k">def</span> <span class="nf">get_history_status</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+    <span class="c1"># go through every galaxy instance</span>
+    <span class="n">gits</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxyuser__user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+    <span class="c1"># loop through instances</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">git</span> <span class="ow">in</span> <span class="n">gits</span><span class="p">:</span>
+        <span class="c1">## loop through workflows for that instance</span>
+        <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">)</span>
+        <span class="n">hc</span> <span class="o">=</span> <span class="n">HistoryClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+        <span class="n">hists</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">get_histories</span><span class="p">()</span>
+
+        <span class="c1"># loop through and create a list of dictionaries for our django table</span>
+        <span class="k">for</span> <span class="n">hist</span> <span class="ow">in</span> <span class="n">hists</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">hist</span><span class="p">)</span>
+            <span class="n">sd</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="c1"># add useful info</span>
+            <span class="n">history_info</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">show_history</span><span class="p">(</span><span class="n">hist</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+
+            <span class="c1"># add status info</span>
+            <span class="n">sd_bioblend</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">get_status</span><span class="p">(</span><span class="n">hist</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+            <span class="n">state_details</span> <span class="o">=</span> <span class="n">sd_bioblend</span><span class="p">[</span><span class="s1">&#39;state_details&#39;</span><span class="p">]</span>
+            <span class="n">sd</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">state_details</span><span class="p">)</span>
+
+            <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;estimated_progress&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sd_bioblend</span><span class="p">[</span><span class="s1">&#39;percent_complete&#39;</span><span class="p">]</span>
+            <span class="n">datetime_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">history_info</span><span class="p">[</span><span class="s1">&#39;update_time&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;update_time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">datetime_object</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+            <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;update_time_unix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unixtime</span><span class="p">(</span><span class="n">datetime_object</span><span class="p">)</span>
+            <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;galaxy_instance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">git</span><span class="o">.</span><span class="n">name</span>
+
+            <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+
+            <span class="n">hsq</span> <span class="o">=</span> <span class="n">History</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxy_id</span><span class="o">=</span><span class="n">hist</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">galaxyinstancetracking</span><span class="o">=</span><span class="n">git</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">hsq</span><span class="p">:</span>
+
+                <span class="n">hs</span> <span class="o">=</span> <span class="n">hsq</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">hist</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">update_time</span> <span class="o">=</span> <span class="n">datetime_object</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">empty</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;empty&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">error</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">failed_metadata</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;failed_metadata&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">new</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">ok</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;ok&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">paused</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;paused&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">running</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;running&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">queued</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;queued&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">setting_metadata</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;setting_metadata&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">upload</span> <span class="o">=</span> <span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;upload&#39;</span><span class="p">]</span>
+                <span class="n">hs</span><span class="o">.</span><span class="n">estimated_progress</span> <span class="o">=</span> <span class="n">sd_bioblend</span><span class="p">[</span><span class="s1">&#39;percent_complete&#39;</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">hs</span> <span class="o">=</span> <span class="n">History</span><span class="p">(</span><span class="n">galaxyinstancetracking</span><span class="o">=</span><span class="n">git</span><span class="p">,</span>
+                               <span class="n">name</span><span class="o">=</span><span class="n">hist</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span>
+                               <span class="n">update_time</span><span class="o">=</span><span class="n">datetime_object</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">),</span>
+                               <span class="n">empty</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;empty&#39;</span><span class="p">],</span>
+                               <span class="n">error</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;error&#39;</span><span class="p">],</span>
+                               <span class="n">failed_metadata</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;failed_metadata&#39;</span><span class="p">],</span>
+                               <span class="n">new</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;new&#39;</span><span class="p">],</span>
+                               <span class="n">ok</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;ok&#39;</span><span class="p">],</span>
+                               <span class="n">paused</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;paused&#39;</span><span class="p">],</span>
+                               <span class="n">running</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;running&#39;</span><span class="p">],</span>
+                               <span class="n">queued</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;queued&#39;</span><span class="p">],</span>
+                               <span class="n">setting_metadata</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;setting_metadata&#39;</span><span class="p">],</span>
+                               <span class="n">upload</span><span class="o">=</span><span class="n">state_details</span><span class="p">[</span><span class="s1">&#39;upload&#39;</span><span class="p">],</span>
+                               <span class="n">galaxy_id</span><span class="o">=</span><span class="n">hist</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                               <span class="n">estimated_progress</span> <span class="o">=</span> <span class="n">sd_bioblend</span><span class="p">[</span><span class="s1">&#39;percent_complete&#39;</span><span class="p">]</span>
+                               <span class="p">)</span>
+
+            <span class="n">hs</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;history_data_bioblend_list&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/history_data_bioblend_list/</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">hs</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+            <span class="n">status</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
+
+
+    <span class="n">status</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;update_time_unix&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="unixtime"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.history_actions.unixtime">[docs]</a><span class="k">def</span> <span class="nf">unixtime</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">timetuple</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="delete_galaxy_histories"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.history_actions.delete_galaxy_histories">[docs]</a><span class="k">def</span> <span class="nf">delete_galaxy_histories</span><span class="p">(</span><span class="n">pks</span><span class="p">,</span> <span class="n">purge</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="n">hss</span> <span class="o">=</span> <span class="n">History</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">pks</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">hs</span> <span class="ow">in</span> <span class="n">hss</span><span class="p">:</span>
+        <span class="n">git</span> <span class="o">=</span> <span class="n">hs</span><span class="o">.</span><span class="n">galaxyinstancetracking</span>
+        <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">)</span>
+        <span class="n">hc</span> <span class="o">=</span> <span class="n">HistoryClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+        <span class="n">hc</span><span class="o">.</span><span class="n">delete_history</span><span class="p">(</span><span class="n">hs</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">,</span> <span class="n">purge</span><span class="p">)</span>
+        <span class="n">hs</span><span class="o">.</span><span class="n">delete</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="get_history_data"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.history_actions.get_history_data">[docs]</a><span class="k">def</span> <span class="nf">get_history_data</span><span class="p">(</span><span class="n">pk</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">name_filter</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="n">hs</span> <span class="o">=</span> <span class="n">History</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">pk</span><span class="p">)</span>
+    <span class="n">git</span> <span class="o">=</span> <span class="n">hs</span><span class="o">.</span><span class="n">galaxyinstancetracking</span>
+    <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">)</span>
+    <span class="n">hc</span> <span class="o">=</span> <span class="n">HistoryClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+    <span class="n">hdatasets</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">show_matching_datasets</span><span class="p">(</span><span class="n">hs</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">data_type</span><span class="p">:</span>
+        <span class="n">hdatasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hdatasets</span> <span class="k">if</span> <span class="n">h</span><span class="p">[</span><span class="s1">&#39;extension&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">data_type</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">name_filter</span><span class="p">:</span>
+        <span class="n">hdatasets</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hdatasets</span> <span class="k">if</span> <span class="n">h</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="ow">in</span> <span class="n">name_filter</span><span class="p">]</span>
+
+    <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="n">hdatasets</span><span class="p">:</span>
+        <span class="n">h</span><span class="p">[</span><span class="s1">&#39;galaxy_instance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">git</span><span class="o">.</span><span class="n">name</span>
+        <span class="n">h</span><span class="p">[</span><span class="s1">&#39;galaxy_instance_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">git</span><span class="o">.</span><span class="n">pk</span>
+        <span class="n">h</span><span class="p">[</span><span class="s1">&#39;history_internal_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pk</span>
+
+    <span class="k">return</span> <span class="n">hdatasets</span></div>
+
+
+<div class="viewcode-block" id="history_data_save_form"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.history_actions.history_data_save_form">[docs]</a><span class="k">def</span> <span class="nf">history_data_save_form</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">history_internal_id</span><span class="p">,</span> <span class="n">galaxy_dataset_id</span><span class="p">,</span> <span class="n">history_data_obj</span><span class="p">):</span>
+    <span class="n">history_d</span> <span class="o">=</span> <span class="n">init_history_data_save_form</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">history_internal_id</span><span class="p">,</span> <span class="n">galaxy_dataset_id</span><span class="p">)</span>
+
+    <span class="c1"># If we can access the file from Galaxy directly we won&#39;t download</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;history d&#39;</span><span class="p">,</span> <span class="n">history_d</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;abs_pth&#39;</span><span class="p">]:</span>
+        <span class="n">history_data_obj</span> <span class="o">=</span> <span class="n">save_as_symlink</span><span class="p">(</span><span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;abs_pth&#39;</span><span class="p">],</span> <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">history_data_obj</span><span class="p">)</span>
+
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">data_pth</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlretrieve</span><span class="p">(</span><span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;full_download_url&#39;</span><span class="p">])[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">history_data_obj</span><span class="o">.</span><span class="n">data_file</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">File</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">data_pth</span><span class="p">)))</span>
+        <span class="n">history_data_obj</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+
+    <span class="k">return</span> <span class="n">history_data_obj</span></div>
+
+
+<div class="viewcode-block" id="init_history_data_save_form"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.history_actions.init_history_data_save_form">[docs]</a><span class="k">def</span> <span class="nf">init_history_data_save_form</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">history_internal_id</span><span class="p">,</span> <span class="n">galaxy_dataset_id</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">History</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">history_internal_id</span><span class="p">)</span>
+
+    <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">galaxyinstancetracking</span><span class="p">)</span>
+
+    <span class="c1"># save temp history object</span>
+    <span class="n">hc</span> <span class="o">=</span> <span class="n">HistoryClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+
+    <span class="n">history_d</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">(</span><span class="n">history_id</span><span class="o">=</span><span class="n">h</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">,</span> <span class="n">dataset_id</span><span class="o">=</span><span class="n">galaxy_dataset_id</span><span class="p">)</span>
+
+    <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;full_download_url&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">galaxyinstancetracking</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;download_url&#39;</span><span class="p">]</span>
+
+    <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;abs_pth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s1">&#39;GALAXY_ROOT_PATH&#39;</span><span class="p">):</span>
+        <span class="n">data_pth</span> <span class="o">=</span> <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;file_name&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;/export/&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+        <span class="n">fullpth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">GALAXY_ROOT_PATH</span><span class="p">,</span>  <span class="n">data_pth</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">fullpth</span><span class="p">):</span>
+            <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;abs_pth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">fullpth</span>
+
+    <span class="k">return</span> <span class="n">history_d</span></div>
+
+
+
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+django-mbrowse views
+=========================================
+
+.. automodule:: mbrowse.views.views_general
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.views.views_cpeaks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+.. automodule:: mbrowse.views.views_libraries
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+.. automodule:: mbrowse.views.views_search
+   :members:
+   :undoc-members:
+   :show-inheritance:
+

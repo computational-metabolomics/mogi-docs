@@ -1,0 +1,422 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mbrowse.tables &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>mbrowse.tables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mbrowse.tables</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">django_tables2</span> <span class="k">as</span> <span class="nn">tables</span>
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="n">MFile</span>
+<span class="kn">from</span> <span class="nn">gfiles.tables</span> <span class="k">import</span> <span class="n">GFileTable</span>
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">CPeakGroup</span><span class="p">,</span>
+    <span class="n">CPeakGroupMeta</span><span class="p">,</span>
+    <span class="n">Eic</span><span class="p">,</span>
+    <span class="n">SPeak</span><span class="p">,</span>
+    <span class="n">CAnnotation</span><span class="p">,</span>
+    <span class="n">SpectralMatching</span><span class="p">,</span>
+    <span class="n">SearchMzResult</span><span class="p">,</span>
+    <span class="n">SearchNmResult</span><span class="p">,</span>
+    <span class="n">SearchFragResult</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">django.utils.safestring</span> <span class="k">import</span> <span class="n">mark_safe</span>
+<span class="kn">from</span> <span class="nn">django.utils.html</span> <span class="k">import</span> <span class="n">escape</span>
+<span class="kn">from</span> <span class="nn">django_tables2.utils</span> <span class="k">import</span> <span class="n">A</span>
+<span class="kn">from</span> <span class="nn">django_tables2_column_shifter.tables</span> <span class="k">import</span> <span class="n">ColumnShiftTable</span>
+
+<div class="viewcode-block" id="NumberColumn4"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.NumberColumn4">[docs]</a><span class="k">class</span> <span class="nc">NumberColumn4</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">):</span>
+<div class="viewcode-block" id="NumberColumn4.render"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.NumberColumn4.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{:0.4f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="NumberColumn2"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.NumberColumn2">[docs]</a><span class="k">class</span> <span class="nc">NumberColumn2</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">):</span>
+<div class="viewcode-block" id="NumberColumn2.render"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.NumberColumn2.render">[docs]</a>    <span class="k">def</span> <span class="nf">render</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{:0.2f}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">value</span><span class="p">)</span></div></div>
+
+<div class="viewcode-block" id="MFileTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.MFileTable">[docs]</a><span class="k">class</span> <span class="nc">MFileTable</span><span class="p">(</span><span class="n">GFileTable</span><span class="p">):</span>
+
+    <span class="n">filesuffix</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;mfilesuffix.suffix&#39;</span><span class="p">,</span>
+                             <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;File suffix&#39;</span><span class="p">)</span>
+
+<div class="viewcode-block" id="MFileTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.MFileTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+        <span class="n">model</span> <span class="o">=</span> <span class="n">MFile</span>
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">}</span>
+        <span class="n">template</span> <span class="o">=</span> <span class="s1">&#39;django_tables2/bootstrap.html&#39;</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;filename&#39;</span><span class="p">,</span> <span class="s1">&#39;filesuffix&#39;</span><span class="p">)</span></div></div>
+
+
+
+<div class="viewcode-block" id="CPeakGroupTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.CPeakGroupTable">[docs]</a><span class="k">class</span> <span class="nc">CPeakGroupTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="c1"># dma_c = tables.TemplateColumn(&quot;{{ value|safe }}&quot;)</span>
+    <span class="c1"># dma_name_c = tables.TemplateColumn(&quot;{{ value|safe }}&quot;)</span>
+    <span class="c1"># workflow_stage_code = tables.TemplateColumn(&quot;{{ value|safe }}&quot;)</span>
+    <span class="c1"># all_annotations = tables.TemplateColumn(&quot;{{ value|safe }}&quot;)</span>
+    <span class="c1"># # view_data = ButtonColumn()</span>
+    <span class="c1"># view_data = tables.LinkColumn(&#39;peakplot&#39;, text=&#39;view peaks&#39;, args=[A(&#39;id&#39;), 1])</span>
+    <span class="c1"># view_annotations = tables.LinkColumn(&#39;annotations&#39;, text=&#39;view annotations&#39;, args=[A(&#39;id&#39;)])</span>
+    <span class="c1"># best_score = tables.TemplateColumn(&quot;{{ value|safe|floatformat:&#39;3&#39; }}&quot;)</span>
+    <span class="n">mzmed</span> <span class="o">=</span> <span class="n">NumberColumn4</span><span class="p">()</span>
+    <span class="n">mzmax</span> <span class="o">=</span> <span class="n">NumberColumn4</span><span class="p">()</span>
+    <span class="n">mzmin</span> <span class="o">=</span> <span class="n">NumberColumn4</span><span class="p">()</span>
+    <span class="n">rtmed</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">()</span>
+    <span class="n">rtmin</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">()</span>
+    <span class="n">rtmax</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">()</span>
+    <span class="n">best_score</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">()</span>
+
+    <span class="n">eics</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;eics&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;View EICs&#39;</span><span class="p">,</span>
+                                            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+    <span class="n">frag4feature</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;frag4feature&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;View fragmentation&#39;</span><span class="p">,</span>
+                                            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+    <span class="n">canns</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;canns&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;View annotations&#39;</span><span class="p">,</span>
+                                            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+
+
+<div class="viewcode-block" id="CPeakGroupTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.CPeakGroupTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">CPeakGroup</span>
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+        <span class="c1"># fields = (&#39;mzmed&#39;, &#39;all_cpeak&#39;)</span>
+        <span class="c1"># f = (&#39;id&#39;, &#39;dma_c&#39;, &#39;dma_name_c&#39;,  &#39;workflow_stage_code&#39;, &#39;mzmed&#39;, &#39;rtmed&#39;, &#39;isotopes&#39;, &#39;adducts&#39;, &#39;pcgroup&#39;, &#39;all_annotations&#39;,</span>
+        <span class="c1">#      &#39;best_score&#39;, &#39;view_data&#39;, &#39;view_annotations&#39;)</span>
+        <span class="c1"># fields = &#39;__all__&#39;</span>
+        <span class="c1"># sequence = f</span>
+
+
+
+<div class="viewcode-block" id="CPeakGroupMetaTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.CPeakGroupMetaTable">[docs]</a><span class="k">class</span> <span class="nc">CPeakGroupMetaTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="n">c_peak_group_table</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;cpeakgroup_summary&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;View grouped peaklist&#39;</span><span class="p">,</span>
+                                            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+
+
+<div class="viewcode-block" id="CPeakGroupMetaTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.CPeakGroupMetaTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span>
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+
+<div class="viewcode-block" id="CAnnotationTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.CAnnotationTable">[docs]</a><span class="k">class</span> <span class="nc">CAnnotationTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="n">inputdata</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;cpeakgroup.cpeakgroupmeta.metabinputdata&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Input Dataset&#39;</span><span class="p">)</span>
+    <span class="n">compound_name</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;compound.name&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;Compound name&#39;</span><span class="p">)</span>
+    <span class="n">pubchem_ids</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;compound.pubchem_id&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;PubChem cid(s)&#39;</span><span class="p">)</span>
+    <span class="n">kegg_ids</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">Column</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;compound.kegg_id&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;KEGG cid(s)&#39;</span><span class="p">)</span>
+    <span class="n">mzmed</span> <span class="o">=</span> <span class="n">NumberColumn4</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;cpeakgroup.mzmed&#39;</span><span class="p">,</span><span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;mzmed&#39;</span><span class="p">)</span>
+    <span class="n">rtmed</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">(</span><span class="n">accessor</span><span class="o">=</span><span class="s1">&#39;cpeakgroup.mzmed&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;rtmed&#39;</span><span class="p">)</span>
+
+    <span class="n">spectral_matching_average_score</span> <span class="o">=</span><span class="n">NumberColumn2</span><span class="p">()</span>
+    <span class="n">metfrag_average_score</span> <span class="o">=</span><span class="n">NumberColumn2</span><span class="p">()</span>
+    <span class="n">mzcloud_average_score</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">()</span>
+    <span class="n">sirius_csifingerid_average_score</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">()</span>
+    <span class="n">ms1_average_score</span> <span class="o">=</span> <span class="n">NumberColumn2</span><span class="p">()</span>
+
+
+<div class="viewcode-block" id="CAnnotationTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.CAnnotationTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">CAnnotation</span>
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="EicTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.EicTable">[docs]</a><span class="k">class</span> <span class="nc">EicTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+
+<div class="viewcode-block" id="EicTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.EicTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">Eic</span>
+        <span class="n">fields</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;scan&#39;</span><span class="p">,</span> <span class="s1">&#39;idi&#39;</span><span class="p">,</span> <span class="s1">&#39;intensity&#39;</span><span class="p">,</span> <span class="s1">&#39;cpeak_id&#39;</span><span class="p">)</span>
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="SPeakTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SPeakTable">[docs]</a><span class="k">class</span> <span class="nc">SPeakTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+
+<div class="viewcode-block" id="SPeakTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SPeakTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">SPeak</span>
+
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+
+<div class="viewcode-block" id="SpectralMatchingTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SpectralMatchingTable">[docs]</a><span class="k">class</span> <span class="nc">SpectralMatchingTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+    <span class="n">smatch</span> <span class="o">=</span> <span class="n">tables</span><span class="o">.</span><span class="n">LinkColumn</span><span class="p">(</span><span class="s1">&#39;smatch&#39;</span><span class="p">,</span> <span class="n">verbose_name</span><span class="o">=</span><span class="s1">&#39;View Match&#39;</span><span class="p">,</span>
+                                            <span class="n">text</span><span class="o">=</span><span class="s1">&#39;view&#39;</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">[</span><span class="n">A</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)])</span>
+
+
+<div class="viewcode-block" id="SpectralMatchingTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SpectralMatchingTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">SpectralMatching</span>
+
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+
+<div class="viewcode-block" id="CheckBoxColumnWithName"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.CheckBoxColumnWithName">[docs]</a><span class="k">class</span> <span class="nc">CheckBoxColumnWithName</span><span class="p">(</span><span class="n">tables</span><span class="o">.</span><span class="n">CheckBoxColumn</span><span class="p">):</span>
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">header</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose_name</span></div>
+
+
+<div class="viewcode-block" id="SearchMzResultTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SearchMzResultTable">[docs]</a><span class="k">class</span> <span class="nc">SearchMzResultTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+
+
+<div class="viewcode-block" id="SearchMzResultTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SearchMzResultTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">SearchMzResult</span>
+
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="SearchNmResultTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SearchNmResultTable">[docs]</a><span class="k">class</span> <span class="nc">SearchNmResultTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+
+
+<div class="viewcode-block" id="SearchNmResultTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SearchNmResultTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">SearchNmResult</span>
+
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="SearchFragResultTable"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SearchFragResultTable">[docs]</a><span class="k">class</span> <span class="nc">SearchFragResultTable</span><span class="p">(</span><span class="n">ColumnShiftTable</span><span class="p">):</span>
+
+
+<div class="viewcode-block" id="SearchFragResultTable.Meta"><a class="viewcode-back" href="../../django-mbrowse/api/tables.html#mbrowse.tables.SearchFragResultTable.Meta">[docs]</a>    <span class="k">class</span> <span class="nc">Meta</span><span class="p">:</span>
+
+        <span class="n">model</span> <span class="o">=</span> <span class="n">SearchFragResult</span>
+
+        <span class="c1"># add class=&quot;paleblue&quot; to &lt;table&gt; tag</span>
+
+        <span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;class&quot;</span><span class="p">:</span> <span class="s2">&quot;paleblue&quot;</span><span class="p">,</span> <span class="p">}</span></div></div>
+
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

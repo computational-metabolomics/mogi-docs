@@ -1,0 +1,701 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>django-mbrowse models &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="django-mbrowse filters" href="forms.html" />
+    <link rel="prev" title="API reference" href="index.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">django-mbrowse</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="forms.html">forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="views.html">views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tables.html">tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">django-mbrowse</a> &raquo;</li>
+        
+          <li><a href="index.html">API reference</a> &raquo;</li>
+        
+      <li>django-mbrowse models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-mbrowse/api/models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mbrowse.models.models_general">
+<span id="django-mbrowse-models"></span><h1>django-mbrowse models<a class="headerlink" href="#module-mbrowse.models.models_general" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mbrowse.models.models_general.AdductRule">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_general.</code><code class="descname">AdductRule</code><span class="sig-paren">(</span><em>id</em>, <em>adduct_type</em>, <em>nmol</em>, <em>charge</em>, <em>massdiff</em>, <em>oidscore</em>, <em>quasi</em>, <em>ips</em>, <em>frag_score</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_general.html#AdductRule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_general.AdductRule" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_general.AdductRule.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_general.AdductRule.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_general.AdductRule.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_general.AdductRule.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_general.MFile">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_general.</code><code class="descname">MFile</code><span class="sig-paren">(</span><em>id</em>, <em>data_file</em>, <em>original_filename</em>, <em>user</em>, <em>genericfile_ptr</em>, <em>run</em>, <em>mfilesuffix</em>, <em>prefix</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_general.html#MFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_general.MFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_general.MFile.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_general.MFile.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_general.MFile.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_general.MFile.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_general.MFileSuffix">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_general.</code><code class="descname">MFileSuffix</code><span class="sig-paren">(</span><em>id</em>, <em>suffix</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_general.html#MFileSuffix"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_general.MFileSuffix" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_general.MFileSuffix.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_general.MFileSuffix.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_general.MFileSuffix.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_general.MFileSuffix.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_general.MetabInputData">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_general.</code><code class="descname">MetabInputData</code><span class="sig-paren">(</span><em>id</em>, <em>date</em>, <em>gfile</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_general.html#MetabInputData"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_general.MetabInputData" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_general.MetabInputData.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_general.MetabInputData.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_general.MetabInputData.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_general.MetabInputData.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_general.Polarity">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_general.</code><code class="descname">Polarity</code><span class="sig-paren">(</span><em>id</em>, <em>polarity</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_general.html#Polarity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_general.Polarity" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_general.Polarity.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_general.Polarity.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_general.Polarity.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_general.Polarity.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_general.Run">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_general.</code><code class="descname">Run</code><span class="sig-paren">(</span><em>id</em>, <em>prefix</em>, <em>polarity</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_general.html#Run"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_general.Run" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_general.Run.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_general.Run.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_general.Run.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_general.Run.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mbrowse.models.models_cpeaks"></span><dl class="class">
+<dt id="mbrowse.models.models_cpeaks.Adduct">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">Adduct</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>adductrule</em>, <em>cpeakgroup</em>, <em>neutralmass</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#Adduct"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.Adduct" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.Adduct.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.Adduct.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.Adduct.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.Adduct.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.CPeak">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">CPeak</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>mz</em>, <em>mzmin</em>, <em>mzmax</em>, <em>rt</em>, <em>rtmin</em>, <em>rtmax</em>, <em>_into</em>, <em>intb</em>, <em>maxo</em>, <em>sn</em>, <em>rtminraw</em>, <em>rtmaxraw</em>, <em>xcmsfileinfo</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#CPeak"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeak" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeak.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeak.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeak.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeak.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroup">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">CPeakGroup</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>mzmed</em>, <em>mzmin</em>, <em>mzmax</em>, <em>rtmed</em>, <em>rtmin</em>, <em>rtmax</em>, <em>npeaks</em>, <em>isotopes</em>, <em>adducts</em>, <em>pcgroup</em>, <em>msms_count</em>, <em>cpeakgroupmeta</em>, <em>best_annotation</em>, <em>best_score</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#CPeakGroup"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroup" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroup.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroup.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroup.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroup.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroupLink">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">CPeakGroupLink</code><span class="sig-paren">(</span><em>id</em>, <em>cpeak</em>, <em>cpeakgroup</em>, <em>best_feature</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#CPeakGroupLink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroupLink" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroupLink.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroupLink.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroupLink.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroupLink.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroupMeta">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">CPeakGroupMeta</code><span class="sig-paren">(</span><em>id</em>, <em>date</em>, <em>metabinputdata</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#CPeakGroupMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroupMeta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroupMeta.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroupMeta.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.CPeakGroupMeta.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.CPeakGroupMeta.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.Eic">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">Eic</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>scan</em>, <em>intensity</em>, <em>rt_raw</em>, <em>rt_corrected</em>, <em>purity</em>, <em>cpeak</em>, <em>cpeakgroup</em>, <em>eicmeta</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#Eic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.Eic" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.Eic.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.Eic.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.Eic.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.Eic.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.EicMeta">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">EicMeta</code><span class="sig-paren">(</span><em>id</em>, <em>metabinputdata</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#EicMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.EicMeta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.EicMeta.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.EicMeta.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.EicMeta.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.EicMeta.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.Isotope">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">Isotope</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>cpeakgroup1</em>, <em>cpeakgroup2</em>, <em>iso</em>, <em>charge</em>, <em>metabinputdata</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#Isotope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.Isotope" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.Isotope.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.Isotope.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.Isotope.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.Isotope.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.NeutralMass">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">NeutralMass</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>nm</em>, <em>ips</em>, <em>metabinputdata</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#NeutralMass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.NeutralMass" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.NeutralMass.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.NeutralMass.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.NeutralMass.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.NeutralMass.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.SPeakMetaCPeakFragLink">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">SPeakMetaCPeakFragLink</code><span class="sig-paren">(</span><em>id</em>, <em>cpeak</em>, <em>speakmeta</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#SPeakMetaCPeakFragLink"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.SPeakMetaCPeakFragLink" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.SPeakMetaCPeakFragLink.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.SPeakMetaCPeakFragLink.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.SPeakMetaCPeakFragLink.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.SPeakMetaCPeakFragLink.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_cpeaks.XCMSFileInfo">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_cpeaks.</code><code class="descname">XCMSFileInfo</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>filename</em>, <em>classname</em>, <em>mfile</em>, <em>metabinputdata</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_cpeaks.html#XCMSFileInfo"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_cpeaks.XCMSFileInfo" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.XCMSFileInfo.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.XCMSFileInfo.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_cpeaks.XCMSFileInfo.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_cpeaks.XCMSFileInfo.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mbrowse.models.models_dpeaks"></span><span class="target" id="module-mbrowse.models.models_speaks"></span><dl class="class">
+<dt id="mbrowse.models.models_speaks.SPeak">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_speaks.</code><code class="descname">SPeak</code><span class="sig-paren">(</span><em>id</em>, <em>speakmeta</em>, <em>mz</em>, <em>i</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_speaks.html#SPeak"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_speaks.SPeak" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_speaks.SPeak.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_speaks.SPeak.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_speaks.SPeak.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_speaks.SPeak.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_speaks.SPeakMeta">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_speaks.</code><code class="descname">SPeakMeta</code><span class="sig-paren">(</span><em>id</em>, <em>run</em>, <em>idi</em>, <em>scan_idi</em>, <em>precursor_mz</em>, <em>precursor_i</em>, <em>scan_num</em>, <em>precursor_scan_num</em>, <em>precursor_nearest</em>, <em>precursor_rt</em>, <em>ms_level</em>, <em>metabinputdata</em>, <em>a_mz</em>, <em>a_purity</em>, <em>a_pknm</em>, <em>i_mz</em>, <em>i_purity</em>, <em>i_pknm</em>, <em>in_purity</em>, <em>in_pknm</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_speaks.html#SPeakMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_speaks.SPeakMeta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_speaks.SPeakMeta.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_speaks.SPeakMeta.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_speaks.SPeakMeta.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_speaks.SPeakMeta.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mbrowse.models.models_libraries"></span><dl class="class">
+<dt id="mbrowse.models.models_libraries.LibrarySpectra">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_libraries.</code><code class="descname">LibrarySpectra</code><span class="sig-paren">(</span><em>id</em>, <em>library_spectra_meta</em>, <em>mz</em>, <em>i</em>, <em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_libraries.html#LibrarySpectra"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectra" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_libraries.LibrarySpectra.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectra.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_libraries.LibrarySpectra.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectra.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_libraries.LibrarySpectraMeta">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_libraries.</code><code class="descname">LibrarySpectraMeta</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>collision_energy</em>, <em>ms_level</em>, <em>accession</em>, <em>resolution</em>, <em>polarity</em>, <em>fragmentation_type</em>, <em>precursor_mz</em>, <em>precursor_type</em>, <em>instrument_type</em>, <em>instrument</em>, <em>copyright</em>, <em>column</em>, <em>mass_accuracy</em>, <em>mass_error</em>, <em>origin</em>, <em>library_spectra_source</em>, <em>inchikey</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_libraries.html#LibrarySpectraMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectraMeta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_libraries.LibrarySpectraMeta.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectraMeta.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_libraries.LibrarySpectraMeta.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectraMeta.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_libraries.LibrarySpectraSource">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_libraries.</code><code class="descname">LibrarySpectraSource</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_libraries.html#LibrarySpectraSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectraSource" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_libraries.LibrarySpectraSource.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectraSource.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_libraries.LibrarySpectraSource.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_libraries.LibrarySpectraSource.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mbrowse.models.models_compounds"></span><dl class="class">
+<dt id="mbrowse.models.models_compounds.Compound">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_compounds.</code><code class="descname">Compound</code><span class="sig-paren">(</span><em>created_at</em>, <em>updated_at</em>, <em>inchikey_id</em>, <em>name</em>, <em>systematic_name</em>, <em>iupac_name</em>, <em>trade_name</em>, <em>other_names</em>, <em>molecular_formula</em>, <em>smiles</em>, <em>pubchem_id</em>, <em>chemspider_id</em>, <em>kegg_id</em>, <em>hmdb_id</em>, <em>lmdb_id</em>, <em>lbdb_id</em>, <em>humancyc_id</em>, <em>chebi_id</em>, <em>metlin_id</em>, <em>foodb_id</em>, <em>monoisotopic_mass</em>, <em>exact_mass</em>, <em>molecular_weight</em>, <em>xlogp</em>, <em>category</em>, <em>compound_class</em>, <em>sub_class</em>, <em>FA</em>, <em>brite</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_compounds.html#Compound"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_compounds.Compound" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_compounds.Compound.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_compounds.Compound.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_compounds.Compound.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_compounds.Compound.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mbrowse.models.models_annotations"></span><dl class="class">
+<dt id="mbrowse.models.models_annotations.CAnnotation">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_annotations.</code><code class="descname">CAnnotation</code><span class="sig-paren">(</span><em>id</em>, <em>compound</em>, <em>cpeakgroup</em>, <em>spectral_matching_average_score</em>, <em>metfrag_average_score</em>, <em>mzcloud_average_score</em>, <em>sirius_csifingerid_average_score</em>, <em>ms1_average_score</em>, <em>weighted_score</em>, <em>rank</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_annotations.html#CAnnotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_annotations.CAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_annotations.CAnnotation.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_annotations.CAnnotation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_annotations.CAnnotation.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_annotations.CAnnotation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_annotations.CAnnotationWeight">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_annotations.</code><code class="descname">CAnnotationWeight</code><span class="sig-paren">(</span><em>id</em>, <em>spectral_matching_weight</em>, <em>mzcloud_weight</em>, <em>sirius_csifingerid_weight</em>, <em>ms1_weight</em>, <em>metfrag_weight</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_annotations.html#CAnnotationWeight"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_annotations.CAnnotationWeight" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_annotations.CAnnotationWeight.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_annotations.CAnnotationWeight.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_annotations.CAnnotationWeight.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_annotations.CAnnotationWeight.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_annotations.CSIFingerIDAnnotation">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_annotations.</code><code class="descname">CSIFingerIDAnnotation</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>s_peak_meta</em>, <em>inchikey2d</em>, <em>molecular_formula</em>, <em>rank</em>, <em>score</em>, <em>name</em>, <em>links</em>, <em>smiles</em>, <em>rank_score</em>, <em>csifingeridmeta</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_annotations.html#CSIFingerIDAnnotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_annotations.CSIFingerIDAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_annotations.CSIFingerIDAnnotation.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_annotations.CSIFingerIDAnnotation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_annotations.CSIFingerIDAnnotation.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_annotations.CSIFingerIDAnnotation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_annotations.CSIFingerIDMeta">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_annotations.</code><code class="descname">CSIFingerIDMeta</code><span class="sig-paren">(</span><em>id</em>, <em>datetime_stamp</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_annotations.html#CSIFingerIDMeta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_annotations.CSIFingerIDMeta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_annotations.CSIFingerIDMeta.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_annotations.CSIFingerIDMeta.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_annotations.CSIFingerIDMeta.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_annotations.CSIFingerIDMeta.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_annotations.MetFragAnnotation">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_annotations.</code><code class="descname">MetFragAnnotation</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>s_peak_meta</em>, <em>explained_peaks</em>, <em>formula_explained_peaks</em>, <em>maximum_tree_depth</em>, <em>fragmentor_score</em>, <em>fragmentor_score_values</em>, <em>number_peaks_used</em>, <em>score</em>, <em>compound</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_annotations.html#MetFragAnnotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_annotations.MetFragAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_annotations.MetFragAnnotation.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_annotations.MetFragAnnotation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_annotations.MetFragAnnotation.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_annotations.MetFragAnnotation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_annotations.ProbmetabAnnotation">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_annotations.</code><code class="descname">ProbmetabAnnotation</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>cpeakgroup</em>, <em>compound</em>, <em>prob</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_annotations.html#ProbmetabAnnotation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_annotations.ProbmetabAnnotation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_annotations.ProbmetabAnnotation.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_annotations.ProbmetabAnnotation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_annotations.ProbmetabAnnotation.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_annotations.ProbmetabAnnotation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.models.models_annotations.SpectralMatching">
+<em class="property">class </em><code class="descclassname">mbrowse.models.models_annotations.</code><code class="descname">SpectralMatching</code><span class="sig-paren">(</span><em>id</em>, <em>idi</em>, <em>s_peak_meta</em>, <em>score</em>, <em>percentage_match</em>, <em>match_num</em>, <em>library_spectra_meta</em>, <em>accession</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/models/models_annotations.html#SpectralMatching"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.models.models_annotations.SpectralMatching" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="mbrowse.models.models_annotations.SpectralMatching.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#mbrowse.models.models_annotations.SpectralMatching.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="mbrowse.models.models_annotations.SpectralMatching.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#mbrowse.models.models_annotations.SpectralMatching.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="forms.html" class="btn btn-neutral float-right" title="django-mbrowse filters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="API reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

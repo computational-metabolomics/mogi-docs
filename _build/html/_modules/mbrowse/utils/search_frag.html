@@ -1,0 +1,592 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mbrowse.utils.search_frag &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mbrowse.utils.search_frag</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mbrowse.utils.search_frag</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="n">CAnnotation</span><span class="p">,</span> <span class="n">CAnnotationWeight</span><span class="p">,</span> <span class="n">SearchFragParam</span><span class="p">,</span> <span class="n">SearchFragResult</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">connection</span>
+<span class="kn">from</span> <span class="nn">django.core.files</span> <span class="k">import</span> <span class="n">File</span>
+<span class="kn">from</span> <span class="nn">mbrowse.utils.sql_utils</span> <span class="k">import</span> <span class="n">sql_column_names</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy.optimize</span> <span class="k">import</span> <span class="n">linear_sum_assignment</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">F</span>
+
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">SearchFragParam</span><span class="p">,</span>
+    <span class="n">SPeak</span><span class="p">,</span>
+    <span class="n">SPeakMeta</span>
+<span class="p">)</span>
+
+
+<div class="viewcode-block" id="search_frag"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.search_frag">[docs]</a><span class="k">def</span> <span class="nf">search_frag</span><span class="p">(</span><span class="n">sp_id</span><span class="p">,</span> <span class="n">celery_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+
+    <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+        <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Spectral matching --&#39;</span><span class="p">,</span>
+                                <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+    <span class="n">sfp</span> <span class="o">=</span> <span class="n">SearchFragParam</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">sp_id</span><span class="p">)</span>
+    <span class="c1"># if smp.mass_type==&#39;mz&#39;:</span>
+    <span class="n">mz_precursor</span> <span class="o">=</span> <span class="n">sfp</span><span class="o">.</span><span class="n">mz_precursor</span>
+    <span class="n">ppm_precursor_tolerance</span> <span class="o">=</span> <span class="n">sfp</span><span class="o">.</span><span class="n">ppm_precursor_tolerance</span>
+    <span class="n">ra_threshold</span> <span class="o">=</span> <span class="n">sfp</span><span class="o">.</span><span class="n">ra_threshold</span>
+    <span class="n">ra_diff_threshold</span> <span class="o">=</span> <span class="n">sfp</span><span class="o">.</span><span class="n">ra_diff_threshold</span>
+    <span class="n">ppm_product_tolerance</span> <span class="o">=</span> <span class="n">sfp</span><span class="o">.</span><span class="n">ppm_product_tolerance</span>
+    <span class="n">dot_product_score_threshold</span> <span class="o">=</span> <span class="n">sfp</span><span class="o">.</span><span class="n">dot_product_score_threshold</span>
+    <span class="n">polarities</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">sfp</span><span class="o">.</span><span class="n">polarity</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">))]</span>
+
+
+    <span class="n">products</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;mz,i&#39;</span><span class="p">]</span>
+    <span class="n">products</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">sfp</span><span class="o">.</span><span class="n">products</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span>
+
+    <span class="n">reader_list</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictReader</span><span class="p">(</span><span class="n">products</span><span class="p">)</span>
+    <span class="n">q_mz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">products</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+    <span class="n">q_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">products</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">reader_list</span><span class="p">):</span>
+        <span class="n">q_mz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;mz&#39;</span><span class="p">]</span>
+        <span class="n">q_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+
+    <span class="n">q_ra</span> <span class="o">=</span> <span class="n">q_i</span> <span class="o">/</span> <span class="n">q_i</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="n">q_ra</span> <span class="o">=</span> <span class="n">q_ra</span><span class="p">[</span><span class="n">q_ra</span> <span class="o">&gt;</span> <span class="n">ra_threshold</span><span class="p">]</span>
+    <span class="n">q_mz</span> <span class="o">=</span> <span class="n">q_mz</span><span class="p">[</span><span class="n">q_ra</span> <span class="o">&gt;</span> <span class="n">ra_threshold</span><span class="p">]</span>
+
+
+    <span class="n">target_prec_low</span> <span class="o">=</span> <span class="n">mz_precursor</span> <span class="o">-</span> <span class="p">((</span><span class="n">mz_precursor</span> <span class="o">*</span> <span class="mf">0.000001</span><span class="p">)</span> <span class="o">*</span> <span class="n">ppm_precursor_tolerance</span><span class="p">)</span>
+    <span class="n">target_prec_high</span> <span class="o">=</span> <span class="n">mz_precursor</span> <span class="o">+</span> <span class="p">((</span><span class="n">mz_precursor</span> <span class="o">*</span> <span class="mf">0.000001</span><span class="p">)</span> <span class="o">*</span> <span class="n">ppm_precursor_tolerance</span><span class="p">)</span>
+    <span class="c1"># if precursor then filter then filter on precursor</span>
+    <span class="n">matches</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">if</span> <span class="n">sfp</span><span class="o">.</span><span class="n">filter_on_precursor</span><span class="p">:</span>
+        <span class="n">spms</span> <span class="o">=</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">precursor_mz__lt</span><span class="o">=</span><span class="n">target_prec_high</span><span class="p">,</span> <span class="n">precursor_mz__gt</span><span class="o">=</span><span class="n">target_prec_low</span><span class="p">,</span>
+                                        <span class="n">run__polarity__in</span><span class="o">=</span><span class="n">polarities</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># spms = SPeakMeta.objects.all()</span>
+        <span class="n">spms</span> <span class="o">=</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">run__polarity__in</span><span class="o">=</span><span class="n">polarities</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">spms</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;No matches found&#39;</span><span class="p">,</span>
+                                <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="n">sr</span> <span class="o">=</span> <span class="n">SearchFragResult</span><span class="p">()</span>
+        <span class="n">sr</span><span class="o">.</span><span class="n">searchfragparam_id</span> <span class="o">=</span> <span class="n">sp_id</span>
+        <span class="n">sr</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">sr</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="mi">0</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">total_time</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">spms</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span>
+    <span class="n">current</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">spm</span> <span class="ow">in</span> <span class="n">spms</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">c</span><span class="o">&gt;</span><span class="mi">10000</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+                <span class="n">current</span> <span class="o">=</span> <span class="n">current</span><span class="o">+</span><span class="n">c</span>
+                <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Spectral matching scanid </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">spm</span><span class="o">.</span><span class="n">id</span><span class="p">),</span>
+                                    <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="n">current</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="n">total_time</span><span class="p">})</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="n">speaks</span> <span class="o">=</span> <span class="n">SPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">speakmeta</span><span class="o">=</span><span class="n">spm</span><span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;mz&#39;</span><span class="p">,</span> <span class="s1">&#39;i&#39;</span><span class="p">)</span>
+        <span class="n">l_mz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">speaks</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+        <span class="n">l_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">speaks</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="s1">&#39;float64&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">speaks</span><span class="p">):</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">continue</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">speaks</span><span class="p">)):</span>
+            <span class="n">l_mz</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">speaks</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;mz&#39;</span><span class="p">]</span>
+            <span class="n">l_i</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">speaks</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s1">&#39;i&#39;</span><span class="p">]</span>
+
+
+        <span class="n">l_ra</span> <span class="o">=</span> <span class="n">l_i</span> <span class="o">/</span> <span class="n">l_i</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+        <span class="n">l_ra</span> <span class="o">=</span> <span class="n">l_ra</span><span class="p">[</span><span class="n">l_ra</span><span class="o">&gt;</span><span class="n">ra_threshold</span><span class="p">]</span>
+        <span class="n">l_mz</span> <span class="o">=</span> <span class="n">l_mz</span><span class="p">[</span><span class="n">l_ra</span><span class="o">&gt;</span><span class="n">ra_threshold</span><span class="p">]</span>
+
+
+        <span class="n">dpc</span> <span class="o">=</span> <span class="n">spectral_match</span><span class="p">(</span><span class="n">q_mz</span><span class="p">,</span> <span class="n">l_mz</span><span class="p">,</span> <span class="n">q_ra</span><span class="p">,</span> <span class="n">l_ra</span><span class="p">,</span> <span class="n">ppm_product_tolerance</span><span class="p">,</span> <span class="n">ra_diff_threshold</span><span class="p">,</span> <span class="n">weight_mz</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weight_ra</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dpc</span><span class="o">&gt;</span><span class="n">dot_product_score_threshold</span><span class="p">:</span>
+            <span class="n">matches</span><span class="p">[</span><span class="n">spm</span><span class="o">.</span><span class="n">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">dpc</span>
+        <span class="n">c</span><span class="o">+=</span><span class="mi">1</span>
+
+    <span class="c1"># Get a nice join of the data we want</span>
+    <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+        <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Saving result file&#39;</span><span class="p">,</span>
+                                <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="n">current</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="n">total_time</span><span class="p">})</span>
+
+    <span class="n">results</span> <span class="o">=</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+        <span class="n">pk__in</span><span class="o">=</span><span class="n">matches</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span>
+        <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;precursor_i&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;precursor_mz&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;precursor_rt&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;precursor_scan_num&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;precursor_nearest&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__rt&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak___into&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__mzmed&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__rtmed&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cpeakgroupmeta&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cpeakgroupmeta__metabinputdata__id&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__isotopes&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__compound__name&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__compound__inchikey_id&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__metfrag_average_score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__ms1_average_score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__mzcloud_average_score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__sirius_csifingerid_average_score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__spectral_matching_average_score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;cpeak__cpeakgroup__cannotation__weighted_score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;run__mfile__original_filename&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;run__prefix&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;spectralmatching__score&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;spectralmatching__name&#39;</span><span class="p">,</span>
+    <span class="p">)</span>
+
+    <span class="n">dirpth</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkdtemp</span><span class="p">()</span>
+    <span class="n">first</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">sr</span> <span class="o">=</span> <span class="n">SearchFragResult</span><span class="p">()</span>
+    <span class="n">sr</span><span class="o">.</span><span class="n">searchfragparam_id</span> <span class="o">=</span> <span class="n">sp_id</span>
+    <span class="n">sr</span><span class="o">.</span><span class="n">matches</span> <span class="o">=</span> <span class="kc">True</span>
+    <span class="n">fnm</span> <span class="o">=</span> <span class="s1">&#39;frag_search_result_scans.csv&#39;</span>
+    <span class="n">tmp_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirpth</span><span class="p">,</span> <span class="n">fnm</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">tmp_pth</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">csvfile</span><span class="p">:</span>
+        <span class="n">dwriter</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">csvfile</span><span class="p">,</span> <span class="n">fieldnames</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;spectral_match_score_user&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+        <span class="n">dwriter</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+            <span class="n">r</span><span class="p">[</span><span class="s1">&#39;spectral_match_score_user&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">matches</span><span class="p">[</span><span class="n">r</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]]</span>
+            <span class="n">dwriter</span><span class="o">.</span><span class="n">writerow</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+    <span class="n">sr</span><span class="o">.</span><span class="n">scans</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">fnm</span><span class="p">,</span> <span class="n">File</span><span class="p">(</span><span class="nb">open</span><span class="p">(</span><span class="n">tmp_pth</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+        <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;COMPLETED&#39;</span><span class="p">,</span>
+                                <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span></div>
+
+
+    <span class="c1"># export to a csv</span>
+
+    <span class="c1"># save to the results model</span>
+
+<div class="viewcode-block" id="spectral_match"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.spectral_match">[docs]</a><span class="k">def</span> <span class="nf">spectral_match</span><span class="p">(</span><span class="n">q_mz</span><span class="p">,</span> <span class="n">l_mz</span><span class="p">,</span> <span class="n">q_ra</span><span class="p">,</span> <span class="n">l_ra</span><span class="p">,</span> <span class="n">ppm_threshold</span><span class="p">,</span> <span class="n">ra_diff_threshold</span><span class="p">,</span> <span class="n">weight_mz</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">weight_ra</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+    <span class="c1"># weight the peaks</span>
+    <span class="n">q_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">q_ra</span><span class="p">,</span> <span class="n">weight_ra</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">q_mz</span><span class="p">,</span> <span class="n">weight_mz</span><span class="p">)</span>
+    <span class="n">l_w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">l_ra</span><span class="p">,</span> <span class="n">weight_ra</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">l_mz</span><span class="p">,</span> <span class="n">weight_mz</span><span class="p">)</span>
+
+    <span class="c1"># align peaks</span>
+    <span class="n">aligned_peaks</span> <span class="o">=</span> <span class="n">align_peaks</span><span class="p">(</span><span class="n">q_mz</span><span class="p">,</span> <span class="n">l_mz</span><span class="p">,</span> <span class="n">q_ra</span><span class="p">,</span> <span class="n">l_ra</span><span class="p">,</span> <span class="n">q_w</span><span class="p">,</span> <span class="n">l_w</span><span class="p">,</span> <span class="n">ppm_threshold</span><span class="p">,</span> <span class="n">ra_diff_threshold</span><span class="p">)</span>
+
+    <span class="c1"># perform similarity measure</span>
+    <span class="n">sm_out</span> <span class="o">=</span> <span class="n">cossim</span><span class="p">(</span><span class="n">aligned_peaks</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">aligned_peaks</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="k">return</span> <span class="n">sm_out</span></div>
+
+
+
+<div class="viewcode-block" id="compare_nan_array"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.compare_nan_array">[docs]</a><span class="k">def</span> <span class="nf">compare_nan_array</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">thresh</span><span class="p">):</span>
+    <span class="c1"># https://stackoverflow.com/questions/47340000/how-to-get-rid-of-runtimewarning-invalid-value-encountered-in-greater</span>
+    <span class="c1"># prevents na warnings (not necessary but just stops people worrying when they see the warnings!)</span>
+    <span class="n">out</span> <span class="o">=</span> <span class="o">~</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">out</span><span class="p">[</span><span class="n">out</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span><span class="p">(</span><span class="n">a</span><span class="p">[</span><span class="n">out</span><span class="p">]</span> <span class="p">,</span> <span class="n">thresh</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">out</span></div>
+
+
+<div class="viewcode-block" id="AlignTable"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.AlignTable">[docs]</a><span class="k">class</span> <span class="nc">AlignTable</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">init_l</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">init_l</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="p">[(</span><span class="s1">&#39;peakID&#39;</span><span class="p">,</span> <span class="s1">&#39;int64&#39;</span><span class="p">),</span>
+                                              <span class="p">(</span><span class="s1">&#39;mz&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">),</span>
+                                              <span class="p">(</span><span class="s1">&#39;ra&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">),</span>
+                                              <span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">,</span> <span class="s1">&#39;float64&#39;</span><span class="p">),</span>
+                                              <span class="p">(</span><span class="s1">&#39;query&#39;</span><span class="p">,</span> <span class="s1">&#39;bool_&#39;</span><span class="p">)</span>  <span class="c1"># True for query False for library</span>
+                                              <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_peak</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_values</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="c1">#</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">library_values</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+<div class="viewcode-block" id="AlignTable.add_peak"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.AlignTable.add_peak">[docs]</a>    <span class="k">def</span> <span class="nf">add_peak</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">peakID</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">query_bool</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;peakID&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_peak</span><span class="p">]</span> <span class="o">=</span> <span class="n">peakID</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;mz&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_peak</span><span class="p">]</span> <span class="o">=</span> <span class="n">mz</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;ra&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_peak</span><span class="p">]</span> <span class="o">=</span> <span class="n">ra</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;w&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_peak</span><span class="p">]</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">][</span><span class="bp">self</span><span class="o">.</span><span class="n">current_peak</span><span class="p">]</span> <span class="o">=</span> <span class="n">query_bool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">current_peak</span> <span class="o">+=</span> <span class="mi">1</span></div>
+
+<div class="viewcode-block" id="AlignTable.get_aligned_arrays"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.AlignTable.get_aligned_arrays">[docs]</a>    <span class="k">def</span> <span class="nf">get_aligned_arrays</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_</span><span class="o">=</span><span class="s1">&#39;w&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">query_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;peakID&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)][</span><span class="n">type_</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">library_values</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;query&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="kc">False</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">d_table</span><span class="p">[</span><span class="s1">&#39;peakID&#39;</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)][</span><span class="n">type_</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="bp">self</span><span class="o">.</span><span class="n">query_values</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">library_values</span><span class="p">])</span></div></div>
+
+<div class="viewcode-block" id="align_peaks"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.align_peaks">[docs]</a><span class="k">def</span> <span class="nf">align_peaks</span><span class="p">(</span><span class="n">q_mz</span><span class="p">,</span> <span class="n">l_mz</span><span class="p">,</span> <span class="n">q_ra</span><span class="p">,</span> <span class="n">l_ra</span><span class="p">,</span> <span class="n">q_w</span><span class="p">,</span> <span class="n">l_w</span><span class="p">,</span> <span class="n">ppm_threshold</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">ra_diff_threshold</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+    <span class="c1"># This approach does not check every possible combination but priortises the most intense peaks to be matched</span>
+    <span class="c1"># within the query spectra</span>
+    <span class="c1">################################################</span>
+    <span class="c1"># order the query peaks by relative abundance</span>
+    <span class="c1">################################################</span>
+    <span class="n">ra_idx</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="o">-</span><span class="n">q_ra</span><span class="p">)</span>
+    <span class="n">q_ra</span> <span class="o">=</span> <span class="n">q_ra</span><span class="p">[</span><span class="n">ra_idx</span><span class="p">]</span>
+    <span class="n">q_mz</span> <span class="o">=</span> <span class="n">q_mz</span><span class="p">[</span><span class="n">ra_idx</span><span class="p">]</span>
+    <span class="n">q_w</span> <span class="o">=</span> <span class="n">q_w</span><span class="p">[</span><span class="n">ra_idx</span><span class="p">]</span>
+
+    <span class="c1">#################################################</span>
+    <span class="c1"># get distance matrices for both ppm and relative abundance</span>
+    <span class="c1">#################################################</span>
+    <span class="n">ppmdiff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">q_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">l_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+    <span class="n">radiff</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">q_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">l_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">q_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">l_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="c1"># Get ranges of the &quot;sample&quot;</span>
+            <span class="n">radiff</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">q_ra</span><span class="p">[</span><span class="n">x</span><span class="p">])</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">l_ra</span><span class="p">[</span><span class="n">y</span><span class="p">]))</span>
+            <span class="n">ppmdiff</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">ppm_error</span><span class="p">(</span><span class="n">q_mz</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">l_mz</span><span class="p">[</span><span class="n">y</span><span class="p">])</span>
+
+    <span class="c1">###################################################</span>
+    <span class="c1"># Create peak tracking array</span>
+    <span class="c1">###################################################</span>
+    <span class="c1"># using a numpy structured array (could use a dictionary (which can be faster) but for consistency sticking with</span>
+    <span class="c1"># numpy https://stackoverflow.com/questions/34933105/speed-up-structured-numpy-array</span>
+
+    <span class="c1"># Not the length at the moment is only that of the query. Will be extended at a later as we don&#39;t</span>
+    <span class="c1"># know the full length of the array yet</span>
+    <span class="c1"># origin is if the peak is for the query or library</span>
+
+    <span class="c1">#init_l = zip(tuple(range(0, q_mz.shape[0])), tuple(q_mz), tuple(q_ra), (True,)*q_mz.shape[0])</span>
+
+    <span class="n">init_l</span> <span class="o">=</span> <span class="p">[(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)]</span> <span class="o">*</span> <span class="p">((</span><span class="n">q_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">l_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">*</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># biggest array it could be (e.g. no matches at all)</span>
+    <span class="n">at</span> <span class="o">=</span> <span class="n">AlignTable</span><span class="p">(</span><span class="n">init_l</span><span class="o">=</span><span class="n">init_l</span><span class="p">)</span>
+
+    <span class="n">lp_remain</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">l_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1">###################################################</span>
+    <span class="c1"># Get matches for the query</span>
+    <span class="c1">###################################################</span>
+    <span class="c1"># first go through the query finding best match</span>
+    <span class="n">mcount</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">peak_c</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">q_mz</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">peakID</span> <span class="o">=</span> <span class="n">i</span>
+        <span class="c1"># Add the first peak information from the query</span>
+        <span class="n">at</span><span class="o">.</span><span class="n">add_peak</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">q_mz</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">q_ra</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">q_w</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="kc">True</span><span class="p">)</span>
+
+        <span class="c1"># get the associated ppm diff and radiff for this query value compared to the library values</span>
+        <span class="n">ra_i</span> <span class="o">=</span> <span class="n">radiff</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">]</span>
+        <span class="n">ppm_i</span> <span class="o">=</span> <span class="n">ppmdiff</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">]</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">ra_i</span><span class="p">))</span> <span class="o">==</span> <span class="n">ra_i</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="ow">or</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">ppm_i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">ppm_threshold</span><span class="p">):</span>
+            <span class="c1"># Check if any of these ppm difference are above are threshold or if all nan. If so no library peaks</span>
+            <span class="c1"># can be assigned so:</span>
+            <span class="c1"># Update the library with a miss for this peak id</span>
+            <span class="n">at</span><span class="o">.</span><span class="n">add_peak</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+            <span class="n">peak_c</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="n">mcount</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;miss&#39;</span><span class="p">)</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># First check to see if there is a matching intensity value within ra_diff (default 10%)</span>
+        <span class="n">intenc</span> <span class="o">=</span> <span class="n">ra_i</span><span class="p">[(</span><span class="n">compare_nan_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">,</span> <span class="n">ppm_i</span><span class="p">,</span> <span class="n">ppm_threshold</span><span class="p">))</span> <span class="o">&amp;</span>
+                      <span class="p">(</span><span class="n">compare_nan_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">less</span><span class="p">,</span> <span class="n">ra_i</span><span class="p">,</span> <span class="n">ra_diff_threshold</span><span class="p">))]</span>
+
+        <span class="c1"># Ideally we want a match that has similar ra_diff, but if nothing available will just get the best ppm value</span>
+        <span class="k">if</span> <span class="n">intenc</span><span class="o">.</span><span class="n">size</span><span class="p">:</span>
+            <span class="c1"># get the best intensity for this region</span>
+            <span class="n">bool_</span> <span class="o">=</span> <span class="n">ra_i</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">intenc</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># just get the smallest ppm error for this region</span>
+            <span class="n">bool_</span> <span class="o">=</span> <span class="n">ppm_i</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">nanmin</span><span class="p">(</span><span class="n">ppm_i</span><span class="p">)</span>
+
+        <span class="c1"># update the table with the match</span>
+        <span class="n">at</span><span class="o">.</span><span class="n">add_peak</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">l_mz</span><span class="p">[</span><span class="n">bool_</span><span class="p">],</span> <span class="n">l_ra</span><span class="p">[</span><span class="n">bool_</span><span class="p">],</span> <span class="n">l_w</span><span class="p">[</span><span class="n">bool_</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
+        <span class="n">mcount</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s1">&#39;hit&#39;</span><span class="p">)</span>
+
+        <span class="c1"># We remove the difference matrices values for this value as we will not use from now on.</span>
+        <span class="c1"># This is the weakness with this approach it prioritises the most intense peak in the query</span>
+        <span class="c1"># and if this peak gets a match first it might miss out on a better match later</span>
+
+        <span class="n">lp_remain</span><span class="p">[</span><span class="n">bool_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">ppmdiff</span><span class="p">[:,</span><span class="n">bool_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">radiff</span><span class="p">[:,</span><span class="n">bool_</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="c1">###################################################</span>
+    <span class="c1"># Get remaining library values</span>
+    <span class="c1">###################################################</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">lp_remain</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">isnan</span><span class="p">(</span><span class="n">lp_remain</span><span class="p">[</span><span class="n">j</span><span class="p">]):</span>
+            <span class="c1">#already been assigned</span>
+            <span class="k">continue</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Add peak that was not matched previously</span>
+            <span class="n">at</span><span class="o">.</span><span class="n">add_peak</span><span class="p">(</span><span class="n">peakID</span><span class="o">+</span><span class="n">j</span><span class="p">,</span> <span class="n">l_mz</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">l_ra</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">l_w</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="kc">False</span><span class="p">)</span>
+
+            <span class="c1"># add missing values for the query spectra</span>
+            <span class="n">at</span><span class="o">.</span><span class="n">add_peak</span><span class="p">(</span><span class="n">peakID</span><span class="o">+</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1">###################################################</span>
+    <span class="c1"># Get the weighted aligned arrays</span>
+    <span class="c1">###################################################</span>
+    <span class="k">return</span> <span class="n">at</span><span class="o">.</span><span class="n">get_aligned_arrays</span><span class="p">(</span><span class="s1">&#39;w&#39;</span><span class="p">)</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="ppm_error"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.ppm_error">[docs]</a><span class="k">def</span> <span class="nf">ppm_error</span><span class="p">(</span><span class="n">obs</span><span class="p">,</span> <span class="n">theo</span><span class="p">):</span>
+    <span class="k">return</span> <span class="nb">abs</span><span class="p">(</span><span class="mf">1e6</span><span class="o">*</span><span class="p">(</span><span class="n">obs</span><span class="o">-</span><span class="n">theo</span><span class="p">)</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">theo</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="cossim"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.search_frag.cossim">[docs]</a><span class="k">def</span> <span class="nf">cossim</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="n">B</span><span class="p">):</span>
+    <span class="k">return</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="o">*</span><span class="n">B</span><span class="p">)</span> <span class="o">/</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">A</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="mi">2</span><span class="p">))))</span></div>
+
+
+
+
+<span class="c1"># def align_peaks_hungarian(q_mz, l_mz, threshold):</span>
+<span class="c1">#     # This align peaks approach is based on the &#39;hungarian method&#39;</span>
+<span class="c1">#     cost = np.zeros((q_mz.shape[0], l_mz.shape[0]), dtype=np.int64)</span>
+<span class="c1">#</span>
+<span class="c1">#     for x in range(q_mz.shape[0]):</span>
+<span class="c1">#         for y in range(l_mz.shape[0]):</span>
+<span class="c1">#             cost[x][y] = abs(float(q_mz[x]) - float(l_mz[y]))</span>
+<span class="c1">#</span>
+<span class="c1">#     row_ind, col_ind = linear_sum_assignment(cost)</span>
+<span class="c1">#     new_row = []</span>
+<span class="c1">#     new_col = []</span>
+<span class="c1">#     # if you want the pair of indices filtered by the threshold</span>
+<span class="c1">#     for row, col in zip(row_ind, col_ind):</span>
+<span class="c1">#         if cost[row, col] &lt; threshold:</span>
+<span class="c1">#             new_row.append(row)</span>
+<span class="c1">#         else:</span>
+<span class="c1">#             new_col.append(col)</span>
+<span class="c1">#</span>
+<span class="c1">#     q_mz_out = []</span>
+<span class="c1">#     for x in range(q_mz.shape[0]):</span>
+<span class="c1">#         if x in new_row:</span>
+<span class="c1">#             q_mz_out[]</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#</span>
+<span class="c1">#     pairs = [(row, col) for row, col in zip(row_ind, col_ind)  if cost[row, col] &lt; threshold]</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

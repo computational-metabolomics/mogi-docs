@@ -89,7 +89,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
 </ul>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../django-metab/index.html">django-metab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
 </ul>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
@@ -185,7 +185,7 @@
 <span class="kn">from</span> <span class="nn">django.urls</span> <span class="k">import</span> <span class="n">reverse_lazy</span>
 
 
-<div class="viewcode-block" id="GFileCreateView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#gfiles.views.GFileCreateView">[docs]</a><span class="k">class</span> <span class="nc">GFileCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+<div class="viewcode-block" id="GFileCreateView"><a class="viewcode-back" href="../../django-gfiles/api/views.html#gfiles.views.GFileCreateView">[docs]</a><span class="k">class</span> <span class="nc">GFileCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Class to create a save a generic file using the GenericFile model.</span>
 
 <span class="sd">    Inherits the CreateView class and uses the LoginRequiredMixin</span>
@@ -202,13 +202,13 @@
         <span class="n">form</span><span class="o">.</span><span class="n">instance</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
         <span class="k">return</span> <span class="n">form</span></div>
 
-<div class="viewcode-block" id="GFileCreateView.form_valid"><a class="viewcode-back" href="../../django-galaxy/api/views.html#gfiles.views.GFileCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+<div class="viewcode-block" id="GFileCreateView.form_valid"><a class="viewcode-back" href="../../django-gfiles/api/views.html#gfiles.views.GFileCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
         <span class="n">messages</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">success_msg</span><span class="p">)</span>
         <span class="n">form</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">update_form</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
         <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">GFileCreateView</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">form_valid</span><span class="p">(</span><span class="n">form</span><span class="p">)</span></div></div>
 
 
-<div class="viewcode-block" id="GFileListView"><a class="viewcode-back" href="../../django-galaxy/api/views.html#gfiles.views.GFileListView">[docs]</a><span class="k">class</span> <span class="nc">GFileListView</span><span class="p">(</span><span class="n">ExportMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+<div class="viewcode-block" id="GFileListView"><a class="viewcode-back" href="../../django-gfiles/api/views.html#gfiles.views.GFileListView">[docs]</a><span class="k">class</span> <span class="nc">GFileListView</span><span class="p">(</span><span class="n">ExportMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Class to view a table and filter all of the currently saved GenericFiles</span>
 
 <span class="sd">    Inherits the FilterView class and uses the SingleTableMixin for viewing the django-tables2 table and</span>
@@ -220,7 +220,7 @@
     <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">GFileFilter</span></div>
 
 
-<div class="viewcode-block" id="status_update"><a class="viewcode-back" href="../../django-galaxy/api/views.html#gfiles.views.status_update">[docs]</a><span class="k">def</span> <span class="nf">status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="status_update"><a class="viewcode-back" href="../../django-gfiles/api/views.html#gfiles.views.status_update">[docs]</a><span class="k">def</span> <span class="nf">status_update</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Updates for tracking status of long processes via celery</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -242,13 +242,13 @@
     <span class="k">return</span> <span class="n">JsonResponse</span><span class="p">({</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="n">status</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span><span class="n">progress</span><span class="p">,</span> <span class="s1">&#39;info&#39;</span><span class="p">:</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">info</span><span class="p">)})</span></div>
 
 
-<div class="viewcode-block" id="index"><a class="viewcode-back" href="../../django-galaxy/api/views.html#gfiles.views.index">[docs]</a><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="index"><a class="viewcode-back" href="../../django-gfiles/api/views.html#gfiles.views.index">[docs]</a><span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; basic index view</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/index.html&#39;</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="success"><a class="viewcode-back" href="../../django-galaxy/api/views.html#gfiles.views.success">[docs]</a><span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+<div class="viewcode-block" id="success"><a class="viewcode-back" href="../../django-gfiles/api/views.html#gfiles.views.success">[docs]</a><span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; basic success view</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/success.html&#39;</span><span class="p">)</span></div>

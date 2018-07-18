@@ -1,0 +1,500 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>galaxy.utils.workflow_actions &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>galaxy.utils.workflow_actions</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for galaxy.utils.workflow_actions</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">random</span>
+<span class="kn">import</span> <span class="nn">string</span>
+<span class="kn">from</span> <span class="nn">datetime</span> <span class="k">import</span> <span class="n">datetime</span>
+
+<span class="kn">from</span> <span class="nn">bioblend.galaxy</span> <span class="k">import</span> <span class="n">GalaxyInstance</span>
+<span class="kn">from</span> <span class="nn">bioblend.galaxy.histories</span> <span class="k">import</span> <span class="n">HistoryClient</span>
+<span class="kn">from</span> <span class="nn">bioblend.galaxy.workflows</span> <span class="k">import</span> <span class="n">WorkflowClient</span>
+
+<span class="kn">from</span> <span class="nn">gfiles.models</span> <span class="k">import</span> <span class="n">GenericFile</span>
+
+<span class="kn">from</span> <span class="nn">galaxy.models</span> <span class="k">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">GalaxyUser</span><span class="p">,</span> <span class="n">GalaxyInstanceTracking</span><span class="p">,</span> <span class="n">WorkflowInput</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.upload_to_galaxy</span> <span class="k">import</span> <span class="n">get_time_stamp</span><span class="p">,</span> <span class="n">get_gi_gu</span>
+
+
+<div class="viewcode-block" id="workflow_sync"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.workflow_sync">[docs]</a><span class="k">def</span> <span class="nf">workflow_sync</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+
+    <span class="c1"># get all instances for that user</span>
+    <span class="n">gits</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxyuser__user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">dj_wfs</span> <span class="o">=</span> <span class="n">Workflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="c1"># loop through instances</span>
+    <span class="n">all_wfs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">git</span> <span class="ow">in</span> <span class="n">gits</span><span class="p">:</span>
+        <span class="c1">## loop through workflows for that instance</span>
+        <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">)</span>
+        <span class="n">wc</span> <span class="o">=</span> <span class="n">WorkflowClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+        <span class="n">wfs</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">get_workflows</span><span class="p">()</span>
+        <span class="n">all_wfs</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">wfs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">wf</span> <span class="ow">in</span> <span class="n">wfs</span><span class="p">:</span>
+            <span class="n">wfd</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">show_workflow</span><span class="p">(</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+            <span class="c1">### check if id of the workflow already in galaxy</span>
+            <span class="n">wjson</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">export_workflow_json</span><span class="p">(</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+
+            <span class="n">dj_wf</span> <span class="o">=</span> <span class="n">dj_wfs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxy_id</span><span class="o">=</span><span class="n">wfd</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="n">dj_wf</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">dj_wf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">latest_workflow_uuid</span> <span class="o">==</span> <span class="n">wf</span><span class="p">[</span><span class="s1">&#39;latest_workflow_uuid&#39;</span><span class="p">]:</span>
+                    <span class="n">dj_wf_update</span> <span class="o">=</span> <span class="n">dj_wf</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">dj_wf_update</span><span class="o">.</span><span class="n">latest_workflow_uuid</span> <span class="o">=</span> <span class="n">wf</span><span class="p">[</span><span class="s1">&#39;latest_workflow_uuid&#39;</span><span class="p">]</span>
+                    <span class="n">dj_wf_update</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">wf</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                    <span class="n">dj_wf_update</span><span class="o">.</span><span class="n">workflowjson</span> <span class="o">=</span> <span class="n">wjson</span>
+                    <span class="n">dj_wf_update</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">workflow</span> <span class="o">=</span> <span class="n">Workflow</span><span class="p">(</span><span class="n">galaxy_id</span><span class="o">=</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">description</span><span class="o">=</span><span class="s1">&#39;added automatically&#39;</span><span class="p">,</span>
+                         <span class="n">galaxyinstancetracking</span><span class="o">=</span><span class="n">git</span><span class="p">,</span> <span class="n">added_by</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">workflowjson</span><span class="o">=</span><span class="n">wjson</span><span class="p">)</span>
+                <span class="n">workflow</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="n">all_wfs_gi</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">all_wfs</span><span class="p">]</span>
+
+    <span class="c1">## check if workflow is currently accessible</span>
+    <span class="n">Workflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">exclude</span><span class="p">(</span><span class="n">galaxy_id__in</span><span class="o">=</span><span class="n">all_wfs_gi</span><span class="p">)</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">accessible</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="random_string"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.random_string">[docs]</a><span class="k">def</span> <span class="nf">random_string</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+    <span class="c1"># https://stackoverflow.com/questions/2257441/random-string-generation-with-upper-case-letters-and-digits-in-python</span>
+    <span class="k">return</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">)</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="get_workflow_status"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.get_workflow_status">[docs]</a><span class="k">def</span> <span class="nf">get_workflow_status</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+    <span class="c1"># go through every galaxy instance</span>
+    <span class="n">gits</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxyuser__user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+    <span class="n">dj_wfs</span> <span class="o">=</span> <span class="n">Workflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="c1"># loop through instances</span>
+    <span class="n">status</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">git</span> <span class="ow">in</span> <span class="n">gits</span><span class="p">:</span>
+        <span class="c1">## loop through workflows for that instance</span>
+        <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">)</span>
+        <span class="n">wc</span> <span class="o">=</span> <span class="n">WorkflowClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+        <span class="n">hc</span> <span class="o">=</span> <span class="n">HistoryClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+        <span class="n">wfs</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">get_workflows</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">wf</span> <span class="ow">in</span> <span class="n">wfs</span><span class="p">:</span>
+            <span class="n">wfd</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">show_workflow</span><span class="p">(</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+            <span class="n">winvoke</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">get_invocations</span><span class="p">(</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">wi</span> <span class="ow">in</span> <span class="n">winvoke</span><span class="p">:</span>
+                <span class="n">wid</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">show_invocation</span><span class="p">(</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">wi</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+                <span class="n">h_l</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">get_histories</span><span class="p">(</span><span class="n">wid</span><span class="p">[</span><span class="s1">&#39;history_id&#39;</span><span class="p">],</span> <span class="n">deleted</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">h_l</span><span class="p">:</span>
+                    <span class="n">h</span> <span class="o">=</span> <span class="n">h_l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">sd</span> <span class="o">=</span> <span class="n">get_status_d</span><span class="p">(</span><span class="n">wid</span><span class="p">)</span>
+                <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">wfd</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                <span class="n">hd</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">show_history</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">])</span>
+                <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;history_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">h</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>
+                <span class="n">datetime_object</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">hd</span><span class="p">[</span><span class="s1">&#39;update_time&#39;</span><span class="p">],</span> <span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1">T%H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">)</span>
+                <span class="c1"># sd[&#39;history_url&#39;] =  &#39;{}{}&#39;.format(git.url, hd[&#39;url&#39;])</span>
+
+                <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;update_time&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">datetime_object</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%Y-%m-</span><span class="si">%d</span><span class="s1"> %H:%M:%S&#39;</span><span class="p">)</span>
+                <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;update_time_unix&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">unixtime</span><span class="p">(</span><span class="n">datetime_object</span><span class="p">)</span>
+                <span class="n">sd</span><span class="p">[</span><span class="s1">&#39;galaxy_instance&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">git</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">status</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sd</span><span class="p">)</span>
+
+    <span class="n">status</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">k</span><span class="p">[</span><span class="s1">&#39;update_time_unix&#39;</span><span class="p">],</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">status</span></div>
+
+<div class="viewcode-block" id="unixtime"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.unixtime">[docs]</a><span class="k">def</span> <span class="nf">unixtime</span><span class="p">(</span><span class="n">d</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">timetuple</span><span class="p">())</span></div>
+
+
+<div class="viewcode-block" id="get_status_d"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.get_status_d">[docs]</a><span class="k">def</span> <span class="nf">get_status_d</span><span class="p">(</span><span class="n">wid</span><span class="p">):</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;finished_tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;na&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;todo_tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;running_tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;failed_tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;paused_tasks&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="n">rtn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">wd</span> <span class="ow">in</span> <span class="n">wid</span><span class="p">[</span><span class="s1">&#39;steps&#39;</span><span class="p">]:</span>
+        <span class="k">if</span> <span class="n">wd</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;ok&#39;</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;finished_tasks&#39;</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">wd</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;running&#39;</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;running_tasks&#39;</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+            <span class="n">rtn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">wd</span><span class="p">[</span><span class="s1">&#39;workflow_step_label&#39;</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">wd</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;new&#39;</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;todo_tasks&#39;</span><span class="p">]</span><span class="o">+=</span><span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">wd</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="o">==</span><span class="kc">None</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;na&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">wd</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;paused&#39;</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;paused_tasks&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="n">wd</span><span class="p">[</span><span class="s1">&#39;state&#39;</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;error&#39;</span><span class="p">:</span>
+            <span class="n">d</span><span class="p">[</span><span class="s1">&#39;failed_tasks&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">d</span><span class="p">[</span><span class="s1">&#39;running_tasks_names&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">)</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">rtn</span><span class="p">])</span>
+
+    <span class="n">total</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;running_tasks&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;todo_tasks&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;finished_tasks&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;failed_tasks&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;paused_tasks&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">total</span><span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;estimated_progress&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">d</span><span class="p">[</span><span class="s1">&#39;estimated_progress&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;finished_tasks&#39;</span><span class="p">]</span><span class="o">/</span><span class="nb">float</span><span class="p">(</span><span class="n">total</span><span class="p">)</span> <span class="o">*</span><span class="mf">100.0</span><span class="p">,</span> <span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">d</span></div>
+
+
+<div class="viewcode-block" id="run_galaxy_workflow"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.run_galaxy_workflow">[docs]</a><span class="k">def</span> <span class="nf">run_galaxy_workflow</span><span class="p">(</span><span class="n">wid</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">,</span> <span class="n">pkd</span><span class="p">,</span> <span class="n">l</span><span class="p">,</span> <span class="n">history_name</span><span class="p">,</span> <span class="n">library</span><span class="p">):</span>
+
+    <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">)</span>
+
+    <span class="n">st</span> <span class="o">=</span> <span class="n">get_time_stamp</span><span class="p">()</span>
+
+    <span class="n">workflow_input_d</span> <span class="o">=</span> <span class="n">get_workflow_inputs</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">pkd</span><span class="p">,</span> <span class="n">gi</span><span class="p">,</span> <span class="n">git</span><span class="p">,</span> <span class="n">history_name</span><span class="p">,</span> <span class="n">library</span><span class="p">)</span>
+
+    <span class="n">wc</span> <span class="o">=</span> <span class="n">WorkflowClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">workflow_input_d</span><span class="p">)</span>
+    <span class="n">workflow</span> <span class="o">=</span> <span class="n">Workflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">wid</span><span class="p">)</span>
+
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">get_workflows</span><span class="p">(</span><span class="n">workflow_id</span><span class="o">=</span><span class="n">workflow</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;CHECK CHECK&#39;</span><span class="p">,</span> <span class="n">wf</span><span class="p">)</span>
+
+    <span class="n">wfi</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">invoke_workflow</span><span class="p">(</span><span class="n">wf</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">inputs</span><span class="o">=</span><span class="n">workflow_input_d</span><span class="p">,</span>
+                       <span class="n">import_inputs_to_history</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">history_name</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">_(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">history_name</span><span class="p">,</span> <span class="n">st</span><span class="p">))</span>
+
+
+    <span class="k">return</span> <span class="n">wfi</span></div>
+
+
+<div class="viewcode-block" id="get_workflow_inputs"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.get_workflow_inputs">[docs]</a><span class="k">def</span> <span class="nf">get_workflow_inputs</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">pkd</span><span class="p">,</span> <span class="n">gi</span><span class="p">,</span> <span class="n">git</span><span class="p">,</span> <span class="n">history_name</span><span class="p">,</span> <span class="n">library</span><span class="p">):</span>
+    <span class="c1"># LibraryDatasetDatasetAssociation (ldda), LibraryDataset (ld), HistoryDatasetAssociation (hda),</span>
+    <span class="c1"># or HistoryDatasetCollectionAssociation (hdca).</span>
+    <span class="n">st</span> <span class="o">=</span> <span class="n">get_time_stamp</span><span class="p">()</span>
+
+    <span class="n">hc</span> <span class="o">=</span> <span class="n">HistoryClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+    <span class="n">worklow_inputs_d</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="k">for</span> <span class="n">table</span><span class="p">,</span> <span class="nb">filter</span><span class="p">,</span> <span class="n">dinput_name</span><span class="p">,</span> <span class="n">dinput_step</span><span class="p">,</span> <span class="n">dinput_type</span> <span class="ow">in</span> <span class="n">l</span><span class="p">:</span>
+        <span class="n">pks</span> <span class="o">=</span> <span class="n">pkd</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">table</span><span class="o">.</span><span class="n">prefix</span><span class="p">)]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PKS before &#39;</span><span class="p">,</span> <span class="n">pks</span><span class="p">)</span>
+        <span class="c1">#  will get multiple inputs here because we can multiple galaxyfilelinks per file. They are all the same</span>
+        <span class="c1"># file so we can just get unique</span>
+        <span class="n">selected_objects</span> <span class="o">=</span> <span class="n">GenericFile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span>
+            <span class="n">pk__in</span><span class="o">=</span><span class="n">pks</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">()</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;PKS&#39;</span><span class="p">,</span> <span class="n">pks</span><span class="p">,</span> <span class="n">dinput_type</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">selected_objects</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">dinput_type</span><span class="o">==</span><span class="s1">&#39;data_input&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DATA INPUT&#39;</span><span class="p">)</span>
+            <span class="c1"># can only use the first selection (need to use data collection for multiple files, currently this</span>
+            <span class="c1"># approach doesn&#39;t support using &#39;multiple files&#39; as input as not possible with BioBlend (i think)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">selected_objects</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">gid</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">galaxyfilelink_set</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxy_library</span><span class="o">=</span><span class="n">library</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">galaxy_id</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="n">gid</span><span class="p">)</span>
+
+            <span class="n">worklow_inputs_d</span><span class="p">[</span><span class="n">dinput_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="n">gid</span><span class="p">,</span> <span class="s1">&#39;src&#39;</span><span class="p">:</span><span class="s1">&#39;ld&#39;</span><span class="p">}</span>
+
+        <span class="k">elif</span> <span class="n">dinput_type</span> <span class="o">==</span> <span class="s1">&#39;data_collection_input&#39;</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DATA INPUT COLLECTION&#39;</span><span class="p">)</span>
+            <span class="n">element_identifiers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">hist</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">create_history</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-(data-history-</span><span class="si">{}</span><span class="s1">)-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">history_name</span><span class="p">,</span> <span class="n">dinput_name</span><span class="p">,</span> <span class="n">st</span><span class="p">))</span>
+
+
+            <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">selected_objects</span><span class="p">:</span>
+                <span class="n">gfl</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">galaxyfilelink_set</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxy_library</span><span class="o">=</span><span class="n">library</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+                <span class="k">if</span> <span class="n">library</span><span class="p">:</span>
+                    <span class="n">dataset</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">upload_dataset_from_library</span><span class="p">(</span><span class="n">hist</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">lib_dataset_id</span><span class="o">=</span><span class="n">gfl</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">)</span>
+                    <span class="n">element_identifiers</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span>
+                                                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">dataset</span><span class="p">[</span><span class="s1">&#39;file_name&#39;</span><span class="p">]),</span>
+                                                <span class="s1">&#39;src&#39;</span><span class="p">:</span> <span class="s1">&#39;hda&#39;</span><span class="p">})</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">element_identifiers</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">gfl</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">,</span>
+                                                <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">gfl</span><span class="o">.</span><span class="n">genericfile</span><span class="o">.</span><span class="n">data_file</span><span class="o">.</span><span class="n">name</span><span class="p">,</span>
+                                                <span class="s1">&#39;src&#39;</span><span class="p">:</span> <span class="s1">&#39;hda&#39;</span><span class="p">})</span>
+
+            <span class="n">c_descript</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;collection_type&#39;</span><span class="p">:</span> <span class="s1">&#39;list&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;element_identifiers&#39;</span><span class="p">:</span> <span class="n">element_identifiers</span><span class="p">,</span>
+                          <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">dinput_name</span><span class="p">,}</span>
+
+            <span class="n">dc</span> <span class="o">=</span> <span class="n">hc</span><span class="o">.</span><span class="n">create_dataset_collection</span><span class="p">(</span><span class="n">hist</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">c_descript</span><span class="p">)</span>
+            <span class="n">worklow_inputs_d</span><span class="p">[</span><span class="n">dinput_step</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;id&#39;</span><span class="p">:</span><span class="n">dc</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="s1">&#39;src&#39;</span><span class="p">:</span> <span class="s1">&#39;hdca&#39;</span><span class="p">}</span>
+
+    <span class="k">return</span> <span class="n">worklow_inputs_d</span></div>
+
+
+<div class="viewcode-block" id="check_workflow_data_inputs"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.check_workflow_data_inputs">[docs]</a><span class="k">def</span> <span class="nf">check_workflow_data_inputs</span><span class="p">(</span><span class="n">wid</span><span class="p">,</span> <span class="n">wc</span><span class="p">):</span>
+    <span class="n">wjson</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">export_workflow_json</span><span class="p">(</span><span class="n">wid</span><span class="p">)</span>
+    <span class="n">steps</span> <span class="o">=</span> <span class="n">wjson</span><span class="p">[</span><span class="s1">&#39;steps&#39;</span><span class="p">]</span>
+    <span class="n">data_inputs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">step</span><span class="p">,</span> <span class="n">details</span><span class="p">,</span> <span class="ow">in</span> <span class="n">steps</span><span class="o">.</span><span class="n">iteritems</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;DETAILS&#39;</span><span class="p">,</span> <span class="n">details</span><span class="p">)</span>
+        <span class="n">dtype</span> <span class="o">=</span> <span class="n">details</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">]</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">details</span><span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;data_input&#39;</span> <span class="ow">or</span> <span class="n">dtype</span> <span class="o">==</span> <span class="s1">&#39;data_collection_input&#39;</span><span class="p">:</span>
+            <span class="n">data_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s1">&#39;step&#39;</span><span class="p">:</span><span class="n">step</span><span class="p">,</span> <span class="s1">&#39;dtype&#39;</span><span class="p">:</span><span class="n">dtype</span><span class="p">,</span> <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">name</span><span class="p">})</span>
+
+    <span class="k">return</span> <span class="n">data_inputs</span></div>
+
+
+
+<div class="viewcode-block" id="get_galaxy_workflow_inputs"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.get_galaxy_workflow_inputs">[docs]</a><span class="k">def</span> <span class="nf">get_galaxy_workflow_inputs</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+    <span class="n">wf</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">workflowfile</span>
+    <span class="n">git</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">galaxyinstancetracking</span>
+    <span class="n">wf_name</span> <span class="o">=</span> <span class="n">w</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="n">api_key</span> <span class="o">=</span> <span class="n">GalaxyUser</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">galaxyinstancetracking</span><span class="o">=</span><span class="n">git</span><span class="p">)</span><span class="o">.</span><span class="n">api_key</span>
+    <span class="n">galaxy_url</span> <span class="o">=</span> <span class="n">git</span><span class="o">.</span><span class="n">url</span>
+
+    <span class="n">gi</span> <span class="o">=</span> <span class="n">GalaxyInstance</span><span class="p">(</span><span class="n">galaxy_url</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">api_key</span><span class="p">)</span>
+    <span class="n">gi</span><span class="o">.</span><span class="n">verify</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">wc</span> <span class="o">=</span> <span class="n">WorkflowClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+    <span class="n">wfd</span> <span class="o">=</span> <span class="n">wf</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+    <span class="n">jsonload</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">wfd</span><span class="p">)</span>
+
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+
+    <span class="n">jsonload</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> dj-upload[</span><span class="si">{}</span><span class="s1"> </span><span class="si">{}</span><span class="s1">]&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">jsonload</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">wf_name</span><span class="p">,</span>
+                                                    <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y-%m-</span><span class="si">%d</span><span class="s2">&quot;</span><span class="p">))</span>
+
+    <span class="n">wfimp</span> <span class="o">=</span> <span class="n">wc</span><span class="o">.</span><span class="n">import_workflow_json</span><span class="p">(</span><span class="n">jsonload</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">check_workflow_data_inputs</span><span class="p">(</span><span class="n">wfimp</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">],</span> <span class="n">wc</span><span class="p">),</span> <span class="n">wfimp</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span></div>
+
+
+
+<div class="viewcode-block" id="save_new_workflow"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.workflow_actions.save_new_workflow">[docs]</a><span class="k">def</span> <span class="nf">save_new_workflow</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">user</span><span class="p">):</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">user</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="n">data_inputs</span><span class="p">,</span> <span class="n">w_gid</span> <span class="o">=</span> <span class="n">get_galaxy_workflow_inputs</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">user</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">galaxy_id</span> <span class="o">=</span> <span class="n">w_gid</span>
+    <span class="n">w</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="n">WorkflowInput</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span>
+        <span class="p">[</span><span class="n">WorkflowInput</span><span class="p">(</span><span class="n">step</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;step&#39;</span><span class="p">],</span> <span class="n">datatype</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;dtype&#39;</span><span class="p">],</span> <span class="n">name</span><span class="o">=</span><span class="n">d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="n">workflow</span><span class="o">=</span><span class="n">w</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data_inputs</span><span class="p">]</span>
+    <span class="p">)</span></div>
+
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,1248 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mbrowse.utils.save_lcms &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>mbrowse.utils.save_lcms</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mbrowse.utils.save_lcms</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">MFile</span><span class="p">,</span>
+    <span class="n">SPeakMeta</span><span class="p">,</span>
+    <span class="n">SPeak</span><span class="p">,</span>
+    <span class="n">XCMSFileInfo</span><span class="p">,</span>
+    <span class="n">CPeak</span><span class="p">,</span>
+    <span class="n">CPeakGroup</span><span class="p">,</span>
+    <span class="n">CPeakGroupMeta</span><span class="p">,</span>
+    <span class="n">CPeakGroupLink</span><span class="p">,</span>
+    <span class="n">MetabInputData</span><span class="p">,</span>
+    <span class="n">SPeakMetaCPeakFragLink</span><span class="p">,</span>
+    <span class="n">Eic</span><span class="p">,</span>
+    <span class="n">EicMeta</span><span class="p">,</span>
+    <span class="n">SpectralMatching</span><span class="p">,</span>
+    <span class="n">LibrarySpectraMeta</span><span class="p">,</span>
+    <span class="n">AdductRule</span><span class="p">,</span>
+    <span class="n">NeutralMass</span><span class="p">,</span>
+    <span class="n">Adduct</span><span class="p">,</span>
+    <span class="n">Isotope</span><span class="p">,</span>
+    <span class="n">Compound</span><span class="p">,</span>
+    <span class="n">ProbmetabAnnotation</span><span class="p">,</span>
+    <span class="n">MetFragAnnotation</span><span class="p">,</span>
+    <span class="n">CSIFingerIDAnnotation</span><span class="p">,</span>
+    <span class="n">CSIFingerIDMeta</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Count</span><span class="p">,</span> <span class="n">Avg</span><span class="p">,</span> <span class="n">F</span><span class="p">,</span> <span class="n">Max</span>
+<span class="kn">import</span> <span class="nn">sqlite3</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">pubchempy</span> <span class="k">import</span> <span class="n">PubChemHTTPError</span>
+<span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">connection</span>
+<span class="kn">from</span> <span class="nn">mbrowse.utils.sql_utils</span> <span class="k">import</span> <span class="n">sql_column_names</span><span class="p">,</span> <span class="n">check_table_exists_sqlite</span>
+<span class="kn">from</span> <span class="nn">mbrowse.utils.update_cannotations</span> <span class="k">import</span> <span class="n">UpdateCannotations</span>
+<span class="kn">from</span> <span class="nn">mbrowse.utils.upload_kegg_info</span> <span class="k">import</span> <span class="n">get_kegg_compound</span><span class="p">,</span> <span class="n">get_pubchem_compound</span><span class="p">,</span> <span class="n">get_inchi_from_chebi</span>
+<span class="kn">import</span> <span class="nn">uuid</span>
+<span class="kn">from</span> <span class="nn">django.conf</span> <span class="k">import</span> <span class="n">settings</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="n">TEST_MODE</span> <span class="o">=</span> <span class="kc">False</span>
+
+<div class="viewcode-block" id="LcmsDataTransfer"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer">[docs]</a><span class="k">class</span> <span class="nc">LcmsDataTransfer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">hdm_id</span><span class="p">,</span> <span class="n">mfile_ids</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">mfile_ids</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mfiles</span> <span class="o">=</span> <span class="n">MFile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk__in</span><span class="o">=</span><span class="n">mfile_ids</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">mfiles</span> <span class="o">=</span> <span class="n">MFile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">md</span> <span class="o">=</span> <span class="n">MetabInputData</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="n">hdm_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mfile_d</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="o">.</span><span class="n">gfile</span><span class="o">.</span><span class="n">data_file</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+        <span class="c1"># this means we can inherit in MOGI a</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">cpeakgroupmeta_class</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span>
+
+
+<div class="viewcode-block" id="LcmsDataTransfer.set_cpeakgroupmeta"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.set_cpeakgroupmeta">[docs]</a>    <span class="k">def</span> <span class="nf">set_cpeakgroupmeta</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">CPeakGroupMeta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpeakgroupmeta_class</span>
+
+        <span class="n">cpgm</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">)</span>
+        <span class="n">cpgm</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">cpgm</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.transfer"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.transfer">[docs]</a>    <span class="k">def</span> <span class="nf">transfer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">celery_obj</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="c1">###################################</span>
+        <span class="c1"># Get map of filename-to-class</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get map of filename-to-class&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="n">xfi_d</span><span class="p">,</span> <span class="n">mfile_d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_xcms_file_info</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mfile_d</span> <span class="o">=</span> <span class="n">mfile_d</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># first set cpeakgroupmeta</span>
+        <span class="c1">###################################</span>
+        <span class="c1"># the cpeakgroupmet can be update to use an extended cpeakgroupmeta class which contains more infor</span>
+        <span class="c1"># e.g. Investigation and assay details</span>
+        <span class="n">cpgm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">set_cpeakgroupmeta</span><span class="p">()</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Get scan meta info</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get map scan meta info&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+        <span class="n">runs</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">run</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">mfile_d</span><span class="o">.</span><span class="n">iteritems</span><span class="p">()}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_s_peak_meta</span><span class="p">(</span><span class="n">runs</span><span class="p">)</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Get scan peaks</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get scan peaks&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_s_peaks</span><span class="p">()</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Get individual peaklist</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get chromatographic peaks (indiv)&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_xcms_individual_peaks</span><span class="p">(</span><span class="n">xfi_d</span><span class="p">)</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Get grouped peaklist</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get grouped peaks&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_xcms_grouped_peaks</span><span class="p">(</span><span class="n">cpgm</span><span class="p">)</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Save EIC</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get EICs&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">25</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_eics</span><span class="p">()</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Get xcms peak list link</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get peak links&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_xcms_group_peak_link</span><span class="p">()</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Get adduct and isotope annotations</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get adduct and isotopes&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">35</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+        <span class="n">ruleset_d</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_adduct_rules</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_neutral_masses</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_adduct_annotations</span><span class="p">(</span><span class="n">ruleset_d</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_isotope_annotations</span><span class="p">()</span>
+
+        <span class="c1">###################################</span>
+        <span class="c1"># Fragmentation link</span>
+        <span class="c1">###################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get scan peaks to chrom peak frag links&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">40</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_spekmeta_cpeak_frag_link</span><span class="p">()</span>
+
+        <span class="c1">####################################</span>
+        <span class="c1"># spectral matching</span>
+        <span class="c1">####################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get spectral matching annotations&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">45</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_spectral_matching_annotations</span><span class="p">()</span>
+
+        <span class="c1">####################################</span>
+        <span class="c1"># MetFrag</span>
+        <span class="c1">####################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get MetFrag annotations&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">50</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_metfrag</span><span class="p">()</span>
+
+        <span class="c1">####################################</span>
+        <span class="c1"># probmetab</span>
+        <span class="c1">####################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get probmetab annotations&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">70</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_probmetab</span><span class="p">()</span>
+
+        <span class="c1">####################################</span>
+        <span class="c1"># CSI:FingerID</span>
+        <span class="c1">####################################</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Get CSI:FingerID annotations&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">80</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">save_sirius_csifingerid</span><span class="p">()</span>
+
+        <span class="c1">####################################</span>
+        <span class="c1"># Update cpeak group annotation summary</span>
+        <span class="c1">####################################</span>
+        <span class="n">cpgm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpeakgroupmeta_class</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">md</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;Update cpeak group annotation summary&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span>
+
+        <span class="n">uc</span> <span class="o">=</span> <span class="n">UpdateCannotations</span><span class="p">(</span><span class="n">cpgm</span><span class="o">=</span><span class="n">cpgm</span><span class="p">)</span>
+        <span class="n">uc</span><span class="o">.</span><span class="n">update_cannotations</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">celery_obj</span><span class="p">:</span>
+            <span class="n">celery_obj</span><span class="o">.</span><span class="n">update_state</span><span class="p">(</span><span class="n">state</span><span class="o">=</span><span class="s1">&#39;SUCCESS&#39;</span><span class="p">,</span> <span class="n">meta</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;current&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span> <span class="s1">&#39;total&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_xcms_file_info"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_xcms_file_info">[docs]</a>    <span class="k">def</span> <span class="nf">save_xcms_file_info</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="n">mfiles</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mfiles</span>
+
+        <span class="k">if</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;xset_classes&#39;</span><span class="p">):</span>
+
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  xset_classes&#39;</span><span class="p">)</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+            <span class="n">xset_classes</span> <span class="o">=</span> <span class="p">{}</span>
+            <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">:</span>
+                <span class="n">xset_classes</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;row_names&#39;</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;class&#39;</span><span class="p">]]</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">xset_classes</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  fileinfo&#39;</span><span class="p">)</span>
+
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">xfi_d</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">mfile_d</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span><span class="p">:</span>
+            <span class="n">idi</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;fileid&#39;</span><span class="p">]]</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]]</span>
+
+            <span class="k">if</span> <span class="n">xset_classes</span><span class="p">:</span>
+                <span class="n">sampleType</span> <span class="o">=</span> <span class="n">xset_classes</span><span class="p">[</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">fn</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1"># old database schema has this stored in the same table</span>
+                <span class="n">sampleType</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;sampleclass&#39;</span><span class="p">]]</span>
+
+            <span class="n">mfile</span> <span class="o">=</span> <span class="n">mfiles</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">original_filename</span><span class="o">=</span><span class="n">fn</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># if multiple with this name for this investigation (which</span>
+            <span class="c1"># there should not be), we just take the first file</span>
+            <span class="k">if</span> <span class="n">mfile</span><span class="p">:</span>
+                <span class="n">xfi</span> <span class="o">=</span> <span class="n">XCMSFileInfo</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">idi</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span> <span class="n">classname</span><span class="o">=</span><span class="n">sampleType</span><span class="p">,</span> <span class="n">mfile</span><span class="o">=</span><span class="n">mfile</span><span class="p">,</span> <span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">xfi</span> <span class="o">=</span> <span class="n">XCMSFileInfo</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">idi</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="n">fn</span><span class="p">,</span> <span class="n">classname</span><span class="o">=</span><span class="n">sampleType</span><span class="p">,</span> <span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+            <span class="n">xfi</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">xfi_d</span><span class="p">[</span><span class="n">idi</span><span class="p">]</span> <span class="o">=</span> <span class="n">xfi</span>
+            <span class="n">mfile_d</span><span class="p">[</span><span class="n">idi</span><span class="p">]</span> <span class="o">=</span> <span class="n">mfile</span>
+
+        <span class="k">return</span> <span class="n">xfi_d</span><span class="p">,</span> <span class="n">mfile_d</span></div>
+
+
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_s_peak_meta"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_s_peak_meta">[docs]</a>    <span class="k">def</span> <span class="nf">save_s_peak_meta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">runs</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  s_peak_meta&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">speakmetas</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="c1"># this needs to be update after SQLite update in msPurity</span>
+            <span class="c1"># to stop ram memory runnning out</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">speakmetas</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">speakmetas</span><span class="p">)</span>
+                <span class="n">speakmetas</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">speakmetas</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SPeakMeta</span><span class="p">(</span>
+                    <span class="n">run</span><span class="o">=</span><span class="n">runs</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;fileid&#39;</span><span class="p">]]],</span>
+                    <span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;pid&#39;</span><span class="p">]],</span>
+                    <span class="n">precursor_mz</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;precursorMZ&#39;</span><span class="p">]],</span>
+                    <span class="n">precursor_i</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;precursorIntensity&#39;</span><span class="p">]],</span>
+                    <span class="n">precursor_rt</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;precursorRT&#39;</span><span class="p">]],</span>
+                    <span class="n">precursor_scan_num</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;precursorScanNum&#39;</span><span class="p">]],</span>
+                    <span class="n">precursor_nearest</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;precursorNearest&#39;</span><span class="p">]],</span>
+                    <span class="n">scan_num</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;precursorScanNum&#39;</span><span class="p">]],</span>
+                    <span class="n">a_mz</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;aMz&#39;</span><span class="p">]],</span>
+                    <span class="n">a_purity</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;aPurity&#39;</span><span class="p">]],</span>
+                    <span class="n">a_pknm</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;apkNm&#39;</span><span class="p">]],</span>
+                    <span class="n">i_mz</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iMz&#39;</span><span class="p">]],</span>
+                    <span class="n">i_purity</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iPurity&#39;</span><span class="p">]],</span>
+                    <span class="n">i_pknm</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;ipkNm&#39;</span><span class="p">]],</span>
+                    <span class="n">in_purity</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;inPurity&#39;</span><span class="p">]],</span>
+                    <span class="n">in_pknm</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;inPkNm&#39;</span><span class="p">]],</span>
+                    <span class="n">ms_level</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                    <span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">speakmetas</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_s_peaks"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_s_peaks">[docs]</a>    <span class="k">def</span> <span class="nf">save_s_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;s_peaks&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">speakmeta</span> <span class="o">=</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+        <span class="n">speakmeta_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">speakmeta</span><span class="p">}</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  s_peaks&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+        <span class="n">speaks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+
+            <span class="n">speaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SPeak</span><span class="p">(</span>
+                    <span class="n">speakmeta_id</span><span class="o">=</span><span class="n">speakmeta_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;pid&#39;</span><span class="p">]]],</span>
+                    <span class="n">mz</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mz&#39;</span><span class="p">]],</span>
+                    <span class="n">i</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;i&#39;</span><span class="p">]]</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+            <span class="c1"># to stop ram memory runnning out</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">speaks</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
+                <span class="n">SPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">speaks</span><span class="p">)</span>
+                <span class="n">speaks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">if</span> <span class="n">speaks</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;saving speak objects&#39;</span><span class="p">)</span>
+            <span class="n">SPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">speaks</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_xcms_individual_peaks"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_xcms_individual_peaks">[docs]</a>    <span class="k">def</span> <span class="nf">save_xcms_individual_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">xfid</span><span class="p">):</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  c_peaks&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">cpeaks</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cpeaks</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">CPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">cpeaks</span><span class="p">)</span>
+                <span class="n">cpeaks</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">cpeak</span> <span class="o">=</span> <span class="n">CPeak</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]],</span>
+                          <span class="n">mz</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mz&#39;</span><span class="p">]],</span>
+                          <span class="n">mzmin</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mzmin&#39;</span><span class="p">]],</span>
+                          <span class="n">mzmax</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mzmax&#39;</span><span class="p">]],</span>
+                          <span class="n">rt</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]],</span>
+                          <span class="n">rtmin</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rtmin&#39;</span><span class="p">]],</span>
+                          <span class="n">rtmax</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rtmax&#39;</span><span class="p">]],</span>
+                          <span class="n">rtminraw</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rtminraw&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;rtminraw&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">rtmaxraw</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rtmaxraw&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;rtmaxraw&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">intb</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;intb&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;intb&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">_into</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;_into&#39;</span><span class="p">]],</span>
+                          <span class="n">maxo</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;maxo&#39;</span><span class="p">]],</span>
+                          <span class="n">sn</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;sn&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;sn&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                          <span class="n">xcmsfileinfo</span><span class="o">=</span><span class="n">xfid</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;fileid&#39;</span><span class="p">]]]</span>
+                          <span class="p">)</span>
+            <span class="n">cpeaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpeak</span><span class="p">)</span>
+
+        <span class="n">CPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">cpeaks</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_xcms_grouped_peaks"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_xcms_grouped_peaks">[docs]</a>    <span class="k">def</span> <span class="nf">save_xcms_grouped_peaks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cpgm</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  c_peak_groups&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">cpeakgroups</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">cpeakgroup_d</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cpeakgroups</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">cpeakgroups</span><span class="p">)</span>
+                <span class="n">cpeakgroups</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">cpeakgroup</span> <span class="o">=</span> <span class="n">CPeakGroup</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;grpid&#39;</span><span class="p">]],</span>
+                                        <span class="n">mzmed</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mz&#39;</span><span class="p">]],</span>
+                                        <span class="n">mzmin</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mzmin&#39;</span><span class="p">]],</span>
+                                        <span class="n">mzmax</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mzmax&#39;</span><span class="p">]],</span>
+                                        <span class="n">rtmed</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rt&#39;</span><span class="p">]],</span>
+                                        <span class="n">rtmin</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rtmin&#39;</span><span class="p">]],</span>
+                                        <span class="n">rtmax</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rtmax&#39;</span><span class="p">]],</span>
+                                        <span class="n">npeaks</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;npeaks&#39;</span><span class="p">]],</span>
+                                        <span class="n">cpeakgroupmeta</span><span class="o">=</span><span class="n">cpgm</span><span class="p">,</span>
+                                        <span class="n">isotopes</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;isotopes&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;isotopes&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                                        <span class="n">adducts</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;adduct&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;adduct&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                                        <span class="n">pcgroup</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;pcgroup&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;pcgroup&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                                        <span class="p">)</span>
+            <span class="n">cpeakgroups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cpeakgroup</span><span class="p">)</span>
+            <span class="n">cpeakgroup_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;grpid&#39;</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">cpeakgroup</span>
+
+        <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">cpeakgroups</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_eics"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_eics">[docs]</a>    <span class="k">def</span> <span class="nf">save_eics</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;eics&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  eics&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">eicmeta</span> <span class="o">=</span> <span class="n">EicMeta</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+        <span class="n">eicmeta</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">cpeaks_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">xcmsfileinfo__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+        <span class="n">cpeakgroups_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroupmeta__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+
+        <span class="n">eics</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">c</span> <span class="o">&gt;=</span> <span class="mi">1000</span><span class="p">:</span>
+                <span class="c1"># to save memory</span>
+                <span class="n">Eic</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">eics</span><span class="p">)</span>
+                <span class="n">eics</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="n">eic</span> <span class="o">=</span> <span class="n">Eic</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;eicidi&#39;</span><span class="p">]],</span>
+                      <span class="n">scan</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;scan&#39;</span><span class="p">]],</span>
+                      <span class="n">intensity</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;intensity&#39;</span><span class="p">]],</span>
+                      <span class="n">rt_raw</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rt_raw&#39;</span><span class="p">]],</span>
+                      <span class="n">rt_corrected</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rt_corrected&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;rt_corrected&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">purity</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;purity&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;purity&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                      <span class="n">cpeak_id</span><span class="o">=</span><span class="n">cpeaks_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;c_peak_id&#39;</span><span class="p">]]],</span>
+                      <span class="n">cpeakgroup_id</span><span class="o">=</span><span class="n">cpeakgroups_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;grpid&#39;</span><span class="p">]]],</span>
+                      <span class="n">eicmeta_id</span><span class="o">=</span><span class="n">eicmeta</span><span class="o">.</span><span class="n">id</span>
+                      <span class="p">)</span>
+            <span class="n">eics</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">eic</span><span class="p">)</span>
+            <span class="n">c</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="n">Eic</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">eics</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_xcms_group_peak_link"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_xcms_group_peak_link">[docs]</a>    <span class="k">def</span> <span class="nf">save_xcms_group_peak_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  c_peak_X_c_peak_group&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">cpeakgrouplink</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="n">cpeakgroups_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroupmeta__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+        <span class="n">cpeaks_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">xcmsfileinfo__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">cpeakgrouplink</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">CPeakGroupLink</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">cpeakgrouplink</span><span class="p">)</span>
+                <span class="n">cpeakgrouplink</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">cpeakgrouplink</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">CPeakGroupLink</span><span class="p">(</span>
+                    <span class="n">cpeak_id</span><span class="o">=</span><span class="n">cpeaks_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]]],</span>
+                    <span class="n">cpeakgroup_id</span><span class="o">=</span><span class="n">cpeakgroups_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;grpid&#39;</span><span class="p">]]],</span>
+                    <span class="n">best_feature</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;best_feature&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;best_feature&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">CPeakGroupLink</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">cpeakgrouplink</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">cpeakgrouplink</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_adduct_rules"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_adduct_rules">[docs]</a>    <span class="k">def</span> <span class="nf">save_adduct_rules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;adduct_rules&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="c1"># update adduct rules</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM adduct_rules&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+        <span class="n">addr</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">AdductRule</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;adduct_type&#39;</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">addr</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">addrd</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">[</span><span class="s1">&#39;adduct_type&#39;</span><span class="p">]:</span> <span class="n">a</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">addr</span><span class="p">}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">addrd</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="n">ruleset_d</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">addrd</span><span class="p">:</span>
+                <span class="n">arulei</span> <span class="o">=</span> <span class="n">AdductRule</span><span class="p">(</span><span class="n">adduct_type</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]],</span>
+                                    <span class="n">nmol</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;nmol&#39;</span><span class="p">]],</span>
+                                    <span class="n">charge</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;charge&#39;</span><span class="p">]],</span>
+                                    <span class="n">massdiff</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;massdiff&#39;</span><span class="p">]],</span>
+                                    <span class="n">oidscore</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;oidscore&#39;</span><span class="p">]],</span>
+                                    <span class="n">quasi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;quasi&#39;</span><span class="p">]],</span>
+                                    <span class="n">ips</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;ips&#39;</span><span class="p">]],</span>
+                                    <span class="n">frag_score</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;frag_score&#39;</span><span class="p">]]</span> <span class="k">if</span> <span class="s1">&#39;frag_score&#39;</span> <span class="ow">in</span> <span class="n">names</span> <span class="k">else</span> <span class="kc">None</span>
+                                    <span class="p">)</span>
+                <span class="n">arulei</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+                <span class="n">ruleset_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rule_id&#39;</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">arulei</span><span class="o">.</span><span class="n">id</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">ruleset_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rule_id&#39;</span><span class="p">]]]</span> <span class="o">=</span> <span class="n">addrd</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]]</span>
+
+        <span class="k">return</span> <span class="n">ruleset_d</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_neutral_masses"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_neutral_masses">[docs]</a>    <span class="k">def</span> <span class="nf">save_neutral_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;neutral_masses&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+        <span class="c1"># update neutral mass</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM neutral_masses&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">nms</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">NeutralMass</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">nms</span><span class="p">)</span>
+                <span class="n">nms</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">nm</span> <span class="o">=</span> <span class="n">NeutralMass</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;nm_id&#39;</span><span class="p">]],</span>
+                             <span class="n">nm</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mass&#39;</span><span class="p">]],</span>
+                             <span class="n">ips</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;ips&#39;</span><span class="p">]],</span>
+                             <span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+            <span class="n">nms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nm</span><span class="p">)</span>
+
+        <span class="n">NeutralMass</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">nms</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_adduct_annotations"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_adduct_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">save_adduct_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ruleset_d</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;adduct_annotations&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">nm_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">n</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">n</span><span class="o">.</span><span class="n">id</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">NeutralMass</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+        <span class="n">cpeakgroups_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroupmeta__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM adduct_annotations&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+        <span class="n">ads</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">Adduct</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">ads</span><span class="p">)</span>
+                <span class="n">ads</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">ad</span> <span class="o">=</span> <span class="n">Adduct</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;add_id&#39;</span><span class="p">]],</span>
+                        <span class="n">adductrule_id</span><span class="o">=</span><span class="n">ruleset_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;rule_id&#39;</span><span class="p">]]],</span>
+                        <span class="n">cpeakgroup_id</span><span class="o">=</span><span class="n">cpeakgroups_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;grpid&#39;</span><span class="p">]]],</span>
+                        <span class="n">neutralmass_id</span><span class="o">=</span><span class="n">nm_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;nm_id&#39;</span><span class="p">]]]</span>
+                        <span class="p">)</span>
+            <span class="n">ads</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">ad</span><span class="p">)</span>
+
+        <span class="n">Adduct</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">ads</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_isotope_annotations"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_isotope_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">save_isotope_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;isotope_annotations&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">cpeakgroups_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroupmeta__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM isotope_annotations&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+        <span class="n">isos</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">row</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span><span class="mi">0</span><span class="p">:</span>
+                <span class="n">Isotope</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">isos</span><span class="p">)</span>
+                <span class="n">isos</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">iso</span> <span class="o">=</span> <span class="n">Isotope</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iso_id&#39;</span><span class="p">]],</span>
+                          <span class="n">iso</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iso&#39;</span><span class="p">]],</span>
+                          <span class="n">charge</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;charge&#39;</span><span class="p">]],</span>
+                          <span class="n">cpeakgroup1_id</span><span class="o">=</span><span class="n">cpeakgroups_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;c_peak_group1_id&#39;</span><span class="p">]]],</span>
+                          <span class="n">cpeakgroup2_id</span><span class="o">=</span><span class="n">cpeakgroups_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;c_peak_group2_id&#39;</span><span class="p">]]],</span>
+                          <span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span>
+                          <span class="p">)</span>
+            <span class="n">isos</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">iso</span><span class="p">)</span>
+
+        <span class="n">Isotope</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">isos</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_spekmeta_cpeak_frag_link"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_spekmeta_cpeak_frag_link">[docs]</a>    <span class="k">def</span> <span class="nf">save_spekmeta_cpeak_frag_link</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+        <span class="n">CPeakGroupMeta</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cpeakgroupmeta_class</span>
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;c_peak_X_s_peak_meta&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  c_peak_X_s_peak_meta&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">speakmeta</span> <span class="o">=</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+        <span class="n">speakmeta_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">speakmeta</span><span class="p">}</span>
+
+        <span class="n">cpeaks</span> <span class="o">=</span> <span class="n">CPeak</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">xcmsfileinfo__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+        <span class="n">cpeak_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">s</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">cpeaks</span><span class="p">}</span>
+
+        <span class="n">speakmeta_cpeak_frag_links</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">speakmeta_cpeak_frag_links</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">SPeakMetaCPeakFragLink</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">speakmeta_cpeak_frag_links</span><span class="p">)</span>
+                <span class="n">speakmeta_cpeak_frag_links</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="c1"># this needs to be update after SQLite update in msPurity</span>
+            <span class="n">speakmeta_cpeak_frag_links</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">SPeakMetaCPeakFragLink</span><span class="p">(</span>
+                    <span class="n">speakmeta_id</span><span class="o">=</span><span class="n">speakmeta_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;pid&#39;</span><span class="p">]]],</span>
+                    <span class="n">cpeak_id</span><span class="o">=</span><span class="n">cpeak_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]]],</span>
+                <span class="p">)</span>
+            <span class="p">)</span>
+
+        <span class="n">SPeakMetaCPeakFragLink</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">speakmeta_cpeak_frag_links</span><span class="p">)</span>
+        <span class="n">cpgm</span> <span class="o">=</span> <span class="n">CPeakGroupMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)</span>
+
+        <span class="c1"># Add the number of msms events for grouped feature (not possible with django sql stuff)</span>
+        <span class="n">sqlstmt</span> <span class="o">=</span> <span class="s1">&#39;&#39;&#39;UPDATE metab_cpeakgroup t</span>
+<span class="s1">                        INNER JOIN (</span>
+<span class="s1">                                (SELECT cpg.id, COUNT(cpgl.id) AS counter FROM metab_cpeakgroup as cpg </span>
+<span class="s1">    	                          LEFT JOIN metab_cpeakgrouplink as cpgl </span>
+<span class="s1">                                    ON cpgl.cpeakgroup_id=cpg.id</span>
+<span class="s1">                                  LEFT JOIN metab_speakmetacpeakfraglink as scfl </span>
+<span class="s1">                                    ON cpgl.cpeak_id=scfl.cpeak_id</span>
+<span class="s1">                                    WHERE scfl.id is not NULL AND cpg.cpeakgroupmeta_id=</span><span class="si">{}</span><span class="s1"></span>
+<span class="s1">                                  group by cpg.id)</span>
+<span class="s1">                                  ) m ON t.id = m.id</span>
+<span class="s1">                                SET t.msms_count = m.counter&#39;&#39;&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cpgm</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="k">with</span> <span class="n">connection</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span> <span class="k">as</span> <span class="n">cursor</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="n">sqlstmt</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_spectral_matching_annotations"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_spectral_matching_annotations">[docs]</a>    <span class="k">def</span> <span class="nf">save_spectral_matching_annotations</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;matches&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  matches LEFT JOIN library_meta ON matches.lid=library_meta.lid&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">speakmeta_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+
+        <span class="n">library_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">accession</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">LibrarySpectraMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()}</span>
+        <span class="n">cpeakgroups_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroupmeta__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+
+        <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">cursor</span><span class="p">:</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">SpectralMatching</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;source_name&#39;</span><span class="p">]]</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;massbank&#39;</span><span class="p">,</span> <span class="s1">&#39;mona-experimental&#39;</span><span class="p">]:</span>
+                <span class="c1"># Currently only works for mass bank (or anything from the experimental MONA library)</span>
+
+
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">lsm_id</span> <span class="o">=</span> <span class="n">library_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;accession&#39;</span><span class="p">]]]</span>
+                <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
+                    <span class="n">lsm_id</span> <span class="o">=</span> <span class="kc">None</span>
+
+                <span class="n">match</span> <span class="o">=</span> <span class="n">SpectralMatching</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mid&#39;</span><span class="p">]],</span>
+                                         <span class="n">s_peak_meta_id</span><span class="o">=</span><span class="n">speakmeta_d</span><span class="p">[</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;pid&#39;</span><span class="p">]]],</span>
+                                         <span class="n">score</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;score&#39;</span><span class="p">]],</span>
+                                         <span class="n">percentage_match</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;perc_mtch&#39;</span><span class="p">]],</span>
+                                         <span class="n">match_num</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;match&#39;</span><span class="p">]],</span>
+                                         <span class="n">accession</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;accession&#39;</span><span class="p">]],</span>
+                                         <span class="n">name</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]],</span>
+                                         <span class="n">library_spectra_meta_id</span><span class="o">=</span><span class="n">lsm_id</span>
+                                         <span class="p">)</span>
+
+                <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+
+        <span class="n">SpectralMatching</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span></div>
+
+        <span class="c1"># cursor.execute(&#39;SELECT * FROM  xcms_match&#39;)</span>
+        <span class="c1"># namex = sql_column_names(cursor)</span>
+        <span class="c1">#</span>
+        <span class="c1"># matchxs = []</span>
+        <span class="c1"># for row in cursor:</span>
+        <span class="c1">#     print cpeakgroups_d[row[namex[&#39;grpid&#39;]]]</span>
+        <span class="c1">#     cpg = CPeakGroup.objects.get(pk=int(cpeakgroups_d[row[namex[&#39;grpid&#39;]]]))</span>
+        <span class="c1">#     cpg.best_annotation=row[namex[&#39;best_name&#39;]]</span>
+        <span class="c1">#     cpg.best_score=row[namex[&#39;best_median_score&#39;]]</span>
+        <span class="c1">#     print cpg</span>
+        <span class="c1">#     cpg.save()</span>
+
+        <span class="c1"># matchxs.append(cpg)</span>
+
+        <span class="c1"># CPeakGroupAnn.objects.bulk_create(matchxs)</span>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_metfrag"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_metfrag">[docs]</a>    <span class="k">def</span> <span class="nf">save_metfrag</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;metfrag_results&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  metfrag_results&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">speakmeta_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+
+        <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cursor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">TEST_MODE</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="n">UID</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;UID&#39;</span><span class="p">]]</span>
+
+            <span class="n">uid_l</span> <span class="o">=</span> <span class="n">UID</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+            <span class="n">pid</span> <span class="o">=</span> <span class="n">uid_l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;InChIKey&#39;</span><span class="p">]]:</span>
+                <span class="c1"># currently only add compounds we can have a name for (should be all cases if PubChem was used)</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]])</span> <span class="o">&lt;</span> <span class="mf">0.6</span><span class="p">:</span>
+                <span class="c1"># no point storing anything less than 0.6</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">MetFragAnnotation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="n">inchikey</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;InChIKey&#39;</span><span class="p">]]</span>
+            <span class="n">identifier</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;Identifier&#39;</span><span class="p">]]</span>
+            <span class="n">comp_search</span> <span class="o">=</span> <span class="n">Compound</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">inchikey_id</span><span class="o">=</span><span class="n">inchikey</span><span class="p">)</span>
+            <span class="c1"># if comp_search:</span>
+            <span class="c1">#     comp = comp_search[0]</span>
+            <span class="c1"># else:</span>
+            <span class="c1">#     comp = Compound(inchikey_id=inchikey,</span>
+            <span class="c1">#                     name=row[names[&#39;CompoundName&#39;]] if row[names[&#39;CompoundName&#39;]] else &#39;&#39;,</span>
+            <span class="c1">#                     molecular_formula=row[names[&#39;MolecularFormula&#39;]],</span>
+            <span class="c1">#                     exact_mass=row[names[&#39;MonoisotopicMass&#39;]],</span>
+            <span class="c1">#                     monoisotopic_mass=row[names[&#39;MonoisotopicMass&#39;]],</span>
+            <span class="c1">#                     smiles=row[names[&#39;SMILES&#39;]],</span>
+            <span class="c1">#                     pubchem_id=identifier</span>
+            <span class="c1">#                     )</span>
+            <span class="c1">#     comp.save()</span>
+
+            <span class="c1"># Takes too long to search pubchem</span>
+            <span class="k">if</span> <span class="n">comp_search</span><span class="p">:</span>
+                <span class="n">comp</span> <span class="o">=</span> <span class="n">comp_search</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+
+                <span class="n">comp</span> <span class="o">=</span> <span class="n">get_pubchem_sqlite_local</span><span class="p">(</span><span class="n">identifier</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">comp</span><span class="p">:</span>
+
+                    <span class="n">pc_matches</span> <span class="o">=</span> <span class="n">get_pubchem_compound</span><span class="p">(</span><span class="n">identifier</span><span class="p">,</span> <span class="s1">&#39;cid&#39;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="ow">not</span> <span class="n">pc_matches</span><span class="p">:</span>
+                        <span class="n">pc_matches</span> <span class="o">=</span> <span class="n">get_pubchem_compound</span><span class="p">(</span><span class="n">inchikey</span><span class="p">,</span> <span class="s1">&#39;inchikey&#39;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="ow">not</span> <span class="n">pc_matches</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">row</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">pc_matches</span><span class="p">)</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">inchikey</span><span class="p">)</span>
+                            <span class="k">continue</span>
+
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pc_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;More than 1 match for inchi, taking the first match, should only really happen in rare cases&#39;</span> \
+                              <span class="s1">&#39;and we have not got the power to distinguish between them anyway!&#39;</span><span class="p">)</span>
+
+
+                    <span class="n">pc_match</span> <span class="o">=</span> <span class="n">pc_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">comp</span> <span class="o">=</span> <span class="n">create_pubchem_comp</span><span class="p">(</span><span class="n">pc_match</span><span class="p">)</span>
+                    <span class="n">comp</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+            <span class="n">match</span> <span class="o">=</span> <span class="n">MetFragAnnotation</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                                      <span class="n">s_peak_meta_id</span><span class="o">=</span><span class="n">speakmeta_d</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)],</span>
+                                      <span class="n">compound</span><span class="o">=</span><span class="n">comp</span><span class="p">,</span>
+                                      <span class="n">explained_peaks</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;ExplPeaks&#39;</span><span class="p">]],</span>
+                                      <span class="n">formula_explained_peaks</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;FormulasOfExplPeaks&#39;</span><span class="p">]],</span>
+                                      <span class="n">fragmentor_score</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;FragmenterScore&#39;</span><span class="p">]],</span>
+                                      <span class="n">fragmentor_score_values</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;FragmenterScore_Values&#39;</span><span class="p">]],</span>
+                                      <span class="n">maximum_tree_depth</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;MaximumTreeDepth&#39;</span><span class="p">]],</span>
+                                      <span class="n">number_peaks_used</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;NumberPeaksUsed&#39;</span><span class="p">]],</span>
+                                      <span class="n">score</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]]</span>
+                                      <span class="p">)</span>
+            <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+
+
+        <span class="n">MetFragAnnotation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_probmetab"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_probmetab">[docs]</a>    <span class="k">def</span> <span class="nf">save_probmetab</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;probmetab_results&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  probmetab_results&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">cpeakgroups_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">CPeakGroup</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">cpeakgroupmeta__metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+
+        <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+
+        <span class="k">for</span> <span class="n">c</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cursor</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">TEST_MODE</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+                    <span class="k">break</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;grp_id&#39;</span><span class="p">]]:</span>
+                <span class="k">continue</span>
+
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span> <span class="o">%</span> <span class="mi">1000</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">ProbmetabAnnotation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span>
+                <span class="n">matches</span> <span class="o">=</span> <span class="p">[]</span>
+
+
+
+            <span class="c1"># Expect to have majority of KEGG in the Compound model already</span>
+            <span class="n">kegg_id</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mpc&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;:&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">comp_search</span> <span class="o">=</span> <span class="n">Compound</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">kegg_id__regex</span><span class="o">=</span><span class="s1">&#39;(&quot;|^|,)</span><span class="si">{}</span><span class="s1">(,|$|&quot;)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">kegg_id</span><span class="p">))</span> <span class="c1"># this needs to be update to be proper relational as the regex fails in some cases!</span>
+            <span class="k">if</span> <span class="n">comp_search</span><span class="p">:</span>
+                <span class="n">comp</span> <span class="o">=</span> <span class="n">comp_search</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">kegg_compound</span> <span class="o">=</span> <span class="n">get_kegg_compound</span><span class="p">(</span><span class="n">kegg_id</span><span class="p">)</span>
+                <span class="k">if</span> <span class="s1">&#39;chebi_id_single&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="ow">and</span> <span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;chebi_id_single&#39;</span><span class="p">]:</span>
+                    <span class="n">inchikey</span> <span class="o">=</span> <span class="n">get_inchi_from_chebi</span><span class="p">(</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;chebi_id_single&#39;</span><span class="p">])</span>
+                    <span class="k">if</span> <span class="n">inchikey</span><span class="p">:</span>
+                        <span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;inchikey_id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">inchikey</span>
+
+                <span class="n">comp</span> <span class="o">=</span> <span class="n">save_compound_kegg</span><span class="p">(</span><span class="n">kegg_compound</span><span class="p">)</span>
+
+            <span class="n">match</span> <span class="o">=</span> <span class="n">ProbmetabAnnotation</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">c</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                                        <span class="n">cpeakgroup_id</span><span class="o">=</span><span class="n">cpeakgroups_d</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;grp_id&#39;</span><span class="p">]])],</span>
+                                        <span class="n">compound</span><span class="o">=</span><span class="n">comp</span><span class="p">,</span>
+                                        <span class="n">prob</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;proba&#39;</span><span class="p">]])</span>
+
+            <span class="n">matches</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">match</span><span class="p">)</span>
+
+        <span class="n">ProbmetabAnnotation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">bulk_create</span><span class="p">(</span><span class="n">matches</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LcmsDataTransfer.save_sirius_csifingerid"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.LcmsDataTransfer.save_sirius_csifingerid">[docs]</a>    <span class="k">def</span> <span class="nf">save_sirius_csifingerid</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">md</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cursor</span>
+
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">check_table_exists_sqlite</span><span class="p">(</span><span class="n">cursor</span><span class="p">,</span> <span class="s1">&#39;sirius_csifingerid_results&#39;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="mi">0</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  sirius_csifingerid_results&#39;</span><span class="p">)</span>
+        <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+        <span class="n">speakmeta_d</span> <span class="o">=</span> <span class="p">{</span><span class="n">c</span><span class="o">.</span><span class="n">idi</span><span class="p">:</span> <span class="n">c</span><span class="o">.</span><span class="n">pk</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">SPeakMeta</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">metabinputdata</span><span class="o">=</span><span class="n">md</span><span class="p">)}</span>
+
+        <span class="n">speaks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">meta</span> <span class="o">=</span> <span class="n">CSIFingerIDMeta</span><span class="p">()</span>
+        <span class="n">meta</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">cursor</span><span class="p">):</span>
+
+            <span class="n">UID</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;UID&#39;</span><span class="p">]]</span>
+            <span class="k">if</span> <span class="n">UID</span><span class="o">==</span><span class="s1">&#39;UID&#39;</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">uid_l</span> <span class="o">=</span> <span class="n">UID</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span>
+            <span class="n">pid</span> <span class="o">=</span> <span class="n">uid_l</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">TEST_MODE</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+
+            <span class="k">if</span> <span class="nb">float</span><span class="p">(</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;Rank&#39;</span><span class="p">]])</span> <span class="o">&gt;</span> <span class="mi">6</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">comps</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="n">pubchem_ids</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;pubchemids&#39;</span><span class="p">]]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">pubchem_id</span> <span class="ow">in</span> <span class="n">pubchem_ids</span><span class="p">:</span>
+                <span class="n">comp_search</span> <span class="o">=</span> <span class="n">get_pubchem_sqlite_local</span><span class="p">(</span><span class="n">pubchem_id</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">comp_search</span><span class="p">:</span>
+                    <span class="n">comps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comp_search</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">pc_matches</span> <span class="o">=</span> <span class="n">get_pubchem_compound</span><span class="p">(</span><span class="n">pubchem_id</span><span class="p">,</span> <span class="s1">&#39;cid&#39;</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">pc_matches</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">pc_matches</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;More than 1 entry for the compound id! should not happen!&#39;</span><span class="p">)</span>
+                        <span class="n">pc_match</span> <span class="o">=</span> <span class="n">pc_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="n">comp</span> <span class="o">=</span> <span class="n">create_pubchem_comp</span><span class="p">(</span><span class="n">pc_match</span><span class="p">)</span>
+
+                        <span class="n">comps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">comp</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No matching pubchemid&#39;</span><span class="p">)</span>
+
+            <span class="n">match</span> <span class="o">=</span> <span class="n">CSIFingerIDAnnotation</span><span class="p">(</span><span class="n">idi</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span>
+                                          <span class="n">s_peak_meta_id</span><span class="o">=</span><span class="n">speakmeta_d</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)],</span>
+                                          <span class="n">inchikey2d</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;InChIkey2D&#39;</span><span class="p">]],</span>
+                                          <span class="n">molecular_formula</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;molecularFormula&#39;</span><span class="p">]],</span>
+                                          <span class="n">rank</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;Rank&#39;</span><span class="p">]],</span>
+                                          <span class="n">score</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;Score&#39;</span><span class="p">]],</span>
+                                          <span class="n">name</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;Name&#39;</span><span class="p">]],</span>
+                                          <span class="n">links</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;links&#39;</span><span class="p">]],</span>
+                                          <span class="n">smiles</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;smiles&#39;</span><span class="p">]],</span>
+                                          <span class="n">csifingeridmeta</span><span class="o">=</span><span class="n">meta</span>
+                                          <span class="p">)</span>
+            <span class="n">match</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+            <span class="n">match</span><span class="o">.</span><span class="n">compound</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="o">*</span><span class="n">comps</span><span class="p">)</span>
+            <span class="n">speaks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">speakmeta_d</span><span class="p">[</span><span class="nb">int</span><span class="p">(</span><span class="n">pid</span><span class="p">)])</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">speaks</span><span class="p">:</span>
+            <span class="n">anns</span> <span class="o">=</span> <span class="n">CSIFingerIDAnnotation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">s_peak_meta_id</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="n">csifingeridmeta</span><span class="o">=</span><span class="n">meta</span><span class="p">)</span>
+            <span class="n">rank</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">rank</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">anns</span><span class="p">]</span>
+            <span class="n">rank_score</span> <span class="o">=</span> <span class="n">get_rank_score</span><span class="p">(</span><span class="n">rank</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">ann</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">anns</span><span class="p">):</span>
+                <span class="n">ann</span><span class="o">.</span><span class="n">rank_score</span> <span class="o">=</span> <span class="n">rank_score</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">ann</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div></div>
+
+
+
+<div class="viewcode-block" id="get_pubchem_sqlite_local"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.get_pubchem_sqlite_local">[docs]</a><span class="k">def</span> <span class="nf">get_pubchem_sqlite_local</span><span class="p">(</span><span class="n">pubchem_id</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">settings</span><span class="p">,</span> <span class="s1">&#39;METAB_PUBCHEM_SQLITE_PTH&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">settings</span><span class="o">.</span><span class="n">METAB_PUBCHEM_SQLITE_PTH</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">pubchem_id</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">sqlite3</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">METAB_PUBCHEM_SQLITE_PTH</span><span class="p">)</span>
+    <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s1">&#39;SELECT * FROM  pubchem_compounds WHERE cid=</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">pubchem_id</span><span class="p">))</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">sql_column_names</span><span class="p">(</span><span class="n">cursor</span><span class="p">)</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">rows</span><span class="p">:</span>
+        <span class="c1"># should only be 1 entrie per cid so take first row</span>
+        <span class="k">return</span> <span class="n">create_compound_from_pubchem_local</span><span class="p">(</span><span class="n">rows</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">names</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s1">&#39;&#39;</span></div>
+
+
+
+
+<div class="viewcode-block" id="create_compound_from_pubchem_local"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.create_compound_from_pubchem_local">[docs]</a><span class="k">def</span> <span class="nf">create_compound_from_pubchem_local</span><span class="p">(</span><span class="n">row</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+    <span class="n">cid</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;cid&#39;</span><span class="p">]]</span>
+    <span class="n">inchikey</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;inchikey&#39;</span><span class="p">]]</span>
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">Compound</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">inchikey_id</span><span class="o">=</span><span class="n">inchikey</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">comp</span><span class="p">:</span>
+        <span class="n">mtch_compound</span> <span class="o">=</span> <span class="n">comp</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">mtch_compound</span><span class="o">.</span><span class="n">pubchem_id</span><span class="p">:</span>
+            <span class="n">mtch_compound</span><span class="o">.</span><span class="n">pubchem_id</span> <span class="o">=</span> <span class="n">cid</span>
+            <span class="n">mtch_compound</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="k">elif</span> <span class="ow">not</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s1">&#39;(^|,)</span><span class="si">{}</span><span class="s1">(,|$)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cid</span><span class="p">),</span> <span class="n">mtch_compound</span><span class="o">.</span><span class="n">pubchem_id</span><span class="p">):</span>
+            <span class="n">mtch_compound</span><span class="o">.</span><span class="n">pubchem_id</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">,</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mtch_compound</span><span class="o">.</span><span class="n">pubchem_id</span><span class="p">,</span> <span class="n">cid</span><span class="p">)</span>
+            <span class="n">mtch_compound</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">mtch_compound</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;unknown&#39;</span>
+        <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]]</span>
+        <span class="k">elif</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iupac_name&#39;</span><span class="p">]]:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iupac_name&#39;</span><span class="p">]]</span>
+
+        <span class="c1"># we create the compound</span>
+        <span class="n">comp</span> <span class="o">=</span> <span class="n">Compound</span><span class="p">(</span><span class="n">inchikey_id</span><span class="o">=</span><span class="n">inchikey</span><span class="p">,</span>
+                 <span class="n">pubchem_id</span><span class="o">=</span><span class="n">cid</span><span class="p">,</span>
+                 <span class="n">exact_mass</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;exact_mass&#39;</span><span class="p">]],</span>
+                 <span class="n">molecular_formula</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;mf&#39;</span><span class="p">]],</span>
+                 <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                 <span class="n">monoisotopic_mass</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;monoisotopic_weight&#39;</span><span class="p">]],</span>
+                 <span class="n">molecular_weight</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;molecular_weight&#39;</span><span class="p">]],</span>
+                 <span class="n">iupac_name</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iupac_name&#39;</span><span class="p">]],</span>
+                 <span class="n">systematic_name</span><span class="o">=</span><span class="n">row</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="s1">&#39;iupac_systematic_name&#39;</span><span class="p">]]</span>
+        <span class="p">)</span>
+        <span class="n">comp</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">comp</span></div>
+
+<div class="viewcode-block" id="save_compound_kegg"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.save_compound_kegg">[docs]</a><span class="k">def</span> <span class="nf">save_compound_kegg</span><span class="p">(</span><span class="n">kegg_compound</span><span class="p">):</span>
+
+
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">Compound</span><span class="p">(</span><span class="n">inchikey_id</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;inchikey_id&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;inchikey_id&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="s1">&#39;UNKNOWN_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()),</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="s1">&#39;unknown name&#39;</span><span class="p">,</span>
+                    <span class="n">molecular_formula</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;mf&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;mf&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">exact_mass</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;exact_mass&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;exact_mass&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">kegg_id</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;kegg_cid&#39;</span><span class="p">],</span>
+                    <span class="n">chebi_id</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;chebi_id&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;chebi_id&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">lbdb_id</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;lbdb_id&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;lbdb_id&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">lmdb_id</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;lmdb_id&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;lmdb_id&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+                    <span class="n">brite</span><span class="o">=</span><span class="n">kegg_compound</span><span class="p">[</span><span class="s1">&#39;brite&#39;</span><span class="p">]</span> <span class="k">if</span> <span class="s1">&#39;brite&#39;</span> <span class="ow">in</span> <span class="n">kegg_compound</span> <span class="k">else</span> <span class="kc">None</span><span class="p">,</span>
+
+                    <span class="p">)</span>
+    <span class="n">comp</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">comp</span></div>
+
+
+<div class="viewcode-block" id="get_rank_score"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.get_rank_score">[docs]</a><span class="k">def</span> <span class="nf">get_rank_score</span><span class="p">(</span><span class="n">l</span><span class="p">):</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="c1"># only 1 (or less)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">l</span><span class="p">):</span>
+        <span class="c1"># all the same (just give all score of 1)</span>
+        <span class="k">return</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+    <span class="n">npa</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+    <span class="n">rank_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">npa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">npa</span><span class="o">.</span><span class="n">max</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">xrange</span><span class="p">(</span><span class="n">npa</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">npa</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">-</span> <span class="p">(</span><span class="n">m</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">rank_score</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">((</span><span class="nb">float</span><span class="p">(</span><span class="n">r</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span>
+
+    <span class="k">return</span> <span class="n">rank_score</span></div>
+
+<div class="viewcode-block" id="create_pubchem_comp"><a class="viewcode-back" href="../../../django-metab/api/utils.html#mbrowse.utils.save_lcms.create_pubchem_comp">[docs]</a><span class="k">def</span> <span class="nf">create_pubchem_comp</span><span class="p">(</span><span class="n">pc_match</span><span class="p">,</span> <span class="n">kegg_id</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+
+        <span class="k">if</span> <span class="n">pc_match</span><span class="o">.</span><span class="n">synonyms</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">pc_match</span><span class="o">.</span><span class="n">synonyms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">other_names</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">pc_match</span><span class="o">.</span><span class="n">synonyms</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="n">pc_match</span><span class="o">.</span><span class="n">iupac_name</span> <span class="k">if</span> <span class="n">pc_match</span><span class="o">.</span><span class="n">iupac_name</span> <span class="k">else</span> <span class="s1">&#39;unknown name&#39;</span>
+            <span class="n">other_names</span> <span class="o">=</span> <span class="n">pc_match</span><span class="o">.</span><span class="n">iupac_name</span>
+    <span class="k">except</span> <span class="n">PubChemHTTPError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;unknown name&#39;</span>
+        <span class="n">other_names</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+
+    <span class="n">comp</span> <span class="o">=</span> <span class="n">Compound</span><span class="p">(</span><span class="n">inchikey_id</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">inchikey</span><span class="p">,</span>
+                    <span class="n">systematic_name</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">iupac_name</span><span class="p">,</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                    <span class="n">other_names</span><span class="o">=</span><span class="n">other_names</span><span class="p">,</span>
+                    <span class="n">smiles</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">canonical_smiles</span><span class="p">,</span>
+                    <span class="n">exact_mass</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">exact_mass</span><span class="p">,</span>
+                    <span class="n">monoisotopic_mass</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">monoisotopic_mass</span><span class="p">,</span>
+                    <span class="n">molecular_weight</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">molecular_weight</span><span class="p">,</span>
+                    <span class="n">molecular_formula</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">molecular_formula</span><span class="p">,</span>
+                    <span class="n">pubchem_id</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">cid</span><span class="p">,</span>
+                    <span class="n">xlogp</span><span class="o">=</span><span class="n">pc_match</span><span class="o">.</span><span class="n">xlogp</span><span class="p">,</span>
+                    <span class="n">kegg_id</span><span class="o">=</span><span class="n">kegg_id</span> <span class="k">if</span> <span class="n">kegg_id</span> <span class="k">else</span> <span class="kc">None</span>
+                    <span class="p">)</span>
+    <span class="n">comp</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">comp</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

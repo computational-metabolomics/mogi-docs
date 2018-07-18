@@ -1,12 +1,12 @@
 Quick start
 ========================================
 
-1. Add "galaxy" and django application dependencies to your INSTALLED_APPS setting like this (galaxy should come after gfiles)::
+1. Add "galaxy" and django application dependencies to your INSTALLED_APPS setting like this (galaxy should come before gfiles)::
 
     INSTALLED_APPS = [
         ...
-        'gfiles',
         'galaxy',
+        'gfiles',
 
         'django_tables2',
         'bootstrap3',

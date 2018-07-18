@@ -1,0 +1,510 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>django-mbrowse views &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="django-mbrowse filters" href="filters.html" />
+    <link rel="prev" title="django-mbrowse filters" href="forms.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">django-mbrowse</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="forms.html">forms</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tables.html">tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">django-mbrowse</a> &raquo;</li>
+        
+          <li><a href="index.html">API reference</a> &raquo;</li>
+        
+      <li>django-mbrowse views</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-mbrowse/api/views.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mbrowse.views.views_general">
+<span id="django-mbrowse-views"></span><h1>django-mbrowse views<a class="headerlink" href="#module-mbrowse.views.views_general" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mbrowse.views.views_general.GeneralSummaryView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_general.</code><code class="descname">GeneralSummaryView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_general.html#GeneralSummaryView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_general.GeneralSummaryView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_general.MFileAutocomplete">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_general.</code><code class="descname">MFileAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_general.html#MFileAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_general.MFileAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mbrowse.views.views_general.MFileAutocomplete.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_general.html#MFileAutocomplete.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_general.MFileAutocomplete.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter the queryset with GET[‘q’].</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_general.RunCreateView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_general.</code><code class="descname">RunCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_general.html#RunCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_general.RunCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_general.RunCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_general.RunCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_general.Run" title="mbrowse.models.models_general.Run"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_general.Run</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_general.UploadAdductRules">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_general.</code><code class="descname">UploadAdductRules</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_general.html#UploadAdductRules"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_general.UploadAdductRules" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_general.UploadMFilesBatch">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_general.</code><code class="descname">UploadMFilesBatch</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_general.html#UploadMFilesBatch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_general.UploadMFilesBatch" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-mbrowse.views.views_cpeaks"></span><dl class="class">
+<dt id="mbrowse.views.views_cpeaks.CAnnotationsListAllView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">CAnnotationsListAllView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#CAnnotationsListAllView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.CAnnotationsListAllView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.CAnnotationsListAllView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.CAnnotationsListAllView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_annotations.CAnnotation" title="mbrowse.models.models_annotations.CAnnotation"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_annotations.CAnnotation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_cpeaks.CAnnotationsListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">CAnnotationsListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#CAnnotationsListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.CAnnotationsListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.CAnnotationsListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.CAnnotationsListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_annotations.CAnnotation" title="mbrowse.models.models_annotations.CAnnotation"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_annotations.CAnnotation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_cpeaks.CPeakGroupAllListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">CPeakGroupAllListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#CPeakGroupAllListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.CPeakGroupAllListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.CPeakGroupAllListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.CPeakGroupAllListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_cpeaks.CPeakGroup" title="mbrowse.models.models_cpeaks.CPeakGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.CPeakGroup</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_cpeaks.CPeakGroupListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">CPeakGroupListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#CPeakGroupListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.CPeakGroupListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.CPeakGroupListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.CPeakGroupListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_cpeaks.CPeakGroup" title="mbrowse.models.models_cpeaks.CPeakGroup"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.CPeakGroup</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_cpeaks.CPeakGroupMetaListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">CPeakGroupMetaListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#CPeakGroupMetaListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.CPeakGroupMetaListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.CPeakGroupMetaListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.CPeakGroupMetaListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_cpeaks.CPeakGroupMeta" title="mbrowse.models.models_cpeaks.CPeakGroupMeta"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.CPeakGroupMeta</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_cpeaks.EicListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">EicListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#EicListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.EicListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.EicListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.EicListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_cpeaks.Eic" title="mbrowse.models.models_cpeaks.Eic"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.Eic</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_cpeaks.Frag4FeatureListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">Frag4FeatureListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#Frag4FeatureListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.Frag4FeatureListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.Frag4FeatureListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.Frag4FeatureListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_speaks.SPeak" title="mbrowse.models.models_speaks.SPeak"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_speaks.SPeak</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_cpeaks.UploadLCMSDataset">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_cpeaks.</code><code class="descname">UploadLCMSDataset</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#UploadLCMSDataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.UploadLCMSDataset" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mbrowse.views.views_cpeaks.UploadLCMSDataset.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_cpeaks.html#UploadLCMSDataset.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_cpeaks.UploadLCMSDataset.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.views.views_cpeaks.UploadLCMSDataset.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_cpeaks.UploadLCMSDataset.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_general.MetabInputData" title="mbrowse.models.models_general.MetabInputData"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_general.MetabInputData</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mbrowse.views.views_libraries"></span><dl class="class">
+<dt id="mbrowse.views.views_libraries.CPeakGroupSpectralMatchingListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_libraries.</code><code class="descname">CPeakGroupSpectralMatchingListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_libraries.html#CPeakGroupSpectralMatchingListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_libraries.CPeakGroupSpectralMatchingListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_libraries.CPeakGroupSpectralMatchingListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_libraries.CPeakGroupSpectralMatchingListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_annotations.SpectralMatching" title="mbrowse.models.models_annotations.SpectralMatching"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_annotations.SpectralMatching</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_libraries.LibrarySpectraSourceCreateView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_libraries.</code><code class="descname">LibrarySpectraSourceCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_libraries.html#LibrarySpectraSourceCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_libraries.LibrarySpectraSourceCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mbrowse.views.views_libraries.LibrarySpectraSourceCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_libraries.html#LibrarySpectraSourceCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_libraries.LibrarySpectraSourceCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.views.views_libraries.LibrarySpectraSourceCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_libraries.LibrarySpectraSourceCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_libraries.LibrarySpectraSource" title="mbrowse.models.models_libraries.LibrarySpectraSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_libraries.LibrarySpectraSource</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_libraries.SMatchView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_libraries.</code><code class="descname">SMatchView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_libraries.html#SMatchView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_libraries.SMatchView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_libraries.SMatchView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_libraries.SMatchView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mbrowse.models.models_speaks.SPeak" title="mbrowse.models.models_speaks.SPeak"><code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_speaks.SPeak</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-mbrowse.views.views_search"></span><dl class="class">
+<dt id="mbrowse.views.views_search.SearchFragParamCreateView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_search.</code><code class="descname">SearchFragParamCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchFragParamCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchFragParamCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mbrowse.views.views_search.SearchFragParamCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchFragParamCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchFragParamCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.views.views_search.SearchFragParamCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_search.SearchFragParamCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchFragParam</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_search.SearchFragResultListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_search.</code><code class="descname">SearchFragResultListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchFragResultListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchFragResultListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_search.SearchFragResultListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_search.SearchFragResultListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchFragResult</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_search.SearchMzParamCreateView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_search.</code><code class="descname">SearchMzParamCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchMzParamCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchMzParamCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mbrowse.views.views_search.SearchMzParamCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchMzParamCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchMzParamCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.views.views_search.SearchMzParamCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_search.SearchMzParamCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchMzParam</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_search.SearchMzResultListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_search.</code><code class="descname">SearchMzResultListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchMzResultListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchMzResultListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_search.SearchMzResultListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_search.SearchMzResultListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchMzResult</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_search.SearchNmParamCreateView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_search.</code><code class="descname">SearchNmParamCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchNmParamCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchNmParamCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mbrowse.views.views_search.SearchNmParamCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchNmParamCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchNmParamCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.views.views_search.SearchNmParamCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_search.SearchNmParamCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchNmParam</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_search.SearchNmResultListView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_search.</code><code class="descname">SearchNmResultListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchNmResultListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchNmResultListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.views.views_search.SearchNmResultListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.views.views_search.SearchNmResultListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchNmResult</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.views.views_search.SearchResultSummaryView">
+<em class="property">class </em><code class="descclassname">mbrowse.views.views_search.</code><code class="descname">SearchResultSummaryView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/views/views_search.html#SearchResultSummaryView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.views.views_search.SearchResultSummaryView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="filters.html" class="btn btn-neutral float-right" title="django-mbrowse filters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="forms.html" class="btn btn-neutral" title="django-mbrowse filters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

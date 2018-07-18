@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>django-mbrowse tables &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>django-mbrowse tables</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-metab/api/tables.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mbrowse.tables">
+<span id="django-mbrowse-tables"></span><h1>django-mbrowse tables<a class="headerlink" href="#module-mbrowse.tables" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mbrowse.tables.CAnnotationTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">CAnnotationTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#CAnnotationTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.CAnnotationTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.CAnnotationTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#CAnnotationTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.CAnnotationTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.CAnnotationTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.CAnnotationTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.CAnnotationTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.CAnnotationTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_annotations.CAnnotation</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.CAnnotationTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'compound': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e090&gt;, 'compound_name': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29ed90&gt;, 'cpeakgroup': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e590&gt;, u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e150&gt;, 'inputdata': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29ed10&gt;, 'kegg_ids': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e9d0&gt;, 'metfrag_average_score': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb29ec50&gt;, 'ms1_average_score': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb29ef90&gt;, 'mzcloud_average_score': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb29ef50&gt;, 'mzmed': &lt;mbrowse.tables.NumberColumn4 object at 0x7fa6bb29ee10&gt;, 'pubchem_ids': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29eb10&gt;, 'rank': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e250&gt;, 'rtmed': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb29ead0&gt;, 'sirius_csifingerid_average_score': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb29e910&gt;, 'spectral_matching_average_score': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb29e050&gt;, 'weighted_score': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e3d0&gt;}</em><a class="headerlink" href="#mbrowse.tables.CAnnotationTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.CPeakGroupMetaTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">CPeakGroupMetaTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#CPeakGroupMetaTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.CPeakGroupMetaTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.CPeakGroupMetaTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#CPeakGroupMetaTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.CPeakGroupMetaTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.CPeakGroupMetaTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.CPeakGroupMetaTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.CPeakGroupMetaTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.CPeakGroupMetaTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.CPeakGroupMeta</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.CPeakGroupMetaTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'c_peak_group_table': &lt;django_tables2.columns.linkcolumn.LinkColumn object at 0x7fa6bb29ec90&gt;, 'date': &lt;django_tables2.columns.datecolumn.DateColumn object at 0x7fa6bb29eb90&gt;, u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29ea90&gt;, 'metabinputdata': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e650&gt;}</em><a class="headerlink" href="#mbrowse.tables.CPeakGroupMetaTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.CPeakGroupTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">CPeakGroupTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#CPeakGroupTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.CPeakGroupTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.CPeakGroupTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#CPeakGroupTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.CPeakGroupTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.CPeakGroupTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.CPeakGroupTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.CPeakGroupTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.CPeakGroupTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.CPeakGroup</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.CPeakGroupTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'adducts': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e690&gt;, 'best_annotation': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29ee90&gt;, 'best_score': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb30e810&gt;, 'canns': &lt;django_tables2.columns.linkcolumn.LinkColumn object at 0x7fa6bb30eb50&gt;, 'cpeakgroupmeta': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e190&gt;, 'eics': &lt;django_tables2.columns.linkcolumn.LinkColumn object at 0x7fa6bb30e0d0&gt;, 'frag4feature': &lt;django_tables2.columns.linkcolumn.LinkColumn object at 0x7fa6bb30e890&gt;, u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e4d0&gt;, 'idi': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e510&gt;, 'isotopes': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e890&gt;, 'msms_count': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29ea50&gt;, 'mzmax': &lt;mbrowse.tables.NumberColumn4 object at 0x7fa6bb30e2d0&gt;, 'mzmed': &lt;mbrowse.tables.NumberColumn4 object at 0x7fa6bb30ef50&gt;, 'mzmin': &lt;mbrowse.tables.NumberColumn4 object at 0x7fa6bb30e790&gt;, 'npeaks': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e310&gt;, 'pcgroup': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e210&gt;, 'rtmax': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb30e750&gt;, 'rtmed': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb30ec50&gt;, 'rtmin': &lt;mbrowse.tables.NumberColumn2 object at 0x7fa6bb30e990&gt;}</em><a class="headerlink" href="#mbrowse.tables.CPeakGroupTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.CheckBoxColumnWithName">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">CheckBoxColumnWithName</code><span class="sig-paren">(</span><em>attrs=None</em>, <em>checked=None</em>, <em>**extra</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#CheckBoxColumnWithName"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.CheckBoxColumnWithName" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.columns.checkboxcolumn.CheckBoxColumn</span></code></p>
+<dl class="attribute">
+<dt id="mbrowse.tables.CheckBoxColumnWithName.header">
+<code class="descname">header</code><a class="headerlink" href="#mbrowse.tables.CheckBoxColumnWithName.header" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.EicTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">EicTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#EicTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.EicTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.EicTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#EicTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.EicTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.EicTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.EicTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.EicTable.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('scan', 'idi', 'intensity', 'cpeak_id')</em><a class="headerlink" href="#mbrowse.tables.EicTable.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.EicTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.EicTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_cpeaks.Eic</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.EicTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'cpeak_id': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e290&gt;, 'idi': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29ecd0&gt;, 'intensity': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29eed0&gt;, 'scan': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e990&gt;}</em><a class="headerlink" href="#mbrowse.tables.EicTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.MFileTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">MFileTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#MFileTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.MFileTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="../../django-gfiles/api/tables.html#gfiles.tables.GFileTable" title="gfiles.tables.GFileTable"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.tables.GFileTable</span></code></a></p>
+<dl class="class">
+<dt id="mbrowse.tables.MFileTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#MFileTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.MFileTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.MFileTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.MFileTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.MFileTable.Meta.fields">
+<code class="descname">fields</code><em class="property"> = ('id', 'filename', 'filesuffix')</em><a class="headerlink" href="#mbrowse.tables.MFileTable.Meta.fields" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.MFileTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.MFileTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_general.MFile</span></code></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.MFileTable.Meta.template">
+<code class="descname">template</code><em class="property"> = 'django_tables2/bootstrap.html'</em><a class="headerlink" href="#mbrowse.tables.MFileTable.Meta.template" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.MFileTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'filename': &lt;django_tables2.columns.base.Column object at 0x7fa6bb3a0910&gt;, 'filesuffix': &lt;django_tables2.columns.base.Column object at 0x7fa6bb30e850&gt;, 'id': &lt;django_tables2.columns.base.Column object at 0x7fa6bb30ed50&gt;}</em><a class="headerlink" href="#mbrowse.tables.MFileTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.NumberColumn2">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">NumberColumn2</code><span class="sig-paren">(</span><em>verbose_name=None</em>, <em>accessor=None</em>, <em>default=None</em>, <em>visible=True</em>, <em>orderable=None</em>, <em>attrs=None</em>, <em>order_by=None</em>, <em>empty_values=None</em>, <em>localize=None</em>, <em>footer=None</em>, <em>exclude_from_export=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#NumberColumn2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.NumberColumn2" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.columns.base.Column</span></code></p>
+<dl class="method">
+<dt id="mbrowse.tables.NumberColumn2.render">
+<code class="descname">render</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#NumberColumn2.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.NumberColumn2.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.NumberColumn4">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">NumberColumn4</code><span class="sig-paren">(</span><em>verbose_name=None</em>, <em>accessor=None</em>, <em>default=None</em>, <em>visible=True</em>, <em>orderable=None</em>, <em>attrs=None</em>, <em>order_by=None</em>, <em>empty_values=None</em>, <em>localize=None</em>, <em>footer=None</em>, <em>exclude_from_export=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#NumberColumn4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.NumberColumn4" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2.columns.base.Column</span></code></p>
+<dl class="method">
+<dt id="mbrowse.tables.NumberColumn4.render">
+<code class="descname">render</code><span class="sig-paren">(</span><em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#NumberColumn4.render"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.NumberColumn4.render" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.SPeakTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">SPeakTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#SPeakTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SPeakTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.SPeakTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#SPeakTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SPeakTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.SPeakTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.SPeakTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SPeakTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.SPeakTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_speaks.SPeak</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SPeakTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'i': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa000d0&gt;, u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6bb29e5d0&gt;, 'mz': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00350&gt;, 'speakmeta': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00310&gt;}</em><a class="headerlink" href="#mbrowse.tables.SPeakTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.SearchFragResultTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">SearchFragResultTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#SearchFragResultTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SearchFragResultTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.SearchFragResultTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#SearchFragResultTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SearchFragResultTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.SearchFragResultTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.SearchFragResultTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SearchFragResultTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.SearchFragResultTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchFragResult</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SearchFragResultTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00d10&gt;, 'matches': &lt;django_tables2.columns.booleancolumn.BooleanColumn object at 0x7fa6cfa008d0&gt;, 'scans': &lt;django_tables2.columns.filecolumn.FileColumn object at 0x7fa6cfa00c50&gt;, 'searchfragparam': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00e10&gt;}</em><a class="headerlink" href="#mbrowse.tables.SearchFragResultTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.SearchMzResultTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">SearchMzResultTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#SearchMzResultTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SearchMzResultTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.SearchMzResultTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#SearchMzResultTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SearchMzResultTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.SearchMzResultTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.SearchMzResultTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SearchMzResultTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.SearchMzResultTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchMzResult</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SearchMzResultTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'chrom': &lt;django_tables2.columns.filecolumn.FileColumn object at 0x7fa6cfa00790&gt;, u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00a10&gt;, 'matches': &lt;django_tables2.columns.booleancolumn.BooleanColumn object at 0x7fa6cfa00250&gt;, 'scans': &lt;django_tables2.columns.filecolumn.FileColumn object at 0x7fa6cfa00c10&gt;, 'searchmzparam': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00590&gt;}</em><a class="headerlink" href="#mbrowse.tables.SearchMzResultTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.SearchNmResultTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">SearchNmResultTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#SearchNmResultTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SearchNmResultTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.SearchNmResultTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#SearchNmResultTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SearchNmResultTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.SearchNmResultTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.SearchNmResultTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SearchNmResultTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.SearchNmResultTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_search.SearchNmResult</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SearchNmResultTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'chrom': &lt;django_tables2.columns.filecolumn.FileColumn object at 0x7fa6cfa00990&gt;, u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00cd0&gt;, 'matches': &lt;django_tables2.columns.booleancolumn.BooleanColumn object at 0x7fa6cfa00050&gt;, 'searchnmparam': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa004d0&gt;}</em><a class="headerlink" href="#mbrowse.tables.SearchNmResultTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mbrowse.tables.SpectralMatchingTable">
+<em class="property">class </em><code class="descclassname">mbrowse.tables.</code><code class="descname">SpectralMatchingTable</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mbrowse/tables.html#SpectralMatchingTable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SpectralMatchingTable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">django_tables2_column_shifter.tables.ColumnShiftTable</span></code></p>
+<dl class="class">
+<dt id="mbrowse.tables.SpectralMatchingTable.Meta">
+<em class="property">class </em><code class="descname">Meta</code><a class="reference internal" href="../../_modules/mbrowse/tables.html#SpectralMatchingTable.Meta"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mbrowse.tables.SpectralMatchingTable.Meta" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mbrowse.tables.SpectralMatchingTable.Meta.attrs">
+<code class="descname">attrs</code><em class="property"> = {'class': 'paleblue'}</em><a class="headerlink" href="#mbrowse.tables.SpectralMatchingTable.Meta.attrs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SpectralMatchingTable.Meta.model">
+<code class="descname">model</code><a class="headerlink" href="#mbrowse.tables.SpectralMatchingTable.Meta.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">mbrowse.models.models_annotations.SpectralMatching</span></code></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mbrowse.tables.SpectralMatchingTable.base_columns">
+<code class="descname">base_columns</code><em class="property"> = {'accession': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00e90&gt;, u'id': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00ed0&gt;, 'idi': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00ad0&gt;, 'library_spectra_meta': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00290&gt;, 'match_num': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00490&gt;, 'name': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00390&gt;, 'percentage_match': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00610&gt;, 's_peak_meta': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa00950&gt;, 'score': &lt;django_tables2.columns.base.Column object at 0x7fa6cfa007d0&gt;, 'smatch': &lt;django_tables2.columns.linkcolumn.LinkColumn object at 0x7fa6bb29e410&gt;}</em><a class="headerlink" href="#mbrowse.tables.SpectralMatchingTable.base_columns" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

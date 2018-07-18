@@ -1,0 +1,38 @@
+django-mbrowse models
+=========================================
+
+.. automodule:: mbrowse.models.general
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.models.cpeaks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.models.dpeaks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+
+.. automodule:: mbrowse.models.speaks
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.models.libraries
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.models.compounds
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+.. automodule:: mbrowse.models.annotations
+   :members:
+   :undoc-members:
+   :show-inheritance:

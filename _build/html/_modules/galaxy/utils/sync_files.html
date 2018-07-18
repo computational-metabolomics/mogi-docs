@@ -1,0 +1,262 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>galaxy.utils.sync_files &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+
+  
+  <script src="../../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>galaxy.utils.sync_files</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for galaxy.utils.sync_files</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">from</span> <span class="nn">bioblend.galaxy.datasets</span> <span class="k">import</span> <span class="n">DatasetClient</span>
+<span class="kn">from</span> <span class="nn">bioblend.galaxy.libraries</span> <span class="k">import</span> <span class="n">LibraryClient</span>
+
+<span class="kn">from</span> <span class="nn">galaxy.models</span> <span class="k">import</span> <span class="n">GalaxyInstanceTracking</span><span class="p">,</span> <span class="n">GalaxyFileLink</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.galaxy_utils</span> <span class="k">import</span> <span class="n">get_gi_gu</span>
+
+
+<div class="viewcode-block" id="sync_galaxy_files"><a class="viewcode-back" href="../../../django-galaxy/api/utils.html#galaxy.utils.sync_files.sync_galaxy_files">[docs]</a><span class="k">def</span> <span class="nf">sync_galaxy_files</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;check&#39;</span><span class="p">)</span>
+    <span class="c1"># go through all the galaxylink files associated with the galaxy_instance_id</span>
+    <span class="n">gits</span> <span class="o">=</span> <span class="n">GalaxyInstanceTracking</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxyuser__user</span><span class="o">=</span><span class="n">user</span><span class="p">)</span>
+
+    <span class="c1"># loop through galaxy instance</span>
+    <span class="k">for</span> <span class="n">git</span> <span class="ow">in</span> <span class="n">gits</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">git</span><span class="p">,</span> <span class="s1">&#39;GIT..................................&#39;</span><span class="p">)</span>
+        <span class="n">gflks</span> <span class="o">=</span> <span class="n">GalaxyFileLink</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxyinstancetracking</span><span class="o">=</span><span class="n">git</span><span class="p">)</span>
+
+        <span class="n">gi</span><span class="p">,</span> <span class="n">gu</span> <span class="o">=</span> <span class="n">get_gi_gu</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">git</span><span class="p">)</span>
+        <span class="c1"># loop through galaxy files</span>
+        <span class="k">for</span> <span class="n">gflk</span> <span class="ow">in</span> <span class="n">gflks</span><span class="p">:</span>
+            <span class="n">dc</span> <span class="o">=</span> <span class="n">DatasetClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+            <span class="n">lc</span> <span class="o">=</span> <span class="n">LibraryClient</span><span class="p">(</span><span class="n">gi</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">gflk</span><span class="o">.</span><span class="n">galaxy_library</span><span class="p">:</span>
+
+                <span class="n">mtch</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">(</span><span class="n">gflk</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">,</span> <span class="n">hda_ldda</span><span class="o">=</span><span class="s1">&#39;lda&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;MATCH&#39;</span><span class="p">,</span> <span class="n">mtch</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mtch</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">mtch</span><span class="p">[</span><span class="s1">&#39;deleted&#39;</span><span class="p">]:</span>
+                        <span class="n">gflk</span><span class="o">.</span><span class="n">removed</span> <span class="o">=</span> <span class="kc">True</span>
+
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">gflk</span><span class="o">.</span><span class="n">removed</span> <span class="o">=</span> <span class="kc">True</span>
+
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mtch</span> <span class="o">=</span> <span class="n">dc</span><span class="o">.</span><span class="n">show_dataset</span><span class="p">(</span><span class="n">gflk</span><span class="o">.</span><span class="n">galaxy_id</span><span class="p">,</span> <span class="n">hda_ldda</span><span class="o">=</span><span class="s1">&#39;hda&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">mtch</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">mtch</span><span class="p">[</span><span class="s1">&#39;deleted&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">mtch</span><span class="p">[</span><span class="s1">&#39;purged&#39;</span><span class="p">]):</span>
+                    <span class="n">gflk</span><span class="o">.</span><span class="n">removed</span><span class="o">=</span><span class="kc">True</span>
+
+            <span class="n">gflk</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

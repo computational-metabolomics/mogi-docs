@@ -1,0 +1,7 @@
+django-mbrowse filters
+=========================================
+
+.. automodule:: mbrowse.filter
+   :members:
+   :undoc-members:
+   :show-inheritance:
