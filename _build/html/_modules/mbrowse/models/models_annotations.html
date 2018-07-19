@@ -159,13 +159,14 @@
            <div itemprop="articleBody">
             
   <h1>Source code for mbrowse.models.models_annotations</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
 <span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">import</span> <span class="nn">datetime</span>
 <span class="kn">from</span> <span class="nn">django.db</span> <span class="k">import</span> <span class="n">models</span>
 
 
-<div class="viewcode-block" id="SpectralMatching"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.filter.SpectralMatching">[docs]</a><span class="k">class</span> <span class="nc">SpectralMatching</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="SpectralMatching"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.models.models_annotations.SpectralMatching">[docs]</a><span class="k">class</span> <span class="nc">SpectralMatching</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">idi</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
     <span class="n">s_peak_meta</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;SPeakMeta&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">score</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -177,7 +178,7 @@
 
 
 
-<div class="viewcode-block" id="MetFragAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.filter.MetFragAnnotation">[docs]</a><span class="k">class</span> <span class="nc">MetFragAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="MetFragAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.models.models_annotations.MetFragAnnotation">[docs]</a><span class="k">class</span> <span class="nc">MetFragAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">idi</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
     <span class="n">s_peak_meta</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;SPeakMeta&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">explained_peaks</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">TextField</span><span class="p">(</span><span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -191,14 +192,14 @@
     <span class="n">compound</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;Compound&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="ProbmetabAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.filter.ProbmetabAnnotation">[docs]</a><span class="k">class</span> <span class="nc">ProbmetabAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="ProbmetabAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.models.models_annotations.ProbmetabAnnotation">[docs]</a><span class="k">class</span> <span class="nc">ProbmetabAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">idi</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
     <span class="n">cpeakgroup</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;CPeakGroup&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">compound</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;Compound&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">prob</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="CSIFingerIDAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.filter.CSIFingerIDAnnotation">[docs]</a><span class="k">class</span> <span class="nc">CSIFingerIDAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="CSIFingerIDAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.models.models_annotations.CSIFingerIDAnnotation">[docs]</a><span class="k">class</span> <span class="nc">CSIFingerIDAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">idi</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">IntegerField</span><span class="p">()</span>
     <span class="n">s_peak_meta</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;SPeakMeta&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
     <span class="n">inchikey2d</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">CharField</span><span class="p">(</span><span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">blank</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">max_length</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
@@ -213,7 +214,7 @@
     <span class="n">csifingeridmeta</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;CSIFingerIDMeta&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="CSIFingerIDMeta"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.filter.CSIFingerIDMeta">[docs]</a><span class="k">class</span> <span class="nc">CSIFingerIDMeta</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="CSIFingerIDMeta"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.models.models_annotations.CSIFingerIDMeta">[docs]</a><span class="k">class</span> <span class="nc">CSIFingerIDMeta</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">datetime_stamp</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">DateTimeField</span><span class="p">(</span><span class="n">auto_now_add</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 
@@ -221,7 +222,7 @@
 
 
 
-<div class="viewcode-block" id="CAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.filter.CAnnotation">[docs]</a><span class="k">class</span> <span class="nc">CAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="CAnnotation"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.models.models_annotations.CAnnotation">[docs]</a><span class="k">class</span> <span class="nc">CAnnotation</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
 
     <span class="n">compound</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;Compound&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">,</span> <span class="n">null</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">cpeakgroup</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">ForeignKey</span><span class="p">(</span><span class="s1">&#39;CPeakGroup&#39;</span><span class="p">,</span> <span class="n">on_delete</span><span class="o">=</span><span class="n">models</span><span class="o">.</span><span class="n">CASCADE</span><span class="p">)</span>
@@ -241,7 +242,7 @@
 
 
 
-<div class="viewcode-block" id="CAnnotationWeight"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.filter.CAnnotationWeight">[docs]</a><span class="k">class</span> <span class="nc">CAnnotationWeight</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
+<div class="viewcode-block" id="CAnnotationWeight"><a class="viewcode-back" href="../../../django-mbrowse/api/models.html#mbrowse.models.models_annotations.CAnnotationWeight">[docs]</a><span class="k">class</span> <span class="nc">CAnnotationWeight</span><span class="p">(</span><span class="n">models</span><span class="o">.</span><span class="n">Model</span><span class="p">):</span>
     <span class="n">spectral_matching_weight</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
     <span class="n">mzcloud_weight</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="n">sirius_csifingerid_weight</span> <span class="o">=</span> <span class="n">models</span><span class="o">.</span><span class="n">FloatField</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>

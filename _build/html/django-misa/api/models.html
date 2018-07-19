@@ -1,0 +1,716 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>django-misa models &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="django-misa filters" href="forms.html" />
+    <link rel="prev" title="API reference" href="index.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">django-misa</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="forms.html">forms</a></li>
+<li class="toctree-l3"><a class="reference internal" href="views.html">views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tables.html">tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">django-misa</a> &raquo;</li>
+        
+          <li><a href="index.html">API reference</a> &raquo;</li>
+        
+      <li>django-misa models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-misa/api/models.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-misa.models">
+<span id="django-misa-models"></span><h1>django-misa models<a class="headerlink" href="#module-misa.models" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="misa.models.Assay">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">Assay</code><span class="sig-paren">(</span><em>id</em>, <em>study</em>, <em>description</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#Assay"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.Assay" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.Assay.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.Assay.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.Assay.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.Assay.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.AssayDetail">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">AssayDetail</code><span class="sig-paren">(</span><em>id</em>, <em>assay</em>, <em>code_field</em>, <em>studysample</em>, <em>extractionprocess</em>, <em>speprocess</em>, <em>chromatographyprocess</em>, <em>measurementprocess</em>, <em>datatransformationprocess</em>, <em>metaboliteidentifcationprocess</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#AssayDetail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.AssayDetail" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.AssayDetail.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.AssayDetail.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.AssayDetail.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.AssayDetail.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.AssayRun">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">AssayRun</code><span class="sig-paren">(</span><em>id</em>, <em>assaydetail</em>, <em>run</em>, <em>technical_replicate</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#AssayRun"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.AssayRun" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.AssayRun.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.AssayRun.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.AssayRun.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.AssayRun.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.ChromatographyProcess">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ChromatographyProcess</code><span class="sig-paren">(</span><em>id</em>, <em>chromatographyprotocol</em>, <em>date</em>, <em>details</em>, <em>chromatographyfrac</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ChromatographyProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ChromatographyProcess" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.ChromatographyProcess.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.ChromatographyProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.ChromatographyProcess.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.ChromatographyProcess.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.ChromatographyProtocol">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ChromatographyProtocol</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>uri</em>, <em>version</em>, <em>code_field</em>, <em>chromatographytype</em>, <em>instrument_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ChromatographyProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ChromatographyProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.ChromatographyProtocol.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.ChromatographyProtocol.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.ChromatographyProtocol.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.ChromatographyProtocol.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.ChromatographyType">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ChromatographyType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ChromatographyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ChromatographyType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.ChromatographyType.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.ChromatographyType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.ChromatographyType.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.ChromatographyType.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.DataTransformationProcess">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">DataTransformationProcess</code><span class="sig-paren">(</span><em>id</em>, <em>datatransformationprotocol</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#DataTransformationProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.DataTransformationProcess" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.DataTransformationProcess.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.DataTransformationProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.DataTransformationProcess.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.DataTransformationProcess.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.DataTransformationProtocol">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">DataTransformationProtocol</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>uri</em>, <em>version</em>, <em>code_field</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#DataTransformationProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.DataTransformationProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.DataTransformationProtocol.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.DataTransformationProtocol.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.DataTransformationProtocol.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.DataTransformationProtocol.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.ExtractionProcess">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ExtractionProcess</code><span class="sig-paren">(</span><em>id</em>, <em>extractionprotocol</em>, <em>date</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ExtractionProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ExtractionProcess" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.ExtractionProcess.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.ExtractionProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.ExtractionProcess.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.ExtractionProcess.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.ExtractionProtocol">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ExtractionProtocol</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>uri</em>, <em>version</em>, <em>code_field</em>, <em>extractiontype</em>, <em>postextraction</em>, <em>derivitisation</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ExtractionProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ExtractionProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.ExtractionProtocol.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.ExtractionProtocol.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.ExtractionProtocol.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.ExtractionProtocol.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.ExtractionType">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ExtractionType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ExtractionType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ExtractionType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.ExtractionType.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.ExtractionType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.ExtractionType.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.ExtractionType.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.Investigation">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">Investigation</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#Investigation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.Investigation" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.Investigation.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.Investigation.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.Investigation.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.Investigation.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.MISAFile">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">MISAFile</code><span class="sig-paren">(</span><em>id</em>, <em>data_file</em>, <em>original_filename</em>, <em>user</em>, <em>genericfile_ptr</em>, <em>investigation</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#MISAFile"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.MISAFile" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.MISAFile.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.MISAFile.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.MISAFile.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.MISAFile.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.MeasurementProcess">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">MeasurementProcess</code><span class="sig-paren">(</span><em>id</em>, <em>measurementprotocol</em>, <em>date</em>, <em>details</em>, <em>polaritytype</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#MeasurementProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.MeasurementProcess" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.MeasurementProcess.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.MeasurementProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.MeasurementProcess.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.MeasurementProcess.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.MeasurementProtocol">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">MeasurementProtocol</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>uri</em>, <em>version</em>, <em>code_field</em>, <em>measurementtechnique</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#MeasurementProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.MeasurementProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.MeasurementProtocol.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.MeasurementProtocol.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.MeasurementProtocol.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.MeasurementProtocol.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.MeasurementTechnique">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">MeasurementTechnique</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#MeasurementTechnique"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.MeasurementTechnique" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.MeasurementTechnique.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.MeasurementTechnique.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.MeasurementTechnique.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.MeasurementTechnique.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.MetaboliteIdentificationProcess">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">MetaboliteIdentificationProcess</code><span class="sig-paren">(</span><em>id</em>, <em>metaboliteidentificationprotocol</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#MetaboliteIdentificationProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.MetaboliteIdentificationProcess" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.MetaboliteIdentificationProcess.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.MetaboliteIdentificationProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.MetaboliteIdentificationProcess.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.MetaboliteIdentificationProcess.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.MetaboliteIdentificationProtocol">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">MetaboliteIdentificationProtocol</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>uri</em>, <em>version</em>, <em>code_field</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#MetaboliteIdentificationProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.MetaboliteIdentificationProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.MetaboliteIdentificationProtocol.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.MetaboliteIdentificationProtocol.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.MetaboliteIdentificationProtocol.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.MetaboliteIdentificationProtocol.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.OntologyTerm">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">OntologyTerm</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>ontology_id</em>, <em>iri</em>, <em>obo_id</em>, <em>ontology_name</em>, <em>ontology_prefix</em>, <em>short_form</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#OntologyTerm"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.OntologyTerm" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.OntologyTerm.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.OntologyTerm.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.OntologyTerm.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.OntologyTerm.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.Organism">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">Organism</code><span class="sig-paren">(</span><em>id</em>, <em>ontologyterm</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#Organism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.Organism" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.Organism.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.Organism.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.Organism.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.Organism.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.OrganismPart">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">OrganismPart</code><span class="sig-paren">(</span><em>id</em>, <em>ontologyterm</em>, <em>name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#OrganismPart"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.OrganismPart" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.OrganismPart.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.OrganismPart.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.OrganismPart.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.OrganismPart.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.PolarityType">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">PolarityType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>ontologyterm</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#PolarityType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.PolarityType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.PolarityType.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.PolarityType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.PolarityType.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.PolarityType.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.SampleCollectionProcess">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SampleCollectionProcess</code><span class="sig-paren">(</span><em>id</em>, <em>samplecollectionprocess</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SampleCollectionProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SampleCollectionProcess" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.SampleCollectionProcess.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SampleCollectionProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.SampleCollectionProcess.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.SampleCollectionProcess.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.SampleCollectionProtocol">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SampleCollectionProtocol</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>uri</em>, <em>version</em>, <em>code_field</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SampleCollectionProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SampleCollectionProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.SampleCollectionProtocol.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SampleCollectionProtocol.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.SampleCollectionProtocol.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.SampleCollectionProtocol.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.SampleType">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SampleType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>ontologyterm</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SampleType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SampleType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.SampleType.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SampleType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.SampleType.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.SampleType.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.SpeProcess">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SpeProcess</code><span class="sig-paren">(</span><em>id</em>, <em>speprotocol</em>, <em>date</em>, <em>details</em>, <em>spefrac</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SpeProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SpeProcess" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.SpeProcess.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SpeProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.SpeProcess.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.SpeProcess.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.SpeProtocol">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SpeProtocol</code><span class="sig-paren">(</span><em>id</em>, <em>name</em>, <em>description</em>, <em>uri</em>, <em>version</em>, <em>code_field</em>, <em>spetype</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SpeProtocol"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SpeProtocol" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.SpeProtocol.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SpeProtocol.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.SpeProtocol.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.SpeProtocol.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.SpeType">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SpeType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SpeType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SpeType" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.SpeType.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SpeType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.SpeType.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.SpeType.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.Study">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">Study</code><span class="sig-paren">(</span><em>id</em>, <em>investigation</em>, <em>description</em>, <em>dmastudy</em>, <em>name</em>, <em>title</em>, <em>grant_number</em>, <em>funding_agency</em>, <em>submission_date</em>, <em>public_release_date</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#Study"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.Study" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.Study.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.Study.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.Study.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.Study.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.StudyFactor">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">StudyFactor</code><span class="sig-paren">(</span><em>id</em>, <em>ontologyterm_type</em>, <em>ontologyterm_value</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#StudyFactor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.StudyFactor" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.StudyFactor.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.StudyFactor.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.StudyFactor.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.StudyFactor.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.models.StudySample">
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">StudySample</code><span class="sig-paren">(</span><em>id</em>, <em>study</em>, <em>sample_name</em>, <em>organism</em>, <em>organism_part</em>, <em>sampletype</em>, <em>samplecollectionprocess</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#StudySample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.StudySample" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="exception">
+<dt id="misa.models.StudySample.DoesNotExist">
+<em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.StudySample.DoesNotExist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="exception">
+<dt id="misa.models.StudySample.MultipleObjectsReturned">
+<em class="property">exception </em><code class="descname">MultipleObjectsReturned</code><a class="headerlink" href="#misa.models.StudySample.MultipleObjectsReturned" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="forms.html" class="btn btn-neutral float-right" title="django-misa filters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral" title="API reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

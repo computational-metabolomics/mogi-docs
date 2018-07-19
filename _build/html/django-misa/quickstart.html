@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>django-misa &mdash; mogi-suite  documentation</title>
+  <title>Quick start &mdash; mogi-suite  documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Quick start" href="quickstart.html" />
-    <link rel="prev" title="django-galaxy utils" href="../django-galaxy/api/utils.html" /> 
+    <link rel="next" title="API reference" href="api/index.html" />
+    <link rel="prev" title="django-misa" href="index.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -88,8 +88,8 @@
 <li class="toctree-l1"><a class="reference internal" href="../django-galaxy/index.html">django-galaxy</a></li>
 </ul>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">django-misa</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="quickstart.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">django-misa</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Quick start</a></li>
 <li class="toctree-l2"><a class="reference internal" href="api/index.html">API reference</a></li>
 </ul>
 </li>
@@ -147,13 +147,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>django-misa</li>
+          <li><a href="index.html">django-misa</a> &raquo;</li>
+        
+      <li>Quick start</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/django-misa/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/django-misa/quickstart.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -166,24 +168,49 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="django-misa">
-<span id="id1"></span><h1>django-misa<a class="headerlink" href="#django-misa" title="Permalink to this headline">¶</a></h1>
-<p><a class="reference external" href="https://travis-ci.com/computational-metabolomics/django-misa/"><img alt="Build Status (Travis)" src="https://travis-ci.com/computational-metabolomics/django-misa.svg?branch=master" /></a> <a class="reference external" href="https://pypi.python.org/pypi/django-misa/"><img alt="Py versions" src="https://img.shields.io/pypi/pyversions/django-misa.svg?style=flat&amp;maxAge=3600" /></a></p>
-<p>ISA organisation for metabolomic studies with Django</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="quickstart.html">Quick start</a></li>
-<li class="toctree-l1"><a class="reference internal" href="api/index.html">API reference</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="api/models.html">models</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/forms.html">forms</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/views.html">views</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/filters.html">filters</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/tables.html">tables</a></li>
-<li class="toctree-l2"><a class="reference internal" href="api/utils.html">utils</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="quick-start">
+<h1>Quick start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h1>
+<ol class="arabic">
+<li><p class="first">Add “mbrowse” and django application dependencies to your INSTALLED_APPS setting like this (mbrowse should come before gfiles):</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">INSTALLED_APPS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="o">...</span>
+    <span class="s1">&#39;mbrowse&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;gfiles&#39;</span><span class="p">,</span>
+
+    <span class="s1">&#39;django_tables2&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;bootstrap3&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django_tables2_column_shifter&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django_sb_admin&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;django_filter&#39;</span>
+    <span class="s1">&#39;dal&#39;</span><span class="p">,</span>
+    <span class="s1">&#39;dal_select2&#39;</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
 </div>
+</li>
+<li><p class="first">Include the polls URLconf in your project urls.py like this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">url</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;^&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;gfiles.urls&#39;</span><span class="p">)),</span>
+<span class="n">path</span><span class="p">(</span><span class="s1">&#39;mbrowse/&#39;</span><span class="p">,</span> <span class="n">include</span><span class="p">(</span><span class="s1">&#39;mbrowse.urls&#39;</span><span class="p">)),</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">Run <cite>python manage.py migrate</cite> to create the mbrowse models.</p>
+</li>
+<li><p class="first">Start the development server and visit <a class="reference external" href="http://127.0.0.1:8000/mbrowse/general_summary">http://127.0.0.1:8000/mbrowse/general_summary</a></p>
+</li>
+<li><p class="first">Register <a class="reference external" href="http://127.0.0.1:8000/register/">http://127.0.0.1:8000/register/</a> and login <a class="reference external" href="http://127.0.0.1:8000/login/">http://127.0.0.1:8000/login/</a></p>
+</li>
+<li><p class="first">Upload metabolomics mzML files (can also be done with djang-misa and django-mogi) <a class="reference external" href="http://127.0.0.1:8000/mbrowse/upload_mfiles_batch/">http://127.0.0.1:8000/mbrowse/upload_mfiles_batch/</a></p>
+</li>
+<li><p class="first">Upload LC-MS data set (can be done through galaxy, see django-mogi) <a class="reference external" href="http://127.0.0.1:8000/mbrowse/upload_lcms_dataset/">http://127.0.0.1:8000/mbrowse/upload_lcms_dataset/</a></p>
+</li>
+<li><p class="first">Browse and view the datasets <a class="reference external" href="http://127.0.0.1:8000/mbrowse/cpeakgroupmeta_summary/">http://127.0.0.1:8000/mbrowse/cpeakgroupmeta_summary/</a></p>
+</li>
+<li><p class="first">Browse and view the annotations <a class="reference external" href="http://127.0.0.1:8000/mbrowse/cpeakgroupmeta_summary/">http://127.0.0.1:8000/mbrowse/cpeakgroupmeta_summary/</a></p>
+</li>
+<li><p class="first">Search the datasets <a class="reference external" href="http://127.0.0.1:8000/mbrowse/search_result_summary/">http://127.0.0.1:8000/mbrowse/search_result_summary/</a></p>
+</li>
+</ol>
 </div>
 
 
@@ -194,10 +221,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="quickstart.html" class="btn btn-neutral float-right" title="Quick start" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="api/index.html" class="btn btn-neutral float-right" title="API reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../django-galaxy/api/utils.html" class="btn btn-neutral" title="django-galaxy utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="index.html" class="btn btn-neutral" title="django-misa" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

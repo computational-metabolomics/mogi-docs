@@ -1,13 +1,13 @@
 django-mbrowse filters
 =========================================
 
-.. automodule:: mbrowse.forms.general
+.. automodule:: mbrowse.forms.forms_general
    :members:
 
 
-.. automodule:: mbrowse.forms.libraries
+.. automodule:: mbrowse.forms.forms_libraries
    :members:
 
 
-.. automodule:: mbrowse.forms.search
+.. automodule:: mbrowse.forms.forms_search
    :members:
