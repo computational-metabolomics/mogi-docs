@@ -1,0 +1,806 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>misa.views &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>misa.views</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for misa.views</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span><span class="p">,</span> <span class="n">print_function</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="c1"># Python 3</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">zip_longest</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="c1"># Python 2</span>
+    <span class="kn">from</span> <span class="nn">itertools</span> <span class="k">import</span> <span class="n">izip_longest</span> <span class="k">as</span> <span class="n">zip_longest</span>
+
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.http.response</span> <span class="k">import</span> <span class="n">HttpResponse</span>
+<span class="c1"># Create your views here.</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="k">import</span> <span class="n">LoginRequiredMixin</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">CreateView</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">,</span> <span class="n">DeleteView</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">,</span> <span class="n">ListView</span><span class="p">,</span> <span class="n">View</span>
+<span class="kn">from</span> <span class="nn">django_tables2</span> <span class="k">import</span> <span class="n">RequestConfig</span>
+<span class="kn">from</span> <span class="nn">django.urls</span> <span class="k">import</span> <span class="n">reverse_lazy</span>
+
+<span class="kn">from</span> <span class="nn">django_tables2.views</span> <span class="k">import</span> <span class="n">SingleTableMixin</span>
+<span class="kn">from</span> <span class="nn">django_filters.views</span> <span class="k">import</span> <span class="n">FilterView</span>
+<span class="kn">from</span> <span class="nn">dal</span> <span class="k">import</span> <span class="n">autocomplete</span>
+
+<span class="kn">from</span> <span class="nn">gfiles.models</span> <span class="k">import</span> <span class="n">GenericFile</span>
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="n">MFile</span>
+
+<span class="kn">from</span> <span class="nn">misa.models</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">Investigation</span><span class="p">,</span>
+    <span class="n">Assay</span><span class="p">,</span>
+    <span class="n">AssayDetail</span><span class="p">,</span>
+    <span class="n">Study</span><span class="p">,</span>
+    <span class="n">StudySample</span><span class="p">,</span>
+    <span class="n">StudyFactor</span><span class="p">,</span>
+    <span class="n">OntologyTerm</span><span class="p">,</span>
+    <span class="n">OrganismPart</span><span class="p">,</span>
+    <span class="n">Organism</span><span class="p">,</span>
+    <span class="n">ChromatographyProtocol</span><span class="p">,</span>
+    <span class="n">ChromatographyType</span><span class="p">,</span>
+    <span class="n">MeasurementProtocol</span><span class="p">,</span>
+    <span class="n">MeasurementTechnique</span><span class="p">,</span>
+    <span class="n">ExtractionProtocol</span><span class="p">,</span>
+    <span class="n">ExtractionType</span><span class="p">,</span>
+    <span class="n">SpeProtocol</span><span class="p">,</span>
+    <span class="n">SpeType</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">misa.forms</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">UploadAssayDataFilesForm</span><span class="p">,</span>
+    <span class="n">SearchOntologyTermForm</span><span class="p">,</span>
+    <span class="n">StudyFactorForm</span><span class="p">,</span>
+    <span class="n">StudyForm</span><span class="p">,</span>
+    <span class="n">OrganismPartForm</span><span class="p">,</span>
+    <span class="n">OrganismForm</span><span class="p">,</span>
+    <span class="n">StudySampleForm</span><span class="p">,</span>
+    <span class="n">ChromatographyProtocolForm</span><span class="p">,</span>
+    <span class="n">ChromatographyTypeForm</span><span class="p">,</span>
+    <span class="n">MeasurementProtocolForm</span><span class="p">,</span>
+    <span class="n">MeasurementTechniqueForm</span><span class="p">,</span>
+    <span class="n">ExtractionProtocolForm</span><span class="p">,</span>
+    <span class="n">ExtractionTypeForm</span><span class="p">,</span>
+    <span class="n">SpeProtocolForm</span><span class="p">,</span>
+    <span class="n">SpeTypeForm</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">misa.utils.isa_upload</span> <span class="k">import</span> <span class="n">upload_assay_data_files_zip</span>
+<span class="kn">from</span> <span class="nn">misa.utils.create_isa_files</span> <span class="k">import</span> <span class="n">create_isa_files</span>
+<span class="kn">from</span> <span class="nn">misa.utils.ontology_utils</span> <span class="k">import</span> <span class="n">search_ontology_term</span><span class="p">,</span> <span class="n">search_ontology_term_shrt</span>
+<span class="kn">from</span> <span class="nn">misa.tasks</span> <span class="k">import</span> <span class="n">upload_assay_data_files_dir_task</span>
+<span class="kn">from</span> <span class="nn">misa.tables</span> <span class="k">import</span> <span class="n">AssayFileTable</span><span class="p">,</span> <span class="n">AssayDetailTable</span><span class="p">,</span> <span class="n">ISAFileSelectTable</span><span class="p">,</span> <span class="n">InvestigationTable</span><span class="p">,</span> <span class="n">AssayTable</span><span class="p">,</span> <span class="n">OntologyTermTable</span>
+<span class="kn">from</span> <span class="nn">misa.filter</span> <span class="k">import</span> <span class="n">ISAFileFilter</span><span class="p">,</span> <span class="n">InvestigationFilter</span><span class="p">,</span> <span class="n">AssayFilter</span>
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">redirect</span>
+
+<span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;misa/success.html&#39;</span><span class="p">)</span>
+
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Export json</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="ISAJsonExport"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ISAJsonExport">[docs]</a><span class="k">class</span> <span class="nc">ISAJsonExport</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">inv</span> <span class="o">=</span> <span class="n">Investigation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">inv</span><span class="p">:</span>
+            <span class="n">isa_out</span><span class="p">,</span> <span class="n">json_out</span> <span class="o">=</span> <span class="n">create_isa_files</span><span class="p">(</span><span class="n">inv</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">json_out</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">return</span> <span class="n">HttpResponse</span><span class="p">(</span><span class="n">json_out</span><span class="p">,</span> <span class="n">content_type</span><span class="o">=</span><span class="s2">&quot;application/json&quot;</span><span class="p">)</span></div>
+
+
+
+
+
+
+
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Adding ontology terms</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="OntologyTermCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OntologyTermCreateView">[docs]</a><span class="k">class</span> <span class="nc">OntologyTermCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">OntologyTerm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<div class="viewcode-block" id="OntologyTermSearchView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OntologyTermSearchView">[docs]</a><span class="k">class</span> <span class="nc">OntologyTermSearchView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">redorect_to</span> <span class="o">=</span> <span class="s1">&#39;/misa/search_ontologyterm_result/&#39;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/searchontologyterm_form.html&#39;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">form</span> <span class="o">=</span> <span class="n">SearchOntologyTermForm</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">SearchOntologyTermForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+            <span class="n">search_term</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;search_term&#39;</span><span class="p">]</span>
+            <span class="n">res</span> <span class="o">=</span> <span class="n">search_ontology_term</span><span class="p">(</span><span class="n">search_term</span><span class="p">)</span>
+            <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;res&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">res</span>  <span class="c1"># set in session</span>
+            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">redorect_to</span><span class="p">)</span>
+
+            <span class="c1"># return render(request, &#39;misa/ontology_search_results.html&#39;, {&#39;table&#39;: ont_table})</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">errors</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="OntologyTermSearchResultView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OntologyTermSearchResultView">[docs]</a><span class="k">class</span> <span class="nc">OntologyTermSearchResultView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/ontology_search_results.html&#39;</span>
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;res&#39;</span><span class="p">)</span>
+        <span class="n">ont_table</span> <span class="o">=</span> <span class="n">OntologyTermTable</span><span class="p">(</span><span class="n">res</span><span class="p">)</span>
+        <span class="n">RequestConfig</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">ont_table</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="n">ont_table</span><span class="p">})</span></div>
+
+
+
+<div class="viewcode-block" id="AddOntologyTermView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AddOntologyTermView">[docs]</a><span class="k">class</span> <span class="nc">AddOntologyTermView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">OntologyTerm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span>
+
+<div class="viewcode-block" id="AddOntologyTermView.get_initial"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AddOntologyTermView.get_initial">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;res&#39;</span><span class="p">)</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">row</span> <span class="ow">in</span> <span class="n">res</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">row</span><span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]</span><span class="o">==</span><span class="nb">int</span><span class="p">(</span><span class="n">c</span><span class="p">):</span>
+                <span class="k">return</span> <span class="n">row</span>
+        <span class="k">return</span> <span class="p">{}</span></div></div>
+
+
+
+
+
+<div class="viewcode-block" id="OntologyTermAutocomplete"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OntologyTermAutocomplete">[docs]</a><span class="k">class</span> <span class="nc">OntologyTermAutocomplete</span><span class="p">(</span><span class="n">autocomplete</span><span class="o">.</span><span class="n">Select2QuerySetView</span><span class="p">):</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">OntologyTerm</span>
+
+<div class="viewcode-block" id="OntologyTermAutocomplete.get_queryset"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OntologyTermAutocomplete.get_queryset">[docs]</a>    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Don&#39;t forget to filter out results depending on the visitor !</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">is_authenticated</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">none</span><span class="p">()</span>
+
+        <span class="n">qs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">model_class</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">:</span>
+            <span class="n">qs</span> <span class="o">=</span> <span class="n">qs</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">name__istartswith</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">q</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">qs</span></div></div>
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Organism Views</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="OrganismCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OrganismCreateView">[docs]</a><span class="k">class</span> <span class="nc">OrganismCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Organism</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">OrganismForm</span></div>
+
+
+<div class="viewcode-block" id="OrganismPartCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OrganismPartCreateView">[docs]</a><span class="k">class</span> <span class="nc">OrganismPartCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">OrganismPartForm</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">OrganismPart</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="OrganismAutocomplete"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OrganismAutocomplete">[docs]</a><span class="k">class</span> <span class="nc">OrganismAutocomplete</span><span class="p">(</span><span class="n">OntologyTermAutocomplete</span><span class="p">):</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">Organism</span></div>
+
+<div class="viewcode-block" id="OrganismPartAutocomplete"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.OrganismPartAutocomplete">[docs]</a><span class="k">class</span> <span class="nc">OrganismPartAutocomplete</span><span class="p">(</span><span class="n">OntologyTermAutocomplete</span><span class="p">):</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">OrganismPart</span></div>
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Protocol views</span>
+<span class="c1">###########################################################################################</span>
+<div class="viewcode-block" id="ChromatographyProtocolCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ChromatographyProtocolCreateView">[docs]</a><span class="k">class</span> <span class="nc">ChromatographyProtocolCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ChromatographyProtocol</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">ChromatographyProtocolForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="ChromatographyTypeCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ChromatographyTypeCreateView">[docs]</a><span class="k">class</span> <span class="nc">ChromatographyTypeCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ChromatographyType</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">ChromatographyTypeForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="ChromatographyTypeAutocomplete"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ChromatographyTypeAutocomplete">[docs]</a><span class="k">class</span> <span class="nc">ChromatographyTypeAutocomplete</span><span class="p">(</span><span class="n">OntologyTermAutocomplete</span><span class="p">):</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">ChromatographyType</span></div>
+
+
+<div class="viewcode-block" id="MeasurementProtocolCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.MeasurementProtocolCreateView">[docs]</a><span class="k">class</span> <span class="nc">MeasurementProtocolCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">MeasurementProtocol</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">MeasurementProtocolForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="MeasurementTechniqueCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.MeasurementTechniqueCreateView">[docs]</a><span class="k">class</span> <span class="nc">MeasurementTechniqueCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">MeasurementTechnique</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">MeasurementTechniqueForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="MeasurementTechniqueAutocomplete"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.MeasurementTechniqueAutocomplete">[docs]</a><span class="k">class</span> <span class="nc">MeasurementTechniqueAutocomplete</span><span class="p">(</span><span class="n">OntologyTermAutocomplete</span><span class="p">):</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">MeasurementTechnique</span></div>
+
+
+<div class="viewcode-block" id="ExtractionProtocolCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ExtractionProtocolCreateView">[docs]</a><span class="k">class</span> <span class="nc">ExtractionProtocolCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ExtractionProtocol</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">ExtractionProtocolForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="ExtractionTypeCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ExtractionTypeCreateView">[docs]</a><span class="k">class</span> <span class="nc">ExtractionTypeCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">ExtractionType</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">ExtractionTypeForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="ExtractionTypeAutocomplete"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ExtractionTypeAutocomplete">[docs]</a><span class="k">class</span> <span class="nc">ExtractionTypeAutocomplete</span><span class="p">(</span><span class="n">OntologyTermAutocomplete</span><span class="p">):</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">ExtractionType</span></div>
+
+
+<div class="viewcode-block" id="SpeProtocolCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.SpeProtocolCreateView">[docs]</a><span class="k">class</span> <span class="nc">SpeProtocolCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SpeProtocol</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SpeProtocolForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="SpeTypeCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.SpeTypeCreateView">[docs]</a><span class="k">class</span> <span class="nc">SpeTypeCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">SpeType</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">SpeTypeForm</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+<div class="viewcode-block" id="SpeTypeAutocomplete"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.SpeTypeAutocomplete">[docs]</a><span class="k">class</span> <span class="nc">SpeTypeAutocomplete</span><span class="p">(</span><span class="n">OntologyTermAutocomplete</span><span class="p">):</span>
+    <span class="n">model_class</span> <span class="o">=</span> <span class="n">SpeType</span></div>
+
+
+
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Investigation views</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="InvestigationCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.InvestigationCreateView">[docs]</a><span class="k">class</span> <span class="nc">InvestigationCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Investigation</span>
+    <span class="n">success_msg</span> <span class="o">=</span> <span class="s2">&quot;Investigation created&quot;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<div class="viewcode-block" id="InvestigationUpdateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.InvestigationUpdateView">[docs]</a><span class="k">class</span> <span class="nc">InvestigationUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Investigation</span>
+    <span class="n">success_msg</span> <span class="o">=</span> <span class="s2">&quot;Investigation updated&quot;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<div class="viewcode-block" id="InvestigationDetailView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.InvestigationDetailView">[docs]</a><span class="k">class</span> <span class="nc">InvestigationDetailView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">DetailView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Investigation</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<div class="viewcode-block" id="InvestigationDetailTablesView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.InvestigationDetailTablesView">[docs]</a><span class="k">class</span> <span class="nc">InvestigationDetailTablesView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run a registered workflow</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/investigation_detail_tables.html&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">AssayTable</span>
+    <span class="n">filter_class</span> <span class="o">=</span> <span class="n">AssayFilter</span>
+
+
+    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">Investigation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">pk</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">])</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">l</span><span class="p">,</span> <span class="n">investigation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">page_setup</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;list&#39;</span><span class="p">:</span> <span class="n">l</span><span class="p">,</span> <span class="s1">&#39;investigation&#39;</span><span class="p">:</span> <span class="n">investigation</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">page_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
+        <span class="c1"># Need to setup a config for the tables (only 1 required per template page)</span>
+        <span class="n">rc</span> <span class="o">=</span> <span class="n">RequestConfig</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">paginate</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;per_page&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">})</span>
+
+        <span class="n">investigation</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_queryset</span><span class="p">()</span>
+
+        <span class="n">tables</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">filters</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">studies</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="c1"># loop through all the data_inputs from the associated workflow</span>
+        <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">investigation</span><span class="o">.</span><span class="n">study_set</span><span class="o">.</span><span class="n">all</span><span class="p">():</span>
+            <span class="n">assays</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">assay_set</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+
+            <span class="c1"># Create an invidivual filter for each table</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">filter_class</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">GET</span><span class="p">,</span> <span class="n">queryset</span><span class="o">=</span><span class="n">assays</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">c</span><span class="p">)</span>
+
+            <span class="c1"># Create a checkbox column for each table, so that the javascript can see which checkbox has been</span>
+            <span class="c1"># selected</span>
+            <span class="c1"># create a new table with the custom column</span>
+            <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">table_class</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">qs</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">c</span><span class="p">,</span> <span class="n">attrs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">&#39;id&#39;</span><span class="p">:</span> <span class="n">c</span><span class="p">,</span> <span class="s1">&#39;class&#39;</span><span class="p">:</span> <span class="s1">&#39;paleblue&#39;</span><span class="p">})</span>
+
+            <span class="c1"># load the table into the requestconfig</span>
+            <span class="n">rc</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+            <span class="c1"># add the tables and filters to the list used in the template</span>
+            <span class="n">tables</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+            <span class="n">filters</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">studies</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">c</span><span class="o">+=</span><span class="mi">1</span>
+
+        <span class="c1"># create a list of all the information. Using a simple list format as it is just easy to use in the template</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="nb">zip</span><span class="p">(</span><span class="n">studies</span><span class="p">,</span> <span class="n">tables</span><span class="p">,</span> <span class="n">filters</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">l</span><span class="p">,</span> <span class="n">investigation</span></div>
+
+
+
+<div class="viewcode-block" id="InvestigationListViewOLD"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.InvestigationListViewOLD">[docs]</a><span class="k">class</span> <span class="nc">InvestigationListViewOLD</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Investigation</span>
+    <span class="n">paginate_by</span> <span class="o">=</span> <span class="mi">5</span>
+
+    <span class="k">def</span> <span class="nf">get_context_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">InvestigationListViewOLD</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">get_context_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="n">context</span><span class="p">[</span><span class="s1">&#39;now&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="c1"># Investigation.objects.filter(self.kwargs[&#39;company&#39;]).order_by(&#39;-pk&#39;)</span>
+        <span class="k">return</span> <span class="n">context</span></div>
+
+<div class="viewcode-block" id="InvestigationListView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.InvestigationListView">[docs]</a><span class="k">class</span> <span class="nc">InvestigationListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+    <span class="c1"># table_class = ISAFileSelectTable</span>
+    <span class="c1"># model = GenericFile</span>
+    <span class="c1"># template_name = &#39;misa/isa_file_select.html&#39;</span>
+    <span class="c1"># filterset_class =  ISAFileFilter</span>
+
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">InvestigationTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Investigation</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/investigation_list.html&#39;</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">InvestigationFilter</span></div>
+
+    <span class="c1"># def post(self, request, *args, **kwargs):</span>
+        <span class="c1"># workflow_sync(request.user)</span>
+        <span class="c1"># redirects to show the current available workflows</span>
+        <span class="c1"># return redirect(&#39;workflow_summary&#39;)</span>
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Study views</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="StudyCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudyCreateView">[docs]</a><span class="k">class</span> <span class="nc">StudyCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Study</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">StudyForm</span></div>
+
+
+<div class="viewcode-block" id="StudyUpdateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudyUpdateView">[docs]</a><span class="k">class</span> <span class="nc">StudyUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Study</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<div class="viewcode-block" id="StudyListView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudyListView">[docs]</a><span class="k">class</span> <span class="nc">StudyListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Study</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Assay views</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="AssayCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AssayCreateView">[docs]</a><span class="k">class</span> <span class="nc">AssayCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Assay</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<div class="viewcode-block" id="AssayUpdateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AssayUpdateView">[docs]</a><span class="k">class</span> <span class="nc">AssayUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Assay</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+<div class="viewcode-block" id="AssayListView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AssayListView">[docs]</a><span class="k">class</span> <span class="nc">AssayListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Assay</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="UploadAssayDataFilesView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.UploadAssayDataFilesView">[docs]</a><span class="k">class</span> <span class="nc">UploadAssayDataFilesView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="n">success_msg</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/dma/success&#39;</span>
+    <span class="c1"># initial = {&#39;key&#39;: &#39;value&#39;}</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/upload_assay_data_files.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">UploadAssayDataFilesForm</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">assayid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assayid&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">post</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">UploadAssayDataFilesForm</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">FILES</span><span class="p">,</span> <span class="n">assayid</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assayid&#39;</span><span class="p">])</span>
+
+        <span class="k">if</span> <span class="n">form</span><span class="o">.</span><span class="n">is_valid</span><span class="p">():</span>
+
+            <span class="n">data_zipfile</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;data_zipfile&#39;</span><span class="p">]</span>
+            <span class="n">data_mappingfile</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;data_mappingfile&#39;</span><span class="p">]</span>
+            <span class="n">assayid</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assayid&#39;</span><span class="p">]</span>
+            <span class="n">create_assay_details</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;create_assay_details&#39;</span><span class="p">]</span>
+
+
+            <span class="k">if</span> <span class="n">data_zipfile</span><span class="p">:</span>
+                <span class="n">upload_assay_data_files_zip</span><span class="p">(</span><span class="n">assayid</span><span class="p">,</span> <span class="n">data_zipfile</span><span class="p">,</span> <span class="n">data_mappingfile</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">create_assay_details</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;dma/success.html&#39;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">save_as_link</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;save_as_link&#39;</span><span class="p">]</span>
+                <span class="c1"># recursive = form.cleaned_data[&#39;recursive&#39;]</span>
+                <span class="c1"># dir_pths = get_pths_from_field(form.dir_fields, form.cleaned_data, request.user.username)</span>
+
+                <span class="c1"># rstring = &#39;&#39;.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))</span>
+                <span class="c1"># unique_folder = os.path.join(settings.MEDIA_ROOT, &#39;mapping&#39;, rstring)</span>
+                <span class="c1"># os.makedirs(unique_folder)</span>
+                <span class="c1"># data_mappingfile_pth = os.path.join(unique_folder, data_mappingfile.name)</span>
+                <span class="c1"># with default_storage.open(data_mappingfile_pth, &#39;wb+&#39;) as destination:</span>
+                <span class="c1">#     for chunk in data_mappingfile.chunks():</span>
+                <span class="c1">#         print chunk</span>
+                <span class="c1">#         destination.write(chunk)</span>
+
+                <span class="c1"># mapping_l = list(csv.DictReader(data_mappingfile))</span>
+
+                <span class="n">result</span> <span class="o">=</span> <span class="n">upload_assay_data_files_dir_task</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">form</span><span class="o">.</span><span class="n">filelist</span><span class="p">,</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="o">.</span><span class="n">username</span><span class="p">,</span>
+                                                                <span class="n">form</span><span class="o">.</span><span class="n">mapping_l</span><span class="p">,</span> <span class="n">assayid</span><span class="p">,</span> <span class="n">save_as_link</span><span class="p">,</span>
+                                                                <span class="n">create_assay_details</span><span class="p">)</span>
+                <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">id</span>
+                <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span>
+
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;form&#39;</span><span class="p">:</span> <span class="n">form</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="AssayDeleteView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AssayDeleteView">[docs]</a><span class="k">class</span> <span class="nc">AssayDeleteView</span><span class="p">(</span><span class="n">DeleteView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Assay</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="n">reverse_lazy</span><span class="p">(</span><span class="s1">&#39;misa/ilist&#39;</span><span class="p">)</span></div>
+
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Study sample views</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="StudySampleCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudySampleCreateView">[docs]</a><span class="k">class</span> <span class="nc">StudySampleCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">StudySampleForm</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">StudySample</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span></div>
+
+
+
+<div class="viewcode-block" id="StudySampleUpdateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudySampleUpdateView">[docs]</a><span class="k">class</span> <span class="nc">StudySampleUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">StudySample</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+<div class="viewcode-block" id="StudySampleListView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudySampleListView">[docs]</a><span class="k">class</span> <span class="nc">StudySampleListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">StudySample</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Study factor views</span>
+<span class="c1">############################################################################################</span>
+<div class="viewcode-block" id="StudyFactorCreateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudyFactorCreateView">[docs]</a><span class="k">class</span> <span class="nc">StudyFactorCreateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">CreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">StudyFactor</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">StudyFactorForm</span></div>
+
+<div class="viewcode-block" id="StudyFactorUpdateView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudyFactorUpdateView">[docs]</a><span class="k">class</span> <span class="nc">StudyFactorUpdateView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">UpdateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">StudyFactor</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/misa/success&#39;</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+<div class="viewcode-block" id="StudyFactorListView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.StudyFactorListView">[docs]</a><span class="k">class</span> <span class="nc">StudyFactorListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">StudyFactor</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="s1">&#39;__all__&#39;</span></div>
+
+
+
+
+<span class="c1">############################################################################################</span>
+<span class="c1"># Assay file views</span>
+<span class="c1">###########################################################################################</span>
+<div class="viewcode-block" id="ISAFileSummaryView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.ISAFileSummaryView">[docs]</a><span class="k">class</span> <span class="nc">ISAFileSummaryView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">FilterView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    View and initiate a run for all registered workflows.</span>
+
+<span class="sd">    Workflows can also be synced here as well</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">ISAFileSelectTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">GenericFile</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/isa_file_select.html&#39;</span>
+    <span class="n">filterset_class</span> <span class="o">=</span>  <span class="n">ISAFileFilter</span></div>
+
+    <span class="c1"># def post(self, request, *args, **kwargs):</span>
+    <span class="c1">#     workflow_sync(request.user)</span>
+    <span class="c1">#     # redirects to show the current available workflows</span>
+    <span class="c1">#     return redirect(&#39;workflow_summary&#39;)</span>
+
+
+
+
+<div class="viewcode-block" id="AssayFileSummaryView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AssayFileSummaryView">[docs]</a><span class="k">class</span> <span class="nc">AssayFileSummaryView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="c1"># initial = {&#39;key&#39;: &#39;value&#39;}</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/assay_files.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">mfiles</span> <span class="o">=</span> <span class="n">MFile</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">run__assayrun__assaydetail__assay_id</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assayid&#39;</span><span class="p">])</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">AssayFileTable</span><span class="p">(</span><span class="n">mfiles</span><span class="p">)</span>
+        <span class="n">RequestConfig</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="n">Investigation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">study__assay__id</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assayid&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span>  <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="n">table</span><span class="p">,</span> <span class="s1">&#39;investigation_id&#39;</span><span class="p">:</span><span class="n">i</span><span class="o">.</span><span class="n">id</span><span class="p">})</span></div>
+
+    <span class="c1"># def post(self, request, *args, **kwargs):</span>
+    <span class="c1">#     form = UploadAssayDataFilesForm(request.POST, request.FILES, assayid=self.kwargs[&#39;assayid&#39;])</span>
+    <span class="c1">#</span>
+    <span class="c1">#     if form.is_valid():</span>
+    <span class="c1">#</span>
+    <span class="c1">#         data_zipfile = form.cleaned_data[&#39;data_zipfile&#39;]</span>
+    <span class="c1">#         data_mappingfile = form.cleaned_data[&#39;data_mappingfile&#39;]</span>
+    <span class="c1">#         assayid = kwargs[&#39;assayid&#39;]</span>
+    <span class="c1">#         upload_assay_data_files(assayid, data_zipfile, data_mappingfile)</span>
+    <span class="c1">#</span>
+    <span class="c1">#         # result = update_workflows_task.delay(self.kwargs[&#39;dmaid&#39;])</span>
+    <span class="c1">#         # request.session[&#39;result&#39;] = result.id</span>
+    <span class="c1">#         return render(request, &#39;dma/submitted.html&#39;)</span>
+    <span class="c1">#</span>
+    <span class="c1">#     return render(request, self.template_name, {&#39;form&#39;: form})</span>
+
+
+<div class="viewcode-block" id="AssayDetailSummaryView"><a class="viewcode-back" href="../../django-misa/api/views.html#misa.views.AssayDetailSummaryView">[docs]</a><span class="k">class</span> <span class="nc">AssayDetailSummaryView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+    <span class="c1"># initial = {&#39;key&#39;: &#39;value&#39;}</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;misa/assay_details.html&#39;</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">mfiles</span> <span class="o">=</span> <span class="n">AssayDetail</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">assay_id</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assayid&#39;</span><span class="p">])</span>
+        <span class="n">table</span> <span class="o">=</span> <span class="n">AssayDetailTable</span><span class="p">(</span><span class="n">mfiles</span><span class="p">)</span>
+        <span class="n">RequestConfig</span><span class="p">(</span><span class="n">request</span><span class="p">)</span><span class="o">.</span><span class="n">configure</span><span class="p">(</span><span class="n">table</span><span class="p">)</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">Investigation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">study__assay__id</span><span class="o">=</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;assayid&#39;</span><span class="p">])</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">template_name</span><span class="p">,</span>  <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="n">table</span><span class="p">,</span> <span class="s1">&#39;investigation_id&#39;</span><span class="p">:</span><span class="n">i</span><span class="o">.</span><span class="n">id</span><span class="p">})</span></div>
+
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

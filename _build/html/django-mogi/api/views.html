@@ -1,0 +1,316 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>django-mogi views &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="django-mogi filters" href="filters.html" />
+    <link rel="prev" title="django-mogi filters" href="forms.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">django-mogi</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../quickstart.html">Quick start</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="index.html">API reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="models.html">models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="forms.html">forms</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">views</a></li>
+<li class="toctree-l3"><a class="reference internal" href="filters.html">filters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="tables.html">tables</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">utils</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">django-mogi</a> &raquo;</li>
+        
+          <li><a href="index.html">API reference</a> &raquo;</li>
+        
+      <li>django-mogi views</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/django-mogi/api/views.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-mogi.views">
+<span id="django-mogi-views"></span><h1>django-mogi views<a class="headerlink" href="#module-mogi.views" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="mogi.views.GalaxyISAupload">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">GalaxyISAupload</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#GalaxyISAupload"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.GalaxyISAupload" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mogi.views.HistoryDataMogiCreateView">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">HistoryDataMogiCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#HistoryDataMogiCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.HistoryDataMogiCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mogi.views.HistoryDataMogiCreateView.form_valid">
+<code class="descname">form_valid</code><span class="sig-paren">(</span><em>form</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#HistoryDataMogiCreateView.form_valid"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.HistoryDataMogiCreateView.form_valid" title="Permalink to this definition">¶</a></dt>
+<dd><p>If the form is valid, save the associated model.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="mogi.views.HistoryDataMogiCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#mogi.views.HistoryDataMogiCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mogi.models.HistoryDataMOGI" title="mogi.models.HistoryDataMOGI"><code class="xref py py-class docutils literal notranslate"><span class="pre">mogi.models.HistoryDataMOGI</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mogi.views.HistoryDataMogiFromRestCreateView">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">HistoryDataMogiFromRestCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#HistoryDataMogiFromRestCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.HistoryDataMogiFromRestCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="mogi.views.HistoryDataMogiFromRestCreateView.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#HistoryDataMogiFromRestCreateView.get_initial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.HistoryDataMogiFromRestCreateView.get_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the initial data to use for forms on this view.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mogi.views.HistoryDataMogiListView">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">HistoryDataMogiListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#HistoryDataMogiListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.HistoryDataMogiListView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mogi.views.ISAFileSelectToGalaxyHist">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">ISAFileSelectToGalaxyHist</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#ISAFileSelectToGalaxyHist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.ISAFileSelectToGalaxyHist" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="mogi.views.ISAWorkflowRunView">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">ISAWorkflowRunView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#ISAWorkflowRunView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.ISAWorkflowRunView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a registered workflow</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="mogi.views.IncomingGalaxyDataListView">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">IncomingGalaxyDataListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#IncomingGalaxyDataListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.IncomingGalaxyDataListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="mogi.views.IncomingGalaxyDataListView.model">
+<code class="descname">model</code><a class="headerlink" href="#mogi.views.IncomingGalaxyDataListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#mogi.models.IncomingGalaxyData" title="mogi.models.IncomingGalaxyData"><code class="xref py py-class docutils literal notranslate"><span class="pre">mogi.models.IncomingGalaxyData</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="mogi.views.IncomingGalaxyDataViewSet">
+<em class="property">class </em><code class="descclassname">mogi.views.</code><code class="descname">IncomingGalaxyDataViewSet</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/mogi/views.html#IncomingGalaxyDataViewSet"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#mogi.views.IncomingGalaxyDataViewSet" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="filters.html" class="btn btn-neutral float-right" title="django-mogi filters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="forms.html" class="btn btn-neutral" title="django-mogi filters" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

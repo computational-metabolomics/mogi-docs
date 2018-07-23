@@ -8,6 +8,7 @@ django-gfiles
 django-galaxy
 django-mbrowse
 django-misa
+django-mogi
 Sphinx
 sphinx-rtd-theme
 sphinxcontrib-napoleon

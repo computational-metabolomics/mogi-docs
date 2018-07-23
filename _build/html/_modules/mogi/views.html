@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>mogi.views &mdash; mogi-suite  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> mogi-suite
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../user-docs/index.html">User docs</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mogi/index.html">django-mogi</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-galaxy/index.html">django-galaxy</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-misa/index.html">django-misa</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-mbrowse/index.html">django-mbrowse</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../django-gfiles/index.html">django-gfiles</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../contacts.html">Contacts</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">mogi-suite</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>mogi.views</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for mogi.views</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">unicode_literals</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">django.shortcuts</span> <span class="k">import</span> <span class="n">render</span>
+<span class="kn">from</span> <span class="nn">django.contrib.auth.mixins</span> <span class="k">import</span> <span class="n">LoginRequiredMixin</span>
+<span class="kn">from</span> <span class="nn">django.views.generic</span> <span class="k">import</span> <span class="n">View</span><span class="p">,</span> <span class="n">ListView</span>
+
+<span class="kn">from</span> <span class="nn">django_tables2.export.views</span> <span class="k">import</span> <span class="n">ExportMixin</span>
+<span class="kn">from</span> <span class="nn">django_tables2.views</span> <span class="k">import</span> <span class="n">SingleTableMixin</span>
+
+<span class="kn">from</span> <span class="nn">misa.models</span> <span class="k">import</span> <span class="n">Investigation</span>
+<span class="kn">from</span> <span class="nn">misa.views</span> <span class="k">import</span> <span class="n">InvestigationListView</span>
+<span class="kn">from</span> <span class="nn">misa.tables</span> <span class="k">import</span> <span class="n">ISAFileSelectTable</span><span class="p">,</span> <span class="n">ISAFileSelectTableWithCheckBox</span>
+<span class="kn">from</span> <span class="nn">misa.filter</span> <span class="k">import</span> <span class="n">ISAFileFilter</span>
+
+<span class="kn">from</span> <span class="nn">mogi.tables</span> <span class="k">import</span> <span class="n">InvestigationTableUpload</span><span class="p">,</span> <span class="n">WorkflowTableISA</span><span class="p">,</span> <span class="n">HistoryMogiTable</span><span class="p">,</span> <span class="n">HistoryMogiDataTable</span><span class="p">,</span> <span class="n">CPeakGroupMetaMogiTable</span><span class="p">,</span> <span class="n">CAnnotationMogiTable</span><span class="p">,</span> <span class="n">IncomingGalaxyDataTable</span>
+<span class="kn">from</span> <span class="nn">mogi.models</span> <span class="k">import</span> <span class="n">CAnnotationMOGI</span><span class="p">,</span> <span class="n">CPeakGroupMetaMOGI</span><span class="p">,</span> <span class="n">IncomingGalaxyData</span>
+<span class="kn">from</span> <span class="nn">mogi.forms</span> <span class="k">import</span> <span class="n">ISAtoGalaxyParamForm</span><span class="p">,</span> <span class="n">HistoryMogiDataForm</span><span class="p">,</span> <span class="n">ISAWorkflowRunForm</span>
+<span class="kn">from</span> <span class="nn">mogi.tasks</span> <span class="k">import</span> <span class="n">galaxy_isa_upload_datalib_task</span><span class="p">,</span> <span class="n">save_lcms_mogi</span>
+<span class="kn">from</span> <span class="nn">mbrowse.utils.save_lcms</span> <span class="k">import</span> <span class="n">LcmsDataTransfer</span>
+<span class="kn">from</span> <span class="nn">mbrowse.models</span> <span class="k">import</span> <span class="n">MFile</span><span class="p">,</span> <span class="n">MetabInputData</span><span class="p">,</span> <span class="n">CAnnotation</span>
+<span class="kn">from</span> <span class="nn">mbrowse.views</span> <span class="k">import</span> <span class="n">CPeakGroupMetaListView</span><span class="p">,</span> <span class="n">CAnnotationsListAllView</span>
+<span class="kn">from</span> <span class="nn">django.db.models</span> <span class="k">import</span> <span class="n">Q</span>
+
+<span class="kn">from</span> <span class="nn">galaxy.models</span> <span class="k">import</span> <span class="n">Workflow</span><span class="p">,</span> <span class="n">History</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.history_actions</span> <span class="k">import</span> <span class="n">get_history_data</span><span class="p">,</span><span class="n">init_history_data_save_form</span><span class="p">,</span> <span class="n">history_data_save_form</span>
+<span class="kn">from</span> <span class="nn">galaxy.views</span> <span class="k">import</span> <span class="n">FilesToGalaxyDataLib</span><span class="p">,</span> <span class="n">GenericFilesToGalaxyHistory</span><span class="p">,</span> <span class="n">WorkflowListView</span><span class="p">,</span> <span class="n">HistoryListView</span><span class="p">,</span> <span class="n">HistoryDataCreateView</span>
+<span class="kn">from</span> <span class="nn">galaxy.views</span> <span class="k">import</span> <span class="n">WorkflowRunView</span><span class="p">,</span> <span class="n">TableFileSelectMixin</span>
+<span class="kn">from</span> <span class="nn">galaxy.utils.history_actions</span> <span class="k">import</span> <span class="n">get_history_status</span>
+<span class="kn">from</span> <span class="nn">mogi.models</span> <span class="k">import</span> <span class="n">HistoryDataMOGI</span>
+<span class="kn">from</span> <span class="nn">mogi.filter</span> <span class="k">import</span> <span class="n">CAnnotationMOGIFilter</span>
+
+<span class="kn">from</span> <span class="nn">rest_framework</span> <span class="k">import</span> <span class="n">viewsets</span>
+<span class="kn">from</span> <span class="nn">mogi.serializers</span> <span class="k">import</span> <span class="n">IncomingGalaxyDataSerializer</span>
+
+
+<span class="c1">########################################################################################################################</span>
+<span class="c1"># REST</span>
+<span class="c1">########################################################################################################################</span>
+<div class="viewcode-block" id="IncomingGalaxyDataViewSet"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.IncomingGalaxyDataViewSet">[docs]</a><span class="k">class</span> <span class="nc">IncomingGalaxyDataViewSet</span><span class="p">(</span><span class="n">viewsets</span><span class="o">.</span><span class="n">ModelViewSet</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">queryset</span> <span class="o">=</span> <span class="n">IncomingGalaxyData</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span>
+    <span class="n">serializer_class</span> <span class="o">=</span>  <span class="n">IncomingGalaxyDataSerializer</span></div>
+
+
+<div class="viewcode-block" id="IncomingGalaxyDataListView"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.IncomingGalaxyDataListView">[docs]</a><span class="k">class</span> <span class="nc">IncomingGalaxyDataListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">SingleTableMixin</span><span class="p">,</span> <span class="n">ListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">IncomingGalaxyDataTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">IncomingGalaxyData</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mogi/incoming_galaxy_data.html&#39;</span></div>
+
+
+
+
+<span class="c1">########################################################################################################################</span>
+<span class="c1"># Galaxy ISA uploads and workflows</span>
+<span class="c1">########################################################################################################################</span>
+<div class="viewcode-block" id="GalaxyISAupload"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.GalaxyISAupload">[docs]</a><span class="k">class</span> <span class="nc">GalaxyISAupload</span><span class="p">(</span><span class="n">TableFileSelectMixin</span><span class="p">,</span> <span class="n">InvestigationListView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">success_msg</span> <span class="o">=</span> <span class="s2">&quot;Run started&quot;</span>
+    <span class="c1"># template_name = &#39;misa/investigation_list.html&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">InvestigationTableUpload</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">ISAtoGalaxyParamForm</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;mogi/isa_files_to_galaxy.html&#39;</span>
+    <span class="n">initial_context</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;library&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;django_url&#39;</span><span class="p">:</span> <span class="s1">&#39;galaxy_isa_upload_datalib/&#39;</span><span class="p">}</span>
+
+    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">galaxy_isa_upload_param</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">galaxy_isa_upload_param</span><span class="o">.</span><span class="n">added_by</span> <span class="o">=</span> <span class="n">user</span>
+        <span class="n">galaxy_isa_upload_param</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+        <span class="n">pks</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">POST</span><span class="o">.</span><span class="n">getlist</span><span class="p">(</span><span class="s2">&quot;check&quot;</span><span class="p">)</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">galaxy_isa_upload_datalib_task</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">pks</span><span class="p">,</span> <span class="n">galaxy_isa_upload_param</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                                                      <span class="n">galaxy_pass</span><span class="o">=</span><span class="n">form</span><span class="o">.</span><span class="n">cleaned_data</span><span class="p">[</span><span class="s1">&#39;galaxy_password&#39;</span><span class="p">],</span>
+                                                      <span class="n">user_id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
+        <span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span></div>
+
+
+<div class="viewcode-block" id="ISAWorkflowRunView"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.ISAWorkflowRunView">[docs]</a><span class="k">class</span> <span class="nc">ISAWorkflowRunView</span><span class="p">(</span><span class="n">WorkflowRunView</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Run a registered workflow</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">success_msg</span> <span class="o">=</span> <span class="s2">&quot;Run started&quot;</span>
+    <span class="n">success_url</span> <span class="o">=</span> <span class="s1">&#39;/galaxy/success&#39;</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/workflow_run.html&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">ISAFileSelectTable</span>
+    <span class="n">filter_class</span> <span class="o">=</span> <span class="n">ISAFileFilter</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">ISAWorkflowRunForm</span>
+    <span class="n">redirect_to</span> <span class="o">=</span> <span class="s1">&#39;history_mogi&#39;</span></div>
+
+
+<span class="k">class</span> <span class="nc">ISAFileSelectToGalaxyDataLib</span><span class="p">(</span><span class="n">FilesToGalaxyDataLib</span><span class="p">):</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">ISAFileSelectTableWithCheckBox</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">ISAFileFilter</span>
+
+
+<div class="viewcode-block" id="ISAFileSelectToGalaxyHist"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.ISAFileSelectToGalaxyHist">[docs]</a><span class="k">class</span> <span class="nc">ISAFileSelectToGalaxyHist</span><span class="p">(</span><span class="n">GenericFilesToGalaxyHistory</span><span class="p">):</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">ISAFileSelectTableWithCheckBox</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">ISAFileFilter</span></div>
+
+
+<span class="k">class</span> <span class="nc">ISAWorkflowListView</span><span class="p">(</span><span class="n">WorkflowListView</span><span class="p">):</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">WorkflowTableISA</span>
+
+
+<span class="c1">########################################################################################################################</span>
+<span class="c1"># Galaxy History data upload to django-metab</span>
+<span class="c1">########################################################################################################################</span>
+<div class="viewcode-block" id="HistoryDataMogiListView"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.HistoryDataMogiListView">[docs]</a><span class="k">class</span> <span class="nc">HistoryDataMogiListView</span><span class="p">(</span><span class="n">LoginRequiredMixin</span><span class="p">,</span> <span class="n">View</span><span class="p">):</span>
+
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">get_history_data</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;pk&#39;</span><span class="p">],</span> <span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">data_type</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;sqlite&#39;</span><span class="p">])</span>
+
+        <span class="n">table</span> <span class="o">=</span> <span class="n">HistoryMogiDataTable</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/history_data_bioblend_list.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;table&#39;</span><span class="p">:</span> <span class="n">table</span><span class="p">})</span></div>
+        <span class="c1"># return render(request, &#39;galaxy/history_status.html&#39;, {&#39;table&#39;: table})</span>
+
+<span class="k">class</span> <span class="nc">HistoryMogiListView</span><span class="p">(</span><span class="n">HistoryListView</span><span class="p">):</span>
+
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/history_status.html&#39;</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">HistoryMogiTable</span>
+
+
+<div class="viewcode-block" id="HistoryDataMogiCreateView"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.HistoryDataMogiCreateView">[docs]</a><span class="k">class</span> <span class="nc">HistoryDataMogiCreateView</span><span class="p">(</span><span class="n">HistoryDataCreateView</span><span class="p">):</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">HistoryDataMOGI</span>
+    <span class="n">form_class</span> <span class="o">=</span> <span class="n">HistoryMogiDataForm</span>
+    <span class="n">template_name</span> <span class="o">=</span> <span class="s1">&#39;galaxy/historydata_form.html&#39;</span>
+
+<div class="viewcode-block" id="HistoryDataMogiCreateView.form_valid"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.HistoryDataMogiCreateView.form_valid">[docs]</a>    <span class="k">def</span> <span class="nf">form_valid</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">obj</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">save_form</span><span class="p">(</span><span class="n">form</span><span class="p">)</span>
+        <span class="c1"># first get all the mfiles associated with the investigation</span>
+
+        <span class="n">result</span> <span class="o">=</span> <span class="n">save_lcms_mogi</span><span class="o">.</span><span class="n">delay</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">pk</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">session</span><span class="p">[</span><span class="s1">&#39;result&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">id</span>
+        <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/status.html&#39;</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;s&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;progress&#39;</span><span class="p">:</span> <span class="mi">0</span><span class="p">})</span></div></div>
+
+
+<div class="viewcode-block" id="HistoryDataMogiFromRestCreateView"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.HistoryDataMogiFromRestCreateView">[docs]</a><span class="k">class</span> <span class="nc">HistoryDataMogiFromRestCreateView</span><span class="p">(</span><span class="n">HistoryDataMogiCreateView</span><span class="p">):</span>
+
+<div class="viewcode-block" id="HistoryDataMogiFromRestCreateView.get_initial"><a class="viewcode-back" href="../../django-mogi/api/views.html#mogi.views.HistoryDataMogiFromRestCreateView.get_initial">[docs]</a>    <span class="k">def</span> <span class="nf">get_initial</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+        <span class="n">get_history_status</span><span class="p">(</span><span class="n">user</span><span class="p">)</span>
+
+        <span class="n">galaxy_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_name&#39;</span><span class="p">)</span>
+        <span class="n">galaxy_data_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_data_id&#39;</span><span class="p">)</span>
+        <span class="n">galaxy_history_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_history_id&#39;</span><span class="p">)</span>
+
+        <span class="n">internal_h</span> <span class="o">=</span> <span class="n">History</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxy_id</span><span class="o">=</span><span class="n">galaxy_history_id</span><span class="p">,</span> <span class="n">galaxyinstancetracking__name</span><span class="o">=</span><span class="n">galaxy_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">internal_h</span><span class="p">:</span>
+            <span class="n">history_d</span> <span class="o">=</span> <span class="n">init_history_data_save_form</span><span class="p">(</span><span class="n">user</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">history_internal_id</span><span class="o">=</span><span class="n">internal_h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">galaxy_dataset_id</span><span class="o">=</span><span class="n">galaxy_data_id</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="n">internal_h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">history_d</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">]}</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">{</span><span class="s1">&#39;history&#39;</span><span class="p">:</span> <span class="s1">&#39;NO DATA AVAILABLE (PLEASE CHECK CONNECTION)&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="s1">&#39;NO DATA AVAILABLE (PLEASE CHECK CONNECTION)&#39;</span><span class="p">}</span></div>
+
+    <span class="k">def</span> <span class="nf">save_form</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">form</span><span class="p">):</span>
+        <span class="n">history_data_obj</span> <span class="o">=</span> <span class="n">form</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">commit</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">history_data_obj</span><span class="o">.</span><span class="n">user</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span>
+
+        <span class="n">galaxy_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_name&#39;</span><span class="p">)</span>
+        <span class="n">galaxy_data_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_data_id&#39;</span><span class="p">)</span>
+        <span class="n">galaxy_history_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;galaxy_history_id&#39;</span><span class="p">)</span>
+
+        <span class="n">internal_h</span> <span class="o">=</span> <span class="n">History</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">galaxy_id</span><span class="o">=</span><span class="n">galaxy_history_id</span><span class="p">,</span> <span class="n">galaxyinstancetracking__name</span><span class="o">=</span><span class="n">galaxy_name</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">history_data_save_form</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">internal_h</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">id</span><span class="p">,</span> <span class="n">galaxy_data_id</span><span class="p">,</span> <span class="n">history_data_obj</span><span class="p">)</span></div>
+
+
+
+
+
+<span class="c1">########################################################################################################################</span>
+<span class="c1"># django-metab Peak and annotation summary</span>
+<span class="c1">########################################################################################################################</span>
+<span class="k">class</span> <span class="nc">CPeakGroupMetaListMogiView</span><span class="p">(</span><span class="n">CPeakGroupMetaListView</span><span class="p">):</span>
+    <span class="n">table_class</span> <span class="o">=</span><span class="n">CPeakGroupMetaMogiTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CPeakGroupMetaMOGI</span>
+
+<span class="k">class</span> <span class="nc">CAnnotationListAllMogiView</span><span class="p">(</span><span class="n">ExportMixin</span><span class="p">,</span> <span class="n">CAnnotationsListAllView</span><span class="p">):</span>
+    <span class="n">table_class</span> <span class="o">=</span> <span class="n">CAnnotationMogiTable</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">CAnnotationMOGI</span>
+    <span class="n">export_name</span> <span class="o">=</span> <span class="s1">&#39;all_annotations_chromatographic_peaks&#39;</span>
+    <span class="n">filterset_class</span> <span class="o">=</span> <span class="n">CAnnotationMOGIFilter</span>
+
+    <span class="k">def</span> <span class="nf">get_queryset</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">()</span><span class="o">.</span><span class="n">order_by</span><span class="p">(</span><span class="s1">&#39;-cannotation__weighted_score&#39;</span><span class="p">)</span>
+
+
+
+<span class="c1">########################################################################################################################</span>
+<span class="c1"># Generic</span>
+<span class="c1">########################################################################################################################</span>
+<span class="k">def</span> <span class="nf">index</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="n">summary_d</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">summary_d</span><span class="p">[</span><span class="s1">&#39;dataset_nm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">MetabInputData</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+
+    <span class="n">summary_d</span><span class="p">[</span><span class="s1">&#39;isa_nm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Investigation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+
+    <span class="n">summary_d</span><span class="p">[</span><span class="s1">&#39;workflow_nm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Workflow</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">all</span><span class="p">())</span>
+
+
+    <span class="n">summary_d</span><span class="p">[</span><span class="s1">&#39;ann_nm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">CAnnotation</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">Q</span><span class="p">(</span><span class="n">spectral_matching_average_score__gt</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span> <span class="o">|</span>
+                                                         <span class="n">Q</span><span class="p">(</span><span class="n">ms1_average_score__gt</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">|</span>
+                                                         <span class="n">Q</span><span class="p">(</span><span class="n">metfrag_average_score__gt</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">|</span>
+                                                         <span class="n">Q</span><span class="p">(</span><span class="n">sirius_csifingerid_average_score__gt</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span> <span class="o">|</span>
+                                                         <span class="n">Q</span><span class="p">(</span><span class="n">mzcloud_average_score__gt</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+                                                         <span class="p">)</span><span class="o">.</span><span class="n">values</span><span class="p">(</span><span class="s1">&#39;cpeakgroup&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">distinct</span><span class="p">())</span>
+
+
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;gfiles/index.html&#39;</span><span class="p">,</span> <span class="n">summary_d</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">about</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;mogi/about.html&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">submitted</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;galaxy/submitted.html&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">success</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">render</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="s1">&#39;dma/success.html&#39;</span><span class="p">)</span>
+
+
+
+
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Thomas Lawson, Martin Jones, Ralf Weber, Mark Viant.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'',
+            LANGUAGE:'None',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

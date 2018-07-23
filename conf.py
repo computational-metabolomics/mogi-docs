@@ -25,7 +25,7 @@ import os
 import sys
 
 sys.path.insert(0, os.path.abspath('../src'))
-os.environ['DJANGO_SETTINGS_MODULE'] = 'mbrowse.test_settings2'
+os.environ['DJANGO_SETTINGS_MODULE'] = 'mogi.test_settings'
 django.setup()
 
 # -- General configuration ------------------------------------------------

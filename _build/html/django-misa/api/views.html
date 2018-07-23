@@ -178,8 +178,476 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="django-misa-views">
-<h1>django-misa views<a class="headerlink" href="#django-misa-views" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="module-misa.views">
+<span id="django-misa-views"></span><h1>django-misa views<a class="headerlink" href="#module-misa.views" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="misa.views.AddOntologyTermView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">AddOntologyTermView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AddOntologyTermView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AddOntologyTermView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="misa.views.AddOntologyTermView.get_initial">
+<code class="descname">get_initial</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AddOntologyTermView.get_initial"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AddOntologyTermView.get_initial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the initial data to use for forms on this view.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="misa.views.AddOntologyTermView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.AddOntologyTermView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.OntologyTerm" title="misa.models.OntologyTerm"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.OntologyTerm</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.AssayCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">AssayCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AssayCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AssayCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.AssayCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.AssayCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Assay" title="misa.models.Assay"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Assay</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.AssayDeleteView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">AssayDeleteView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AssayDeleteView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AssayDeleteView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.AssayDeleteView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.AssayDeleteView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Assay" title="misa.models.Assay"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Assay</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.AssayDetailSummaryView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">AssayDetailSummaryView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AssayDetailSummaryView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AssayDetailSummaryView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="misa.views.AssayFileSummaryView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">AssayFileSummaryView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AssayFileSummaryView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AssayFileSummaryView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="misa.views.AssayListView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">AssayListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AssayListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AssayListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.AssayListView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.AssayListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Assay" title="misa.models.Assay"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Assay</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.AssayUpdateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">AssayUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#AssayUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.AssayUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.AssayUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.AssayUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Assay" title="misa.models.Assay"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Assay</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ChromatographyProtocolCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ChromatographyProtocolCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ChromatographyProtocolCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ChromatographyProtocolCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.ChromatographyProtocolCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.ChromatographyProtocolCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.ChromatographyProtocol" title="misa.models.ChromatographyProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.ChromatographyProtocol</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ChromatographyTypeAutocomplete">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ChromatographyTypeAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ChromatographyTypeAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ChromatographyTypeAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.ChromatographyTypeAutocomplete.model_class">
+<code class="descname">model_class</code><a class="headerlink" href="#misa.views.ChromatographyTypeAutocomplete.model_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.ChromatographyType" title="misa.models.ChromatographyType"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.ChromatographyType</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ChromatographyTypeCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ChromatographyTypeCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ChromatographyTypeCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ChromatographyTypeCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.ChromatographyTypeCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.ChromatographyTypeCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.ChromatographyType" title="misa.models.ChromatographyType"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.ChromatographyType</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ExtractionProtocolCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ExtractionProtocolCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ExtractionProtocolCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ExtractionProtocolCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.ExtractionProtocolCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.ExtractionProtocolCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.ExtractionProtocol" title="misa.models.ExtractionProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.ExtractionProtocol</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ExtractionTypeAutocomplete">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ExtractionTypeAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ExtractionTypeAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ExtractionTypeAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.ExtractionTypeAutocomplete.model_class">
+<code class="descname">model_class</code><a class="headerlink" href="#misa.views.ExtractionTypeAutocomplete.model_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.ExtractionType" title="misa.models.ExtractionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.ExtractionType</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ExtractionTypeCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ExtractionTypeCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ExtractionTypeCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ExtractionTypeCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.ExtractionTypeCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.ExtractionTypeCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.ExtractionType" title="misa.models.ExtractionType"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.ExtractionType</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ISAFileSummaryView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ISAFileSummaryView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ISAFileSummaryView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ISAFileSummaryView" title="Permalink to this definition">¶</a></dt>
+<dd><p>View and initiate a run for all registered workflows.</p>
+<p>Workflows can also be synced here as well</p>
+<dl class="attribute">
+<dt id="misa.views.ISAFileSummaryView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.ISAFileSummaryView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="../../django-gfiles/api/models.html#gfiles.models.GenericFile" title="gfiles.models.GenericFile"><code class="xref py py-class docutils literal notranslate"><span class="pre">gfiles.models.GenericFile</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.ISAJsonExport">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">ISAJsonExport</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#ISAJsonExport"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.ISAJsonExport" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="misa.views.InvestigationCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">InvestigationCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#InvestigationCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.InvestigationCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.InvestigationCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.InvestigationCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Investigation" title="misa.models.Investigation"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Investigation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.InvestigationDetailTablesView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">InvestigationDetailTablesView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#InvestigationDetailTablesView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.InvestigationDetailTablesView" title="Permalink to this definition">¶</a></dt>
+<dd><p>Run a registered workflow</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.InvestigationDetailView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">InvestigationDetailView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#InvestigationDetailView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.InvestigationDetailView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.InvestigationDetailView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.InvestigationDetailView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Investigation" title="misa.models.Investigation"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Investigation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.InvestigationListView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">InvestigationListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#InvestigationListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.InvestigationListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.InvestigationListView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.InvestigationListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Investigation" title="misa.models.Investigation"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Investigation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.InvestigationListViewOLD">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">InvestigationListViewOLD</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#InvestigationListViewOLD"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.InvestigationListViewOLD" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.InvestigationListViewOLD.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.InvestigationListViewOLD.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Investigation" title="misa.models.Investigation"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Investigation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.InvestigationUpdateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">InvestigationUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#InvestigationUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.InvestigationUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.InvestigationUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.InvestigationUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Investigation" title="misa.models.Investigation"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Investigation</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.MeasurementProtocolCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">MeasurementProtocolCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#MeasurementProtocolCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.MeasurementProtocolCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.MeasurementProtocolCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.MeasurementProtocolCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.MeasurementProtocol" title="misa.models.MeasurementProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.MeasurementProtocol</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.MeasurementTechniqueAutocomplete">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">MeasurementTechniqueAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#MeasurementTechniqueAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.MeasurementTechniqueAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.MeasurementTechniqueAutocomplete.model_class">
+<code class="descname">model_class</code><a class="headerlink" href="#misa.views.MeasurementTechniqueAutocomplete.model_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.MeasurementTechnique" title="misa.models.MeasurementTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.MeasurementTechnique</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.MeasurementTechniqueCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">MeasurementTechniqueCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#MeasurementTechniqueCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.MeasurementTechniqueCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.MeasurementTechniqueCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.MeasurementTechniqueCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.MeasurementTechnique" title="misa.models.MeasurementTechnique"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.MeasurementTechnique</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OntologyTermAutocomplete">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OntologyTermAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OntologyTermAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OntologyTermAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="misa.views.OntologyTermAutocomplete.get_queryset">
+<code class="descname">get_queryset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OntologyTermAutocomplete.get_queryset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OntologyTermAutocomplete.get_queryset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Filter the queryset with GET[‘q’].</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="misa.views.OntologyTermAutocomplete.model_class">
+<code class="descname">model_class</code><a class="headerlink" href="#misa.views.OntologyTermAutocomplete.model_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.OntologyTerm" title="misa.models.OntologyTerm"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.OntologyTerm</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OntologyTermCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OntologyTermCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OntologyTermCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OntologyTermCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.OntologyTermCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.OntologyTermCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.OntologyTerm" title="misa.models.OntologyTerm"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.OntologyTerm</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OntologyTermSearchResultView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OntologyTermSearchResultView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OntologyTermSearchResultView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OntologyTermSearchResultView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OntologyTermSearchView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OntologyTermSearchView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OntologyTermSearchView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OntologyTermSearchView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OrganismAutocomplete">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OrganismAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OrganismAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OrganismAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.OrganismAutocomplete.model_class">
+<code class="descname">model_class</code><a class="headerlink" href="#misa.views.OrganismAutocomplete.model_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Organism" title="misa.models.Organism"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Organism</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OrganismCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OrganismCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OrganismCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OrganismCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.OrganismCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.OrganismCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Organism" title="misa.models.Organism"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Organism</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OrganismPartAutocomplete">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OrganismPartAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OrganismPartAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OrganismPartAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.OrganismPartAutocomplete.model_class">
+<code class="descname">model_class</code><a class="headerlink" href="#misa.views.OrganismPartAutocomplete.model_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.OrganismPart" title="misa.models.OrganismPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.OrganismPart</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.OrganismPartCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">OrganismPartCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#OrganismPartCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.OrganismPartCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.OrganismPartCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.OrganismPartCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.OrganismPart" title="misa.models.OrganismPart"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.OrganismPart</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.SpeProtocolCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">SpeProtocolCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#SpeProtocolCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.SpeProtocolCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.SpeProtocolCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.SpeProtocolCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.SpeProtocol" title="misa.models.SpeProtocol"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.SpeProtocol</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.SpeTypeAutocomplete">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">SpeTypeAutocomplete</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#SpeTypeAutocomplete"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.SpeTypeAutocomplete" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.SpeTypeAutocomplete.model_class">
+<code class="descname">model_class</code><a class="headerlink" href="#misa.views.SpeTypeAutocomplete.model_class" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.SpeType" title="misa.models.SpeType"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.SpeType</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.SpeTypeCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">SpeTypeCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#SpeTypeCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.SpeTypeCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.SpeTypeCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.SpeTypeCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.SpeType" title="misa.models.SpeType"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.SpeType</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudyCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudyCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudyCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudyCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudyCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudyCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Study" title="misa.models.Study"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Study</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudyFactorCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudyFactorCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudyFactorCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudyFactorCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudyFactorCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudyFactorCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.StudyFactor" title="misa.models.StudyFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.StudyFactor</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudyFactorListView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudyFactorListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudyFactorListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudyFactorListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudyFactorListView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudyFactorListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.StudyFactor" title="misa.models.StudyFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.StudyFactor</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudyFactorUpdateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudyFactorUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudyFactorUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudyFactorUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudyFactorUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudyFactorUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.StudyFactor" title="misa.models.StudyFactor"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.StudyFactor</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudyListView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudyListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudyListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudyListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudyListView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudyListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Study" title="misa.models.Study"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Study</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudySampleCreateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudySampleCreateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudySampleCreateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudySampleCreateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudySampleCreateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudySampleCreateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.StudySample" title="misa.models.StudySample"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.StudySample</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudySampleListView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudySampleListView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudySampleListView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudySampleListView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudySampleListView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudySampleListView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.StudySample" title="misa.models.StudySample"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.StudySample</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudySampleUpdateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudySampleUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudySampleUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudySampleUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudySampleUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudySampleUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.StudySample" title="misa.models.StudySample"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.StudySample</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.StudyUpdateView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">StudyUpdateView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#StudyUpdateView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.StudyUpdateView" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="attribute">
+<dt id="misa.views.StudyUpdateView.model">
+<code class="descname">model</code><a class="headerlink" href="#misa.views.StudyUpdateView.model" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="models.html#misa.models.Study" title="misa.models.Study"><code class="xref py py-class docutils literal notranslate"><span class="pre">misa.models.Study</span></code></a></p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="misa.views.UploadAssayDataFilesView">
+<em class="property">class </em><code class="descclassname">misa.views.</code><code class="descname">UploadAssayDataFilesView</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/views.html#UploadAssayDataFilesView"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.views.UploadAssayDataFilesView" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 
 
