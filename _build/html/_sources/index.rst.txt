@@ -20,12 +20,16 @@ The suite consist of the following reusable applications:
 
 
 The **django-mogi** application inherits all of the detailed applications below to create ready to go framework for
-organising metabolomics studies with Galaxy and ISA. See the `example code <https://domain.invalid/>`_
-and an `example site <https://domain.invalid/>`_ for how a Django project utilises the MOGI suite.
+organising metabolomics studies with Galaxy and ISA. The full suite of applications can be used in either a
+docker container or directly as Django package run from a standard python installation. see :ref:`installation` _: for details.
 
 However each application has been developed to be
 `reusable <https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters>`_ to allow for more general
-functionality to be used in other Django projects and applications.
+functionality to be used in other Django projects and applications. See the individual package **Quick start** details
+as to how to use each application independently.
+
+
+The `example project site <https://github.com/computational-metabolomics/django-mogisite>`_ can also be used as a standard
 
 The figure below shows how the applications fit within Django project website
 

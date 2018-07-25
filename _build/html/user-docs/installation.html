@@ -174,8 +174,20 @@
 alongside the docker of a modified Worfklow4Metabolomics Galaxy docker that contains all the tools and workflows that
 are required.</p>
 <p>A demo django project has also been created that can be used without Docker see …</p>
-<p>Individual components can be installed into exsisting Django projects as well, see the “quick start” section of the
+<p>Individual components can be installed into existing Django projects as well, see the “quick start” section of the
 documentation for each Django application.</p>
+<p>The <a class="reference external" href="https://github.com/computational-metabolomics/django-mogisite">example project site</a> can also be used as a
+standard Django project, see below:</p>
+<ol class="arabic simple">
+<li><cite>pip install django-mogi</cite></li>
+<li><cite>git clone https://github.com/computational-metabolomics/django-mogisite</cite></li>
+<li><cite>cd django-mogisite</cite></li>
+</ol>
+<ol class="arabic simple" start="2">
+<li><cite>python manage.py migrate</cite> to create the mogi models.</li>
+<li>Start the development server and visit <a class="reference external" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></li>
+<li>Register <a class="reference external" href="http://127.0.0.1:8000/register/">http://127.0.0.1:8000/register/</a> and login <a class="reference external" href="http://127.0.0.1:8000/login/">http://127.0.0.1:8000/login/</a></li>
+</ol>
 </div>
 
 

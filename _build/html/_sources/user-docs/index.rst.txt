@@ -10,3 +10,5 @@ User docs
 
    Installation <installation.rst>
    Manage Metabolomic ISA projects <misa.rst>
+   Galaxy interactions <galaxy.rst>
+   Browse, view and search metabolomics datasets <mbrowse.rst>
