@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>User docs &mdash; mogi-suite  documentation</title>
+  <title>Manage Metabolomic ISA projects &mdash; mogi-suite  documentation</title>
   
 
   
@@ -28,8 +28,8 @@
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Installation" href="installation.html" />
-    <link rel="prev" title="MOGI suite" href="../index.html" /> 
+    <link rel="next" title="django-mogi" href="../django-mogi/index.html" />
+    <link rel="prev" title="Installation" href="installation.html" /> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -79,9 +79,17 @@
             
             
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">User docs</a><ul>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">User docs</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misa.html">Manage Metabolomic ISA projects</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Manage Metabolomic ISA projects</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#create-isa-backbone-for-a-project">Create ISA backbone for a project</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#create-protocols-for-isa">Create protocols for ISA</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-samples-to-study">Add samples to study</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-samples">Add samples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#add-data-files-to-assay">Add data files to assay</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#bulk-upload-assay-data-and-details">Bulk upload assay data and details</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -147,13 +155,15 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-      <li>User docs</li>
+          <li><a href="index.html">User docs</a> &raquo;</li>
+        
+      <li>Manage Metabolomic ISA projects</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="../_sources/user-docs/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../_sources/user-docs/misa.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -166,21 +176,33 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="user-docs">
-<span id="id1"></span><h1>User docs<a class="headerlink" href="#user-docs" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="misa.html">Manage Metabolomic ISA projects</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="misa.html#create-isa-backbone-for-a-project">Create ISA backbone for a project</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misa.html#create-protocols-for-isa">Create protocols for ISA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misa.html#add-samples-to-study">Add samples to study</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misa.html#add-samples">Add samples</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misa.html#add-data-files-to-assay">Add data files to assay</a></li>
-<li class="toctree-l2"><a class="reference internal" href="misa.html#bulk-upload-assay-data-and-details">Bulk upload assay data and details</a></li>
-</ul>
-</li>
-</ul>
+  <div class="section" id="manage-metabolomic-isa-projects">
+<span id="user-docs"></span><h1>Manage Metabolomic ISA projects<a class="headerlink" href="#manage-metabolomic-isa-projects" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="create-isa-backbone-for-a-project">
+<h2>Create ISA backbone for a project<a class="headerlink" href="#create-isa-backbone-for-a-project" title="Permalink to this headline">¶</a></h2>
+<p>To initiate an ISA project, first an investigation has to be created followed by 1 to many studies associated with
+the investigation.</p>
+<img alt="../_images/misa-create-base.png" src="../_images/misa-create-base.png" />
+<p>Once an investigation has been created. The ISA project will be visible in the summary table. Further details can
+then be shown by clicking on the details section.</p>
+<p>Preliminary work has been made so that the ISA project can be exported as an ISA-JSON file.</p>
+<p>Currently only admin users can delete the projects via the admin interface.</p>
+<img alt="../_images/summary-options.png" src="../_images/summary-options.png" />
+</div>
+<div class="section" id="create-protocols-for-isa">
+<h2>Create protocols for ISA<a class="headerlink" href="#create-protocols-for-isa" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="add-samples-to-study">
+<h2>Add samples to study<a class="headerlink" href="#add-samples-to-study" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="add-samples">
+<h2>Add samples<a class="headerlink" href="#add-samples" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="add-data-files-to-assay">
+<h2>Add data files to assay<a class="headerlink" href="#add-data-files-to-assay" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="bulk-upload-assay-data-and-details">
+<h2>Bulk upload assay data and details<a class="headerlink" href="#bulk-upload-assay-data-and-details" title="Permalink to this headline">¶</a></h2>
 </div>
 </div>
 
@@ -192,10 +214,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../django-mogi/index.html" class="btn btn-neutral float-right" title="django-mogi" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="../index.html" class="btn btn-neutral" title="MOGI suite" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
