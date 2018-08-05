@@ -197,7 +197,7 @@
 
 <dl class="class">
 <dt id="misa.models.AssayDetail">
-<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">AssayDetail</code><span class="sig-paren">(</span><em>id</em>, <em>assay</em>, <em>code_field</em>, <em>studysample</em>, <em>extractionprocess</em>, <em>speprocess</em>, <em>chromatographyprocess</em>, <em>measurementprocess</em>, <em>datatransformationprocess</em>, <em>metaboliteidentifcationprocess</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#AssayDetail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.AssayDetail" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">AssayDetail</code><span class="sig-paren">(</span><em>id</em>, <em>assay</em>, <em>code_field</em>, <em>studysample</em>, <em>samplecollectionprocess</em>, <em>extractionprocess</em>, <em>speprocess</em>, <em>chromatographyprocess</em>, <em>measurementprocess</em>, <em>datatransformationprocess</em>, <em>metaboliteidentifcationprocess</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#AssayDetail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.AssayDetail" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="misa.models.AssayDetail.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.AssayDetail.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -257,7 +257,7 @@
 
 <dl class="class">
 <dt id="misa.models.ChromatographyType">
-<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ChromatographyType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ChromatographyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ChromatographyType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">ChromatographyType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#ChromatographyType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.ChromatographyType" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="misa.models.ChromatographyType.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.ChromatographyType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -497,7 +497,7 @@
 
 <dl class="class">
 <dt id="misa.models.PolarityType">
-<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">PolarityType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>ontologyterm</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#PolarityType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.PolarityType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">PolarityType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#PolarityType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.PolarityType" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="misa.models.PolarityType.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.PolarityType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -512,7 +512,7 @@
 
 <dl class="class">
 <dt id="misa.models.SampleCollectionProcess">
-<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SampleCollectionProcess</code><span class="sig-paren">(</span><em>id</em>, <em>samplecollectionprocess</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SampleCollectionProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SampleCollectionProcess" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SampleCollectionProcess</code><span class="sig-paren">(</span><em>id</em>, <em>samplecollectionprotocol</em>, <em>details</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SampleCollectionProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SampleCollectionProcess" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="misa.models.SampleCollectionProcess.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SampleCollectionProcess.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -587,7 +587,7 @@
 
 <dl class="class">
 <dt id="misa.models.SpeType">
-<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SpeType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SpeType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SpeType" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">SpeType</code><span class="sig-paren">(</span><em>id</em>, <em>type</em>, <em>description</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#SpeType"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.SpeType" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="misa.models.SpeType.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.SpeType.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -617,7 +617,7 @@
 
 <dl class="class">
 <dt id="misa.models.StudyFactor">
-<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">StudyFactor</code><span class="sig-paren">(</span><em>id</em>, <em>ontologyterm_type</em>, <em>ontologyterm_value</em>, <em>value</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#StudyFactor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.StudyFactor" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">StudyFactor</code><span class="sig-paren">(</span><em>id</em>, <em>ontologyterm_type</em>, <em>ontologyterm_value</em>, <em>value</em>, <em>ontologyterm_unit</em>, <em>full_name</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#StudyFactor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.StudyFactor" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="misa.models.StudyFactor.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.StudyFactor.DoesNotExist" title="Permalink to this definition">¶</a></dt>
@@ -632,7 +632,7 @@
 
 <dl class="class">
 <dt id="misa.models.StudySample">
-<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">StudySample</code><span class="sig-paren">(</span><em>id</em>, <em>study</em>, <em>sample_name</em>, <em>organism</em>, <em>organism_part</em>, <em>sampletype</em>, <em>samplecollectionprocess</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#StudySample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.StudySample" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">misa.models.</code><code class="descname">StudySample</code><span class="sig-paren">(</span><em>id</em>, <em>study</em>, <em>sample_name</em>, <em>source_name</em>, <em>organism</em>, <em>organism_part</em>, <em>sampletype</em>, <em>samplecollectionprocess</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/misa/models.html#StudySample"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#misa.models.StudySample" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="exception">
 <dt id="misa.models.StudySample.DoesNotExist">
 <em class="property">exception </em><code class="descname">DoesNotExist</code><a class="headerlink" href="#misa.models.StudySample.DoesNotExist" title="Permalink to this definition">¶</a></dt>

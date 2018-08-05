@@ -89,27 +89,58 @@ protocol types as necessary.
 .. image:: protocol3.png
 
 
+
+
+Study samples
+''''''''''''''''''''''''''''''''''''''''''''''''''
+Browse, create, update and delete study samples
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Study samples can be browsed, created and edited.
+
+.. image:: study-sample1.png
+
+Study factors, organisms and organism parts
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Each study factor can be associated with an organism and organism part as well as multiple study factors.
+
+Add study samples (batch)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+For studies with many samples is to recommended to batch upload the study samples. Relevant ontologys will be
+automatically uploaded based on the sample list provided. The columns of the sample list should consist of the
+following:
+
+- \source_name
+- \sample_name
+- \organism
+- \organism_part
+- \study_factor_[<----name of study factor e.g. Time---->]
+- \study_factor_[<----name of study factor e.g. Time---->]_value
+- \study_factor_[<----name of study factor e.g. Time---->]_unit
+
+
+
+Study Factors
+''''''''''''''''''''''''''''''''''''''''''''''''''
+Browse, create, update and delete study factors
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
 Organisms
 ''''''''''''''''''''''''''''''''''''''''''''''''''
 Browse, create, update and delete organisms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
+Organism parts
+''''''''''''''''''''''''''''''''''''''''''''''''''
 Browse, create, update and delete organism parts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
-Study samples
-''''''''''''''''''''''''''''''''''''''''''''''''''
-Add study factors (manual)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
-
-Add study samples (manual)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 
 
@@ -121,27 +152,6 @@ Batch study samples and factor upload
 Assay files
 ''''''''''''''''''''''''''''''''''''''''''''''''''
 
-
-
-
-Study samples
-''''''''''''''''''''''''''''''''''''''''''''''''''
-Browse, update and delete study samples
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-Add study samples (manual)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-Add study samples (batch)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-Assay files
-''''''''''''''''''''''''''''''''''''''''''''''''''
 
 
 
