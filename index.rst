@@ -10,7 +10,7 @@ Django applications & projects
 The MOGI suite is a collection of Django applications to manage and organise
 metabolomic studies using Galaxy, ISA and Django frameworks.
 
-The suite consist of the following reusable applications:
+The suite consists of the following reusable applications:
 
 * :ref:`django-mogi`
 * :ref:`django-misa`
@@ -21,22 +21,20 @@ The suite consist of the following reusable applications:
 
 The **django-mogi** application inherits all of the detailed applications below to create ready to go framework for
 organising metabolomics studies with Galaxy and ISA. The full suite of applications can be used in either a
-docker container or directly as Django package run from a standard python installation. see :ref:`installation` _: for details.
+docker container or directly as Django package run. See :ref:`user-docs` for details about how to get up and running
+with the full suite of applications.
 
-However each application has been developed to be
-`reusable <https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters>`_ to allow for more general
-functionality to be used in other Django projects and applications. See the individual package **Quick start** details
-as to how to use each application independently.
-
-
-The `example project site <https://github.com/computational-metabolomics/django-mogisite>`_ can also be used as a standard
+Additionally, each application has been developed to be
+`reusable <https://docs.djangoproject.com/en/2.0/intro/reusable-apps/#reusability-matters>`_. This allows the
+more general functionality to be used in other Django projects and applications. See the individual package
+documentation for more details.
 
 The figure below shows how the applications fit within Django project website
 
 .. image:: mogi-suite.svg
 
 
-What the MOGI framework can do
+What the MOGI suite can do
 ''''''''''''''''''''''''''''''''''''''''''''''''''
 * Organise metabolomics studies following ISA framework
 * Interface with Galaxy (initiate workflows, manage history, inport/export data)

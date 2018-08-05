@@ -80,8 +80,15 @@
             
               <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User docs</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-example-project-with-docker">Running the example project with Docker</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-example-project-locally">Running the example project locally</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#incorporating-the-packages-into-existing-projects">Incorporating  the packages into existing projects</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="misa.html">Manage Metabolomic ISA projects</a></li>
+<li class="toctree-l2"><a class="reference internal" href="galaxy.html">Galaxy interactions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="mbrowse.html">Browse, view and search metabolomics datasets</a></li>
 </ul>
 </li>
 </ul>
@@ -170,24 +177,72 @@
             
   <div class="section" id="installation">
 <span id="id1"></span><h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="running-the-example-project-with-docker">
+<h2>Running the example project with Docker<a class="headerlink" href="#running-the-example-project-with-docker" title="Permalink to this headline">¶</a></h2>
 <p>The quickest way to try out the MOGI suite of Django applications is to use the docker image. This should be run with
 alongside the docker of a modified Worfklow4Metabolomics Galaxy docker that contains all the tools and workflows that
-are required.</p>
-<p>A demo django project has also been created that can be used without Docker see …</p>
-<p>Individual components can be installed into existing Django projects as well, see the “quick start” section of the
-documentation for each Django application.</p>
-<p>The <a class="reference external" href="https://github.com/computational-metabolomics/django-mogisite">example project site</a> can also be used as a
-standard Django project, see below:</p>
-<ol class="arabic simple">
-<li><cite>pip install django-mogi</cite></li>
-<li><cite>git clone https://github.com/computational-metabolomics/django-mogisite</cite></li>
-<li><cite>cd django-mogisite</cite></li>
+are required. See below:</p>
+<ol class="arabic">
+<li><p class="first">Start the Galaxy instance through docker: <code class="code bash docutils literal notranslate"><span class="pre">docker</span> <span class="pre">run</span>&#160; <span class="pre">-p</span> <span class="literal number"><span class="pre">8080</span></span><span class="pre">:80</span> <span class="pre">-p</span> <span class="literal number"><span class="pre">8022</span></span><span class="pre">:22</span> <span class="pre">-p</span> <span class="literal number"><span class="pre">8021</span></span><span class="pre">:21</span>&#160; <span class="pre">tomnl/w4m-docker-mogi</span></code>
+For full integration with mogi the w4m-docker-mogi should be used (but is still in development). However
+any Galaxy docker could be used e.g. workflow4metabolomics/galaxy-workflow4metabolomics</p>
+</li>
+<li><p class="first">Start the Django-Celery-rabbitmq-redis services through docker (currently this has to be done with docker-compose)</p>
+<blockquote>
+<div><ul class="simple">
+<li><code class="code bash docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/computational-metabolomics/django-mogisite</span></code></li>
+<li><code class="code bash docutils literal notranslate"><span class="name builtin"><span class="pre">cd</span></span> <span class="pre">django-mogisite</span></code></li>
+<li><code class="code bash docutils literal notranslate"><span class="pre">docker-compose</span> <span class="pre">up</span></code></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">By default a user on the django-mogisite website called <cite>admin</cite> with password <cite>admin</cite> is already linked to the
+Galaxy user <cite>admin</cite> with password <cite>admin</cite></p>
+</li>
+<li><p class="first">An example ISA projects should also be pre-loaded</p>
+</li>
 </ol>
-<ol class="arabic simple" start="2">
-<li><cite>python manage.py migrate</cite> to create the mogi models.</li>
+</div>
+<div class="section" id="running-the-example-project-locally">
+<h2>Running the example project locally<a class="headerlink" href="#running-the-example-project-locally" title="Permalink to this headline">¶</a></h2>
+<p>The following <a class="reference external" href="https://github.com/computational-metabolomics/django-mogisite">project site</a> can also
+be used as a standard Django project. See below:</p>
+<ol class="arabic simple">
+<li>Optionally create virtual environment with venv or conda (e.g. <code class="code bash docutils literal notranslate"><span class="pre">conda</span> <span class="pre">create</span> <span class="pre">-n</span> <span class="pre">mogi</span> <span class="name variable"><span class="pre">python</span></span><span class="operator"><span class="pre">=</span></span><span class="literal number"><span class="pre">3</span></span><span class="pre">.6.5</span></code>)</li>
+<li>The functionality for the MOGI applications has been tested using MySQL and SQLite databases, however MySQL is the
+preferred database backend to use. Please ensure either mysqlclient is installed (e.g. <code class="code bash docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">mysqlcient</span></code>)  if
+using the MySQL backend.</li>
+<li><code class="code bash docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">django-mogi</span></code></li>
+<li><code class="code bash docutils literal notranslate"><span class="pre">git</span> <span class="pre">clone</span> <span class="pre">https://github.com/computational-metabolomics/django-mogisite</span></code></li>
+<li><code class="code bash docutils literal notranslate"><span class="name builtin"><span class="pre">cd</span></span> <span class="pre">django-mogisite</span></code></li>
+<li><code class="code bash docutils literal notranslate"><span class="pre">python</span> <span class="pre">manage.py</span> <span class="pre">migrate</span></code> to create the mogi models.</li>
 <li>Start the development server and visit <a class="reference external" href="http://127.0.0.1:8000/">http://127.0.0.1:8000/</a></li>
 <li>Register <a class="reference external" href="http://127.0.0.1:8000/register/">http://127.0.0.1:8000/register/</a> and login <a class="reference external" href="http://127.0.0.1:8000/login/">http://127.0.0.1:8000/login/</a></li>
 </ol>
+<p>If using outside of the docker, to get the full functionality you will need install and configure the messaging broker
+<strong>rabbitmq</strong> and the result backend <strong>redis</strong> for the distributed task queue system <strong>Celery</strong>.</p>
+<ol class="arabic simple">
+<li>Celery should be installed alongside the mogi python packages but can also just be installed via via pip
+or conda e.g.:bash:<cite>pip install celery</cite> or <code class="code bash docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">celery</span></code></li>
+<li>Install erlang (required for rabbitmq) <code class="code bash docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">-y</span> <span class="pre">erlang</span></code></li>
+<li>Install rabbitmq <code class="code bash docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">rabbitmq-server</span></code></li>
+<li>Add user (needs to match to settings.py file) <code class="code bash docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rabbitmqctl</span> <span class="pre">add_user</span> <span class="pre">admin</span> <span class="pre">mypass</span></code></li>
+<li>Add host (needs to match to settings.py file) <code class="code bash docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rabbitmqctl</span> <span class="pre">add_vhost</span> <span class="pre">myvhost</span></code></li>
+<li>Add tags (optional) <code class="code bash docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rabbitmqctl</span> <span class="pre">set_user_tags</span> <span class="pre">myuser</span> <span class="pre">mytag</span></code></li>
+<li>Give permission to user <code class="code bash docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">rabbitmqctl</span> <span class="pre">set_permissions</span> <span class="pre">-p</span> <span class="pre">myvhost</span> <span class="pre">admin</span> <span class="literal string double"><span class="pre">“.*”</span></span> <span class="literal string double"><span class="pre">“.*”</span></span> <span class="literal string double"><span class="pre">“.*”</span></span></code></li>
+<li>Restart rabbitmq <code class="code bash docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">service</span> <span class="pre">rabbitmq-server</span> <span class="pre">restart</span></code></li>
+<li>Install redis (easiest way is through conda) <code class="code bash docutils literal notranslate"><span class="pre">conda</span> <span class="pre">install</span> <span class="pre">redis-py</span></code></li>
+<li>Start redis (if not already started) <code class="code bash docutils literal notranslate"><span class="pre">redis-server</span></code></li>
+<li>Finally, start celery from the django-mogisite directory <code class="code bash docutils literal notranslate"><span class="pre">celery</span> <span class="pre">-A</span> <span class="pre">mogi_site.celery</span> <span class="pre">worker</span> <span class="pre">-l</span> <span class="pre">DEBUG</span> <span class="pre">-E</span></code></li>
+</ol>
+<p>Different backends can be used with Celery and should still be compatible with the MOGI applications. See the
+<a class="reference external" href="http://docs.celeryproject.org/en/latest/">celery documentation</a>  for more details.</p>
+</div>
+<div class="section" id="incorporating-the-packages-into-existing-projects">
+<h2>Incorporating  the packages into existing projects<a class="headerlink" href="#incorporating-the-packages-into-existing-projects" title="Permalink to this headline">¶</a></h2>
+<p>Alternatively, individual applications can be installed into existing Django projects as well, see the
+<strong>quick start</strong> section of the documentation for each Django application.</p>
+</div>
 </div>
 
 
