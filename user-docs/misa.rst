@@ -94,13 +94,13 @@ protocol types as necessary.
 Study samples
 ''''''''''''''''''''''''''''''''''''''''''''''''''
 Browse, create, update and delete study samples
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Study samples can be browsed, created and edited.
 
 .. image:: study-sample1.png
 
 Study factors, organisms and organism parts
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Each study factor can be associated with an organism and organism part as well as multiple study factors.
 
 .. image:: study-sample2.png
@@ -112,23 +112,26 @@ For studies with many samples it is recommended to batch upload the study sample
 automatically uploaded based on the sample list provided. The columns of the sample list should consist of the
 following column titles:
 
-- \source_name
-- \sample_name
-- \organism
-- \organism_part
-- \factor_[<--name of study factor-->] e.g. \factor_[time]
-- \factor_[<--name of study factor-->]_unit e.g \factor_[time]_unit (this is optional)
+- **source_name**: Source of the sample (e.g. Acme laboratories).
+- **sample_name**: Study sample name (needs to be unique for the study).
+- **organism**: Organism name (e.g. *Daphnia magna*). Best matching ontological term will be automatically searched.
+- **organism_part**: The part of the organism for the sample (e.g. heart, lung). Best matching ontological term will
+  be automatically searched.
+- **factor_[<--name of study factor-->]**: A study factor for the sample. The column name will change based on
+  the factor type e.g. \factor_[time]. Relevant ontological terms will be automatically searched.
+- **factor_[<--name of study factor-->]_unit**: Optionally a unit for the study factor can be used. The column should
+  match the study factor type e.g \factor_[time]_unit.  Relevant ontological terms will be automatically searched.
 
 Multiple factor columns can be used
 e.g.
 
-+----------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
-| \source_name         | \sample_name        | \organism                 | \organism_part | \factor_[time] | \factor_[time]_unit | \factor_[control]  |
-+======================+=====================+===========================+================+================+=====================+====================+
-| diatom metabolites   |  Mtab_FT_012611_13  |  Thalassiosira pseudonana | exometabolome  | 1              | day                 | with Thalassiosira |
-+----------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
-| diatom metabolites   |  Mtab_FT_012611_14  |  Thalassiosira pseudonana | exometabolome  | 2              | day                 | cell-free control  |
-+----------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
++-----------------------------------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
+| \source_name                                  | \sample_name        | \organism                 | \organism_part | \factor_[time] | \factor_[time]_unit | \factor_[control]  |
++===============================================+=====================+===========================+================+================+=====================+====================+
+| Acme laboratories                             |  Mtab_FT_012611_13  |  Thalassiosira pseudonana | exometabolome  | 1              | day                 | with Thalassiosira |
++-----------------------------------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
+| Acme laboratories                             |  Mtab_FT_012611_14  |  Thalassiosira pseudonana | exometabolome  | 2              | day                 | cell-free control  |
++-----------------------------------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
 
 Alternatively, if an ISA tab file has already been created. The study.txt file can be uploaded and the relevant details
 will be extracted.
@@ -182,3 +185,36 @@ example:
 
 Upload data files and mapping
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Data files (e.g. mzML, raw) should be uploaded to the appriopiate assay for a study. This can either be done by
+uploading a zip file of the data files or providing a path to the data files if the file system is available.
+
+A mapping file should be provided that links each file to sample and protocols. Each protocol has a 'code_field' to be
+used to reference the correct protocol that was performed. See below for accepted column details
+
+
+- **filename**: Name of the data file (e.g. sample1_lcms.mzML)
+- **sample**: The sample name (should correspond to the sample name provided at earlier stages)
+- **sample_collection**: The code_field for the sample collection protocol performed
+- **extraction**: The code_field for the liquid phase extraction protocol performed
+- **spe**: The code_field for the solid phase extraction protocol performed
+- **spe_frac**: If SPE fractionation was performed resulting in multiple fractions, this column is to indicate the fraction number
+- **chromatography**: The code_field for the chromatography protocol performed
+- **chromatography_frac**: If chromatography fractionation was performed resulting in multiple fractions, this column is to indicate the fraction number
+- **measurement**: The code_field for the measurement protocol performed
+- **polarity**: The code_field for the polarity setting of the instrument
+- **technical_replicate**: Numerical value indicating technical replicate
+- **fileformat**: suffix of the file being uploaded (currently supports mzML and raw)
+
+If a protocol was not used (e.g. if Chromatography was not performed) the column in the mapping file should be NA. See
+below for example format:
+
+
++---------------------------+---------------------+--------------------+----------------+--------+----------+-----------------+----------------------+-------------+----------+---------------------+------------+
+| filename                  | sample              | sample_collection  | extraction     | spe    | spe_frac | chromatography  | chromatography_frac  | measurement | polarity | technical_replicate | fileformat |
++===========================+=====================+====================+================+========+==========+=================+======================+=============+==========+=====================+============+
+| Mtab_FT_012611_13_1.mzML  |  Mtab_FT_012611_13  |  DIATOM            |  DOM	        | DOM    | NA       | SFRP            | NA                   | FT-ICR      | POSITIVE | 1                   | mzml       |
++---------------------------+---------------------+--------------------+----------------+--------+----------+-----------------+----------------------+-------------+----------+---------------------+------------+
+| Mtab_FT_012611_13_2.mzML  |  Mtab_FT_012611_13  |  DIATOM            |  DOM	        | DOM    | NA       | SFRP            | NA                   | FT-ICR      | POSITIVE | 2                   | mzml       |
++---------------------------+---------------------+--------------------+----------------+--------+----------+-----------------+----------------------+-------------+----------+---------------------+------------+
+
+.. image:: assay_details2.png

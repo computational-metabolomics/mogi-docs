@@ -292,24 +292,27 @@ protocol types as necessary.</p>
 automatically uploaded based on the sample list provided. The columns of the sample list should consist of the
 following column titles:</p>
 <ul class="simple">
-<li>source_name</li>
-<li>sample_name</li>
-<li>organism</li>
-<li>organism_part</li>
-<li>factor_[&lt;–name of study factor–&gt;] e.g. factor_[time]</li>
-<li>factor_[&lt;–name of study factor–&gt;]_unit e.g factor_[time]_unit (this is optional)</li>
+<li><strong>source_name</strong>: Source of the sample (e.g. Acme laboratories).</li>
+<li><strong>sample_name</strong>: Study sample name (needs to be unique for the study).</li>
+<li><strong>organism</strong>: Organism name (e.g. <em>Daphnia magna</em>). Best matching ontological term will be automatically searched.</li>
+<li><strong>organism_part</strong>: The part of the organism for the sample (e.g. heart, lung). Best matching ontological term will
+be automatically searched.</li>
+<li><strong>factor_[&lt;–name of study factor–&gt;]</strong>: A study factor for the sample. The column name will change based on
+the factor type e.g. factor_[time]. Relevant ontological terms will be automatically searched.</li>
+<li><strong>factor_[&lt;–name of study factor–&gt;]_unit</strong>: Optionally a unit for the study factor can be used. The column should
+match the study factor type e.g factor_[time]_unit.  Relevant ontological terms will be automatically searched.</li>
 </ul>
 <p>Multiple factor columns can be used
 e.g.</p>
 <table border="1" class="docutils">
 <colgroup>
-<col width="15%" />
-<col width="15%" />
-<col width="19%" />
-<col width="11%" />
-<col width="11%" />
-<col width="15%" />
-<col width="14%" />
+<col width="28%" />
+<col width="13%" />
+<col width="16%" />
+<col width="10%" />
+<col width="10%" />
+<col width="13%" />
+<col width="12%" />
 </colgroup>
 <thead valign="bottom">
 <tr class="row-odd"><th class="head">source_name</th>
@@ -322,7 +325,7 @@ e.g.</p>
 </tr>
 </thead>
 <tbody valign="top">
-<tr class="row-even"><td>diatom metabolites</td>
+<tr class="row-even"><td>Acme laboratories</td>
 <td>Mtab_FT_012611_13</td>
 <td>Thalassiosira pseudonana</td>
 <td>exometabolome</td>
@@ -330,7 +333,7 @@ e.g.</p>
 <td>day</td>
 <td>with Thalassiosira</td>
 </tr>
-<tr class="row-odd"><td>diatom metabolites</td>
+<tr class="row-odd"><td>Acme laboratories</td>
 <td>Mtab_FT_012611_14</td>
 <td>Thalassiosira pseudonana</td>
 <td>exometabolome</td>
@@ -384,6 +387,86 @@ example:</p>
 </div>
 <div class="section" id="upload-data-files-and-mapping">
 <h3>Upload data files and mapping<a class="headerlink" href="#upload-data-files-and-mapping" title="Permalink to this headline">¶</a></h3>
+<p>Data files (e.g. mzML, raw) should be uploaded to the appriopiate assay for a study. This can either be done by
+uploading a zip file of the data files or providing a path to the data files if the file system is available.</p>
+<p>A mapping file should be provided that links each file to sample and protocols. Each protocol has a ‘code_field’ to be
+used to reference the correct protocol that was performed. See below for accepted column details</p>
+<ul class="simple">
+<li><strong>filename</strong>: Name of the data file (e.g. sample1_lcms.mzML)</li>
+<li><strong>sample</strong>: The sample name (should correspond to the sample name provided at earlier stages)</li>
+<li><strong>sample_collection</strong>: The code_field for the sample collection protocol performed</li>
+<li><strong>extraction</strong>: The code_field for the liquid phase extraction protocol performed</li>
+<li><strong>spe</strong>: The code_field for the solid phase extraction protocol performed</li>
+<li><strong>spe_frac</strong>: If SPE fractionation was performed resulting in multiple fractions, this column is to indicate the fraction number</li>
+<li><strong>chromatography</strong>: The code_field for the chromatography protocol performed</li>
+<li><strong>chromatography_frac</strong>: If chromatography fractionation was performed resulting in multiple fractions, this column is to indicate the fraction number</li>
+<li><strong>measurement</strong>: The code_field for the measurement protocol performed</li>
+<li><strong>polarity</strong>: The code_field for the polarity setting of the instrument</li>
+<li><strong>technical_replicate</strong>: Numerical value indicating technical replicate</li>
+<li><strong>fileformat</strong>: suffix of the file being uploaded (currently supports mzML and raw)</li>
+</ul>
+<p>If a protocol was not used (e.g. if Chromatography was not performed) the column in the mapping file should be NA. See
+below for example format:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="11%" />
+<col width="10%" />
+<col width="8%" />
+<col width="4%" />
+<col width="5%" />
+<col width="9%" />
+<col width="11%" />
+<col width="7%" />
+<col width="5%" />
+<col width="11%" />
+<col width="6%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">filename</th>
+<th class="head">sample</th>
+<th class="head">sample_collection</th>
+<th class="head">extraction</th>
+<th class="head">spe</th>
+<th class="head">spe_frac</th>
+<th class="head">chromatography</th>
+<th class="head">chromatography_frac</th>
+<th class="head">measurement</th>
+<th class="head">polarity</th>
+<th class="head">technical_replicate</th>
+<th class="head">fileformat</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Mtab_FT_012611_13_1.mzML</td>
+<td>Mtab_FT_012611_13</td>
+<td>DIATOM</td>
+<td>DOM</td>
+<td>DOM</td>
+<td>NA</td>
+<td>SFRP</td>
+<td>NA</td>
+<td>FT-ICR</td>
+<td>POSITIVE</td>
+<td>1</td>
+<td>mzml</td>
+</tr>
+<tr class="row-odd"><td>Mtab_FT_012611_13_2.mzML</td>
+<td>Mtab_FT_012611_13</td>
+<td>DIATOM</td>
+<td>DOM</td>
+<td>DOM</td>
+<td>NA</td>
+<td>SFRP</td>
+<td>NA</td>
+<td>FT-ICR</td>
+<td>POSITIVE</td>
+<td>2</td>
+<td>mzml</td>
+</tr>
+</tbody>
+</table>
+<img alt="../_images/assay_details2.png" src="../_images/assay_details2.png" />
 </div>
 </div>
 </div>
