@@ -82,11 +82,8 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">User docs</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Manage Metabolomic ISA projects</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#isa-backbone-for-a-project">ISA backbone for a project</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#create-isa-backbone">Create ISA backbone</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#browse-isa-projects">Browse ISA projects</a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#create-isa-backbone">Create ISA backbone</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#browse-and-export-isa-projects">Browse and export ISA projects</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#ontologies">Ontologies</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#browse-update-and-delete-ontology-terms">Browse, update and delete ontology terms</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#add-new-terms">Add new terms</a></li>
@@ -214,10 +211,8 @@
   <div class="section" id="manage-metabolomic-isa-projects">
 <span id="misa-user-docs"></span><h1>Manage Metabolomic ISA projects<a class="headerlink" href="#manage-metabolomic-isa-projects" title="Permalink to this headline">¶</a></h1>
 <p>The functionality is summarised along with any current ISA projects at <a class="reference external" href="http://127.0.0.1:8000/misa/">http://127.0.0.1:8000/misa/</a></p>
-<div class="section" id="isa-backbone-for-a-project">
-<h2>ISA backbone for a project<a class="headerlink" href="#isa-backbone-for-a-project" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="create-isa-backbone">
-<h3>Create ISA backbone<a class="headerlink" href="#create-isa-backbone" title="Permalink to this headline">¶</a></h3>
+<h2>Create ISA backbone<a class="headerlink" href="#create-isa-backbone" title="Permalink to this headline">¶</a></h2>
 <p>To initiate an ISA project the backbone of the ISA project has to be created. e.g. the investigation, study and assay
 details.</p>
 <p>First an investigation has to be created, this only requires the name of the overall ISA project and a short description.
@@ -226,14 +221,13 @@ any study descriptors.</p>
 <p>Multiple assays can then be added to each study.</p>
 <img alt="../_images/misa-create-base.png" src="../_images/misa-create-base.png" />
 </div>
-<div class="section" id="browse-isa-projects">
-<h3>Browse ISA projects<a class="headerlink" href="#browse-isa-projects" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="browse-and-export-isa-projects">
+<h2>Browse and export ISA projects<a class="headerlink" href="#browse-and-export-isa-projects" title="Permalink to this headline">¶</a></h2>
 <p>Once an investigation has been created. The ISA project will be visible in the summary table. Further details can
 then be shown by clicking on the details section.</p>
 <p>Preliminary work has been made so that the ISA project can be exported as an ISA-JSON file.</p>
 <p>Currently only admin users can delete the projects via the standard Django admin interface (e.g. at 127.0.0.1:8000/admin).</p>
 <img alt="../_images/summary-options.png" src="../_images/summary-options.png" />
-</div>
 </div>
 <div class="section" id="ontologies">
 <h2>Ontologies<a class="headerlink" href="#ontologies" title="Permalink to this headline">¶</a></h2>

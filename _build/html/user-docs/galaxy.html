@@ -83,10 +83,15 @@
 <li class="toctree-l2"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="misa.html">Manage Metabolomic ISA projects</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Galaxy interactions</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#register-galaxy-instance-and-galaxy-user">Register Galaxy instance and Galaxy user</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#register-galaxy-details">Register Galaxy details</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#register-galaxy-instance">Register Galaxy instance</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#register-galaxy-user">Register Galaxy user</a></li>
+</ul>
+</li>
 <li class="toctree-l3"><a class="reference internal" href="#upload-isa-projects-to-galaxy-data-library">Upload ISA projects to Galaxy data library</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#run-workflows">Run Workflows</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#view-galaxy-histories">View Galaxy histories</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lc-ms-ms-annotation-workflow-and-importing-data-to-mogi">LC-MS(/MS) annotation workflow and importing data to MOGI</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="mbrowse.html">Browse, view and search metabolomics datasets</a></li>
@@ -179,17 +184,53 @@
   <div class="section" id="interact-with-galaxy">
 <span id="galaxy-user-docs"></span><h1>Interact with Galaxy<a class="headerlink" href="#interact-with-galaxy" title="Permalink to this headline">¶</a></h1>
 <p>The functionality is summarised at <a class="reference external" href="http://127.0.0.1:8000/galaxy/">http://127.0.0.1:8000/galaxy/</a></p>
-<div class="section" id="register-galaxy-instance-and-galaxy-user">
-<h2>Register Galaxy instance and Galaxy user<a class="headerlink" href="#register-galaxy-instance-and-galaxy-user" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="register-galaxy-details">
+<h2>Register Galaxy details<a class="headerlink" href="#register-galaxy-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="register-galaxy-instance">
+<h3>Register Galaxy instance<a class="headerlink" href="#register-galaxy-instance" title="Permalink to this headline">¶</a></h3>
+<p>A Galaxy instance needs to be registered before any of the django-galaxy functionality can be used. If the Galaxy
+instance is accessible directly via the files system of a symbolic link on the file system then a the root of the Galaxy
+path should be included when registering. Alternatively the FTP site for the Galaxy instance can be recorded.</p>
+<img alt="../_images/galaxy1.png" src="../_images/galaxy1.png" />
+</div>
+<div class="section" id="register-galaxy-user">
+<h3>Register Galaxy user<a class="headerlink" href="#register-galaxy-user" title="Permalink to this headline">¶</a></h3>
+<p>Each MOGI user (e.g. Django user) can be registered to any of the registered Galaxy instance. The API key that has is
+provided by the user allows permission of the Galaxy instance API to be used.</p>
+<img alt="../_images/galaxy2.png" src="../_images/galaxy2.png" />
+</div>
 </div>
 <div class="section" id="upload-isa-projects-to-galaxy-data-library">
 <h2>Upload ISA projects to Galaxy data library<a class="headerlink" href="#upload-isa-projects-to-galaxy-data-library" title="Permalink to this headline">¶</a></h2>
+<p>If a ISA project has be created and data has been uploaded into an assay. This data can be uploaded into the Galaxy
+Data libraries. If the Galaxy instance is on the same file system (or accessible by a symbolic link) then the files
+can be uploaded as symbolic links. This is useful if there is limited space available for Galaxy instance. Alternatively
+the files can be uploaded via FTP.</p>
+<img alt="../_images/galaxy3.png" src="../_images/galaxy3.png" />
 </div>
 <div class="section" id="run-workflows">
 <h2>Run Workflows<a class="headerlink" href="#run-workflows" title="Permalink to this headline">¶</a></h2>
+<p>All workflows for each Galaxy instances can be synced with MOGI (Django) so they can be run directly from the MOGI
+interface. If any new Galaxy workflow has been added to an instance make sure the <strong>sync</strong> button is pressed.</p>
+<img alt="../_images/galaxy4.png" src="../_images/galaxy4.png" />
+<p>Once the data files have been uploaded onto a Galaxy instance (see section
+<strong>Upload ISA projects to Galaxy data library</strong>. The files will be visible when a user chooses to perform
+a workflow. The relevant files can be filtered based on what protocol or sample was used. A samplelist is
+automatically when an ISA project is uploaded into the Galaxy data libraries. This can be useful if a samplelist is
+needed for the data analysis.</p>
+<img alt="../_images/galaxy5.png" src="../_images/galaxy5.png" />
 </div>
 <div class="section" id="view-galaxy-histories">
 <h2>View Galaxy histories<a class="headerlink" href="#view-galaxy-histories" title="Permalink to this headline">¶</a></h2>
+<p>All histories for each Galaxy instances are summarised within MOGI.</p>
+<img alt="../_images/galaxy6.png" src="../_images/galaxy6.png" />
+</div>
+<div class="section" id="lc-ms-ms-annotation-workflow-and-importing-data-to-mogi">
+<h2>LC-MS(/MS) annotation workflow and importing data to MOGI<a class="headerlink" href="#lc-ms-ms-annotation-workflow-and-importing-data-to-mogi" title="Permalink to this headline">¶</a></h2>
+<p>An LC-MS(/MS) annotation workflow is provided within the mogi docker. The worklfow performs various data processing and
+annotation steps and generates an SQLite database containing all the relevant peak and annotation information. The
+final step of the workflow allows this SQLite database to be exported to the MOGI database.</p>
+<img alt="../_images/galaxy-workflow.svg" src="../_images/galaxy-workflow.svg" /><p>More details to come!</p>
 </div>
 </div>
 

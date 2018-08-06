@@ -5,11 +5,9 @@ Manage Metabolomic ISA projects
 
 The functionality is summarised along with any current ISA projects at http://127.0.0.1:8000/misa/
 
-ISA backbone for a project
-''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Create ISA backbone
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+''''''''''''''''''''''''''''''''''''''''''''''''''
 
 To initiate an ISA project the backbone of the ISA project has to be created. e.g. the investigation, study and assay
 details.
@@ -23,8 +21,8 @@ Multiple assays can then be added to each study.
 
 .. image:: misa-create-base.png
 
-Browse ISA projects
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Browse and export ISA projects
+''''''''''''''''''''''''''''''''''''''''''''''''''
 
 Once an investigation has been created. The ISA project will be visible in the summary table. Further details can
 then be shown by clicking on the details section.
