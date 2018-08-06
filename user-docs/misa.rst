@@ -157,6 +157,7 @@ Browse, create, update and delete organisms
 Organisms can be either added manually (see below) or added with study samples in a batch process (see section
 **Add study samples (batch)** above)
 
+.. image:: organism.png
 
 Organism parts
 ''''''''''''''''''''''''''''''''''''''''''''''''''
@@ -165,12 +166,19 @@ Browse, create, update and delete organism parts
 Organisms parts can be either added manually (see below) or added with study samples in a batch process (see section
 **Add study samples (batch)** above)
 
+.. image:: organism_parts.png
 
-
-Assay files
+Assay details and data files
 ''''''''''''''''''''''''''''''''''''''''''''''''''
+Select assay
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+To upload data files (e.g. mzML) to an assay, first an assay needs to have been created for the appropriate study (see
+section **Create ISA backbone**. The assay should then be viewable in the Investigation details section. See below for
+example:
 
 
+.. image:: assay_details1.png
 
 
-
+Upload data files and mapping
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
