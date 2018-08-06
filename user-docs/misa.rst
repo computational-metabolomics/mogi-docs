@@ -103,20 +103,40 @@ Study factors, organisms and organism parts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Each study factor can be associated with an organism and organism part as well as multiple study factors.
 
+.. image:: study-sample2.png
+
+
 Add study samples (batch)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-For studies with many samples is to recommended to batch upload the study samples. Relevant ontologys will be
+For studies with many samples it is recommended to batch upload the study samples. Relevant ontology terms will be
 automatically uploaded based on the sample list provided. The columns of the sample list should consist of the
-following:
+following column titles:
 
 - \source_name
 - \sample_name
 - \organism
 - \organism_part
-- \study_factor_[<----name of study factor e.g. Time---->]
-- \study_factor_[<----name of study factor e.g. Time---->]_value
-- \study_factor_[<----name of study factor e.g. Time---->]_unit
+- \factor_[<--name of study factor-->] e.g. \factor_[time]
+- \factor_[<--name of study factor-->]_unit e.g \factor_[time]_unit (this is optional)
 
+Multiple factor columns can be used
+e.g.
+
++----------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
+| \source_name         | \sample_name        | \organism                 | \organism_part | \factor_[time] | \factor_[time]_unit | \factor_[control]  |
++======================+=====================+===========================+================+================+=====================+====================+
+| diatom metabolites   |  Mtab_FT_012611_13  |  Thalassiosira pseudonana | exometabolome  | 1              | day                 | with Thalassiosira |
++----------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
+| diatom metabolites   |  Mtab_FT_012611_14  |  Thalassiosira pseudonana | exometabolome  | 2              | day                 | cell-free control  |
++----------------------+---------------------+---------------------------+----------------+----------------+---------------------+--------------------+
+
+Alternatively, if an ISA tab file has already been created. The study.txt file can be uploaded and the relevant details
+will be extracted.
+
+See below for how to upload study samples as a batch:
+
+
+.. image:: study-sample3.png
 
 
 Study Factors
@@ -124,28 +144,26 @@ Study Factors
 Browse, create, update and delete study factors
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+Study factors can be either added manually (see below) or added with study samples in a batch process (see section
+**Add study samples (batch)** above)
+
+.. image:: study-factor1.png
 
 
 Organisms
 ''''''''''''''''''''''''''''''''''''''''''''''''''
 Browse, create, update and delete organisms
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Organisms can be either added manually (see below) or added with study samples in a batch process (see section
+**Add study samples (batch)** above)
 
 
 Organism parts
 ''''''''''''''''''''''''''''''''''''''''''''''''''
 Browse, create, update and delete organism parts
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-
-
-
-
-Batch study samples and factor upload
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Organisms parts can be either added manually (see below) or added with study samples in a batch process (see section
+**Add study samples (batch)** above)
 
 
 

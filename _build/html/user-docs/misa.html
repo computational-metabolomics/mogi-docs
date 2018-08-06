@@ -114,7 +114,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#organism-parts">Organism parts</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#browse-create-update-and-delete-organism-parts">Browse, create, update and delete organism parts</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#batch-study-samples-and-factor-upload">Batch study samples and factor upload</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#assay-files">Assay files</a></li>
@@ -281,42 +280,88 @@ protocol types as necessary.</p>
 <div class="section" id="study-factors-organisms-and-organism-parts">
 <h3>Study factors, organisms and organism parts<a class="headerlink" href="#study-factors-organisms-and-organism-parts" title="Permalink to this headline">¶</a></h3>
 <p>Each study factor can be associated with an organism and organism part as well as multiple study factors.</p>
+<img alt="../_images/study-sample2.png" src="../_images/study-sample2.png" />
 </div>
 <div class="section" id="add-study-samples-batch">
 <h3>Add study samples (batch)<a class="headerlink" href="#add-study-samples-batch" title="Permalink to this headline">¶</a></h3>
-<p>For studies with many samples is to recommended to batch upload the study samples. Relevant ontologys will be
+<p>For studies with many samples it is recommended to batch upload the study samples. Relevant ontology terms will be
 automatically uploaded based on the sample list provided. The columns of the sample list should consist of the
-following:</p>
+following column titles:</p>
 <ul class="simple">
 <li>source_name</li>
 <li>sample_name</li>
 <li>organism</li>
 <li>organism_part</li>
-<li>study_factor_[&lt;—-name of study factor e.g. Time—-&gt;]</li>
-<li>study_factor_[&lt;—-name of study factor e.g. Time—-&gt;]_value</li>
-<li>study_factor_[&lt;—-name of study factor e.g. Time—-&gt;]_unit</li>
+<li>factor_[&lt;–name of study factor–&gt;] e.g. factor_[time]</li>
+<li>factor_[&lt;–name of study factor–&gt;]_unit e.g factor_[time]_unit (this is optional)</li>
 </ul>
+<p>Multiple factor columns can be used
+e.g.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="15%" />
+<col width="19%" />
+<col width="11%" />
+<col width="11%" />
+<col width="15%" />
+<col width="14%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">source_name</th>
+<th class="head">sample_name</th>
+<th class="head">organism</th>
+<th class="head">organism_part</th>
+<th class="head">factor_[time]</th>
+<th class="head">factor_[time]_unit</th>
+<th class="head">factor_[control]</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>diatom metabolites</td>
+<td>Mtab_FT_012611_13</td>
+<td>Thalassiosira pseudonana</td>
+<td>exometabolome</td>
+<td>1</td>
+<td>day</td>
+<td>with Thalassiosira</td>
+</tr>
+<tr class="row-odd"><td>diatom metabolites</td>
+<td>Mtab_FT_012611_14</td>
+<td>Thalassiosira pseudonana</td>
+<td>exometabolome</td>
+<td>2</td>
+<td>day</td>
+<td>cell-free control</td>
+</tr>
+</tbody>
+</table>
+<p>Alternatively, if an ISA tab file has already been created. The study.txt file can be uploaded and the relevant details
+will be extracted.</p>
+<p>See below for how to upload study samples as a batch:</p>
+<img alt="../_images/study-sample3.png" src="../_images/study-sample3.png" />
 </div>
 </div>
 <div class="section" id="study-factors">
 <h2>Study Factors<a class="headerlink" href="#study-factors" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="browse-create-update-and-delete-study-factors">
 <h3>Browse, create, update and delete study factors<a class="headerlink" href="#browse-create-update-and-delete-study-factors" title="Permalink to this headline">¶</a></h3>
+<p>Study factors can be either added manually (see below) or added with study samples in a batch process (see above)</p>
+<img alt="../_images/study-factor1.png" src="../_images/study-factor1.png" />
 </div>
 </div>
 <div class="section" id="organisms">
 <h2>Organisms<a class="headerlink" href="#organisms" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="browse-create-update-and-delete-organisms">
 <h3>Browse, create, update and delete organisms<a class="headerlink" href="#browse-create-update-and-delete-organisms" title="Permalink to this headline">¶</a></h3>
+<p>Organisms can be either added manually (see below) or added with study samples in a batch process (see above)</p>
 </div>
 </div>
 <div class="section" id="organism-parts">
 <h2>Organism parts<a class="headerlink" href="#organism-parts" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="browse-create-update-and-delete-organism-parts">
 <h3>Browse, create, update and delete organism parts<a class="headerlink" href="#browse-create-update-and-delete-organism-parts" title="Permalink to this headline">¶</a></h3>
-</div>
-<div class="section" id="batch-study-samples-and-factor-upload">
-<h3>Batch study samples and factor upload<a class="headerlink" href="#batch-study-samples-and-factor-upload" title="Permalink to this headline">¶</a></h3>
+<p>Organisms parts can be either added manually (see below) or added with study samples in a batch process (see above)</p>
 </div>
 </div>
 <div class="section" id="assay-files">
