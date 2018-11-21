@@ -1,5 +1,5 @@
 
-django==1.11
+django>=1.11.15
 celery
 django_celery_results
 six
