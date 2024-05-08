@@ -1,23 +1,10 @@
 .. _mbrowse-user-docs:
 
-Interact with Galaxy
+This documentation is deprecated 
 ========================================
 
-The functionality is summarised at http://127.0.0.1:8000/mbrowse/
+The documentation here is no longer up to date. Functionality within django-misa and django-mbrowse were combined into django-mogi and functionality was developed specifically for the creation of `DMAdb <https://dmadb.bham.ac.uk/>`_.
 
-Upload LC-MS(/MS) dataset
-''''''''''''''''''''''''''''''''''''''''''''''''''
-
-
-Browse and view peaklists
-''''''''''''''''''''''''''''''''''''''''''''''''''
-
-
-Browse and view annotations
-''''''''''''''''''''''''''''''''''''''''''''''''''
-
-
-Search m/z and fragmentation spectra
-''''''''''''''''''''''''''''''''''''''''''''''''''
+See `dmadb-docs <https://dmadb-docs.readthedocs.io/en/latest/>`_ for most up to date documentation.
 
 
