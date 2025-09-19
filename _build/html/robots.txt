@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /
+
+# This site is deprecated
+# New documentation at: https://dmadb.readthedocs.io/en/latest/
