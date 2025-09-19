@@ -21,7 +21,7 @@
         
         banner.innerHTML = `
             ⚠️ This documentation is DEPRECATED. 
-            <a href="https://dmadb.readthedocs.io/en/latest/" style="color: #fff; text-decoration: underline;">
+            <a href="https://dmadb.readthedocs.io/en/latest/getting-started.html" style="color: #fff; text-decoration: underline;">
                 Click here for the new documentation
             </a>
             <span id="redirect-countdown" style="margin-left: 20px;">Redirecting in 10 seconds...</span>
@@ -47,7 +47,7 @@
             
             if (countdown <= 0) {
                 clearInterval(interval);
-                window.location.href = 'https://dmadb.readthedocs.io/en/latest/';
+                window.location.href = 'https://dmadb.readthedocs.io/en/latest/getting-started.html';
             }
         }, 1000);
         
