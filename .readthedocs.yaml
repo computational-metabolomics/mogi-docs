@@ -5,17 +5,9 @@ build:
   tools:
     python: "3.8"
   commands:
-    # Install requirements
     - pip install -r requirements.txt
-    # Build the documentation with the correct output directory
-    - sphinx-build -b html . $READTHEDOCS_OUTPUT/html
+    - python -m sphinx -T -b html -d _build/doctrees -D language=en . $READTHEDOCS_OUTPUT/html
 
 python:
   install:
     - requirements: requirements.txt
-
-sphinx:
-  configuration: conf.py
-
-formats:
-  - epub
