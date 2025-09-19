@@ -1,9 +1,16 @@
-This documentation is deprecated 
+⚠️ DOCUMENTATION DEPRECATED ⚠️
 ========================================
 
-The documentation here is no longer up to date. Functionality within django-misa and django-mbrowse were combined into django-mogi and functionality was developed specifically for the creation of `DMAdb <https://dmadb.bham.ac.uk/>`_.
+.. warning::
+   **This documentation is no longer maintained and is deprecated.**
+   
+   **Please visit the new documentation site: https://dmadb.readthedocs.io/en/latest/**
 
-See `dmadb-docs <https://dmadb.readthedocs.io/en/latest/>`_ for most up to date documentation
+**Important Notice:** The documentation here is no longer up to date. Functionality within django-misa and django-mbrowse were combined into django-mogi and functionality was developed specifically for the creation of `DMAdb <https://dmadb.bham.ac.uk/>`_.
+
+**➡️ For the most up-to-date documentation, please visit:** `dmadb-docs <https://dmadb.readthedocs.io/en/latest/>`_
+
+**This site will be removed in the future. Please update your bookmarks.**
 
 MOGI suite 
 ========================================

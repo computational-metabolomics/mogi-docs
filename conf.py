@@ -149,6 +149,17 @@ html_theme = 'sphinx_rtd_theme'
 #
 # html_theme_options = {}
 
+# Add deprecation redirect to new documentation site
+html_context = {
+    'deprecation_redirect': True,
+    'new_docs_url': 'https://dmadb.readthedocs.io/en/latest/'
+}
+
+# Custom JS to redirect users from the deprecated site
+html_js_files = [
+    'deprecation_redirect.js',
+]
+
 # Add any paths that contain custom themes here, relative to this directory.
 html_theme_path = [sphinx_rtd_theme.get_html_theme_path()]
 
@@ -181,7 +192,7 @@ html_static_path = ['_static']
 # .htaccess) here, relative to this directory. These files are copied
 # directly to the root of the documentation.
 #
-# html_extra_path = []
+html_extra_path = ['_static/robots.txt']
 
 # If not None, a 'Last updated on:' timestamp is inserted at every page
 # bottom, using the given strftime format.
