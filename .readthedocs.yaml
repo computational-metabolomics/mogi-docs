@@ -9,7 +9,7 @@ build:
     - mkdir -p $READTHEDOCS_OUTPUT/html
     - mkdir -p $READTHEDOCS_OUTPUT/doctrees
     - echo "Building documentation..."
-    - echo "Output directory is: $READTHEDOCS_OUTPUT"
+    - echo "Output directory is $READTHEDOCS_OUTPUT"
     - sphinx-build -v -b html -d $READTHEDOCS_OUTPUT/doctrees . $READTHEDOCS_OUTPUT/html
     - echo "Build complete. Checking for any _build directories..."
     - find . -name "_build" -type d || echo "No _build directories found"
