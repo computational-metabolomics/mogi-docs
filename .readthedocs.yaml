@@ -4,11 +4,12 @@ build:
   os: "ubuntu-20.04"
   tools:
     python: "3.7"
-
-python:
-  install:
-    - requirements: requirements.txt
-
-sphinx:
-  configuration: conf.py
-  fail_on_warning: false
+  commands:
+    - pip install -r requirements.txt
+    - mkdir -p $READTHEDOCS_OUTPUT/html
+    - mkdir -p $READTHEDOCS_OUTPUT/doctrees
+    - echo "Building documentation..."
+    - echo "Output directory is: $READTHEDOCS_OUTPUT"
+    - sphinx-build -v -b html -d $READTHEDOCS_OUTPUT/doctrees . $READTHEDOCS_OUTPUT/html
+    - echo "Build complete. Checking for any _build directories..."
+    - find . -name "_build" -type d || echo "No _build directories found"
