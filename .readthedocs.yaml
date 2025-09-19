@@ -5,7 +5,7 @@ build:
   tools:
     python: "3.7"
   commands:
-    - echo "Using pre-built documentation from _build/html"
+    - echo "Using pre-built documentation from prebuilt-docs/html"
     - mkdir -p $READTHEDOCS_OUTPUT/html
-    - cp -r _build/html/* $READTHEDOCS_OUTPUT/html/
+    - cp -r prebuilt-docs/html/* $READTHEDOCS_OUTPUT/html/
     - echo "Pre-built documentation copied successfully"
